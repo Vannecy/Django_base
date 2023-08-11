@@ -1,0 +1,23 @@
+
+<h2>Player list :</h2>
+<ul>
+    {% for player in players %}
+        <li>
+            {{ trading.player.name }}: ${{ trading.value }} million
+            {% if trading.is_accepted %}
+                (Accepted)
+            {% else %}
+            <a href="{% url 'gestion:propose_trading' player_id=trading.player.id %}">Enter trading</a>
+
+            {% endif %}
+        </li>
+        Team existing :
+<ul>
+    {% for team in teams %}
+        <li>{{ team.name }}</li>
+  
+    {% endfor %}
+</ul>
+    {% endfor %}
+</ul>
+

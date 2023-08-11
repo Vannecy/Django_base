@@ -1,0 +1,22 @@
+<h2>trading Received:</h2>
+<ul>
+    {% for trading in tradings %}
+        <li>
+            {{ trading.player.name }}:  Value : {{ trading.player.value }} euros -----  Proposed Value :{{ trading.proposed_value }} euros / Transfer list : {{trading.player.on_transfert_list}}
+            Proposed by : {{ trading.buyer }}
+            {% if trading.is_accepted %}
+                (Closed)
+            {% else %}
+                {% if request.user == trading.player.player_team.owner or request.user == trading.player.owner %}
+                    <a href="{% url 'gestion:propose_trading' player_id=trading.player.id %}">Enter trading</a>
+                {% endif %}
+            {% endif %}
+            {% if request.user == trading.player.player_team.owner or request.user == trading.player.owner %}
+                <form method="post" action="{% url 'gestion:accept_trading' trading_id=trading.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Accept</button>
+                </form>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
