@@ -1,0 +1,77 @@
+<style>
+    /* Ajoutez votre style CSS ici */
+    .mailbox {
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 20px;
+    }
+
+    .message-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .message-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .message-table th,
+    .message-table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .message-table th {
+        background-color: #f0f8ff;
+        font-weight: bold;
+    }
+
+    .message-table tr {
+        cursor: pointer;
+    }
+
+    .message-table tr:hover {
+        background-color: #f0f8ff; /* Couleur de fond au survol */
+    }
+
+    .unread-message {
+        background-color: #aaa0a0; /* Rose pour les messages non lus */
+    }
+
+    .message-link {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .selected-message {
+        background-color: #f0f8ff;
+    }
+</style>
+
+<div class="mailbox">
+    <h2>Your Messages:</h2>
+    <ul class="message-list">
+        <table class="message-table">
+            <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Subject</th>
+                <th>Sutatus</th>
+                <th>Tranding Number/th>
+                <th>Date</th>
+            </tr>
+            {% for message in messages %}
+            <tr class="message-row {% if message.status == 'non lus' %}unread-message{% endif %}" onclick="window.location.href='{% url 'gestion:message_detail' messagerie_id=message.id %}'">
+                <td>{{ message.sender }}</td>
+                <td>{{ message.buyer }}</td>
+                <td>{{ message.subject }}</td>
+                <td>{{ message.get_status_display }}</td>
+                <td>{{ message.trading_number }}</td>
+                <td>{{ message.date }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </ul>
+</div>

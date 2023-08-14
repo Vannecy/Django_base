@@ -18,6 +18,8 @@ urlpatterns = [
     path('propose_trading/<int:player_id>/', views.propose_trading, name='propose_trading'),
     path('accept_trading/<int:trading_id>/', views.accept_trading, name='accept_trading'),
 
-
+    path('messagerie/', views.messagerie, name='messagerie'),
+    path('message_detail/<int:messagerie_id>/', views.message_detail, name='message_detail'),
+    path('compose_message/<int:receiver_id>/<int:trading_number>/', views.compose_message, name='compose_message'),
     
 ]

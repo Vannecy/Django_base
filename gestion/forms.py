@@ -1,7 +1,7 @@
 # forms.py (dans l'application "gestion")
 from django import forms
 from .models import Player, Trading, Team
-
+from django.contrib.auth.models import User 
 class PlayerForm(forms.ModelForm):
     player_team = forms.ModelChoiceField(queryset=Team.objects.all(), label='Équipe')
     class Meta:
@@ -24,3 +24,10 @@ class TeamForm(forms.ModelForm):
     class Meta:
         model = Team
         fields = ['name']  # Ajoutez d'autres champs au besoin
+
+class ComposeMessageForm(forms.Form):
+    receiver = forms.ModelChoiceField(queryset=User.objects.all(), label='Receiver')
+    subject = forms.CharField(max_length=100, label='Subject')
+    text = forms.CharField(widget=forms.Textarea, label='Message')
+    trading_number = forms.IntegerField(label='Trading Number')
+    proposed_amount = forms.DecimalField(max_digits=10, decimal_places=2, label='Proposed Amount')

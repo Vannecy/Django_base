@@ -1,16 +1,22 @@
+<h1>Manage trading for {{ trading.player.player_team.owner }}</h1>
+<p> i am {{request.user}} buyer {{trading.buyer}} seller {{trading.seller}}</p>
+{% if request.user == trading.seller %}
+    <p>Your Proposed Value: ${{ trading.proposed_value }} million</p>
+    <form method="post" action="">
+        {% csrf_token %}
+        <label for="new_value">Change Proposed Value:</label>
+        <input type="number" name="new_value" step="0.01">
+        <button type="submit" name="action" value="propose">Change</button>
+        <button type="submit" name="action" value="accept">Accept</button>
+        <button type="submit" name="action" value="reject">Reject</button>
+    </form>
+{% elif request.user == trading.buyer %}
+    <p>Proposed Value: ${{ trading.proposed_value }} million</p>
+    <form method="post" action="">
+        {% csrf_token %}
+        <label for="new_value">Propose New Value:</label>
+        <input type="number" name="new_value" step="0.01">
+        <button type="submit" name="action" value="propose">Propose</button>
+    </form>
 
-<h1>Manage trading for {{ trading.player.name }}</h1>
-<p>Proposed Value: ${{ trading.proposed_value }} million</p>
-<form method="post" action="">
-    {% csrf_token %}
-    
-    <!-- Ajouter des champs pour les actions -->
-    <button type="submit" name="action" value="accept">Accept</button>
-    <button type="submit" name="action" value="reject">Reject</button>
-    
-    <!-- Ajouter un champ pour proposer un autre montant -->
-    <label for="new_value">Propose New Value:</label>
-    <input type="number" name="new_value" step="0.01">
-    <button type="submit" name="action" value="propose">Propose</button>
-    
-</form>
+{% endif %}
