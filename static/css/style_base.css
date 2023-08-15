@@ -1,0 +1,85 @@
+/* Style des liens dans le bandeau */
+header .home-link {
+    text-decoration: none; /* Supprime le soulignement par défaut */
+    color: white; /* Change la couleur du texte en blanc */
+    font-weight: bold;
+}
+/* Réinitialiser les styles par défaut */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Appliquer une police de caractères par défaut */
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Style des liens dans le bandeau */
+header a {
+    text-decoration: none; /* Supprime le soulignement par défaut */
+    color: white; /* Change la couleur du texte en blanc */
+    font-weight: bold;
+}
+
+/* Style des liens dans la navigation */
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+/* Style de la zone de contenu */
+.content {
+    padding: 20px;
+}
+
+/* Style des formulaires */
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}

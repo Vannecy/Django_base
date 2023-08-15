@@ -38,6 +38,10 @@
     /* Ajoutez des styles pour le bouton "Répondre" si nécessaire */
 </style>
 
+{% extends 'base.html' %}
+
+{% block content %}
+
 <div class="message-detail">
     <h2>{{ message.subject }}</h2>
     <p><strong>Trading number :</strong> {{ message.trading_number }}</p>
@@ -48,3 +52,5 @@
     <p>{{ message.text }}</p>
 
     <a href="{{ message.get_reply_link }}" class="reply-button">Répondre</a>
+
+    {% endblock %}

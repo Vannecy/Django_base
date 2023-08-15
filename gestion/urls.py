@@ -7,10 +7,16 @@ app_name = 'gestion'
 
 urlpatterns = [
     
-    path('', views.gestion, name='gestion'),
+    path('', views.home, name='home'),
+    path('profil/', views.profil, name='profil'),
+
+
     path('create_player/', views.create_player, name='create_player'),
     path('create_team/', views.create_team, name='create_team'),
     path('player_list/', views.player_list, name='player_list'),
+    path('team_list/', views.team_list, name='team_list'),
+    path('team_detail/<int:team_id>/', views.team_detail, name='team_detail'),
+    path('player_detail/<int:player_id>/', views.player_detail, name='player_detail'),
 
 
     path('manage_trading/<int:trading_id>/', views.manage_trading, name='manage_trading'),

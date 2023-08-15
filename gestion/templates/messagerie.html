@@ -50,6 +50,10 @@
     }
 </style>
 
+{% extends 'base.html' %}
+
+{% block content %}
+
 <div class="mailbox">
     <h2>Your Messages:</h2>
     <ul class="message-list">
@@ -75,3 +79,4 @@
         </table>
     </ul>
 </div>
+{% endblock %}

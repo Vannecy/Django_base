@@ -4,30 +4,17 @@ from .models import Trading, Player,Team, Messagerie
 from .forms import PlayerForm, TradingForm,ComposeMessageForm
 from django.contrib.auth.models import User
 
+def home(request):   
+    return render(request, 'home.html')
+
+def profil(request): 
+    return render(request, 'profil.html')
 
 
-def propose_trading(request, player_id):
-    player = get_object_or_404(Player, pk=player_id)
-    
-    if request.method == 'POST':
-        form = TradingForm(request.POST)
-        if form.is_valid():
-            proposed_value = form.cleaned_data['proposed_value']
-            trading = Trading(player=player, buyer=request.user, seller=player.player_team.owner, proposed_value=proposed_value)
-            trading.save()
-            return redirect('gestion:trading_list')
-    else:
-        form = TradingForm()
-    
-    return render(request, 'propose_trading.html', {'player': player, 'form': form})
 
 
-def gestion(request):
-    players = Player.objects.all()
-    teams = Team.objects.all()
-    return render(request, 'gestion.html', {'players': players, 'teams':teams})
 
-
+#Messagerie---------------------------------------------------------------
 def messagerie(request):
     user = request.user
     messages = Messagerie.objects.filter(recever=user) | Messagerie.objects.filter(sender=user)
@@ -73,7 +60,7 @@ def compose_message(request, receiver_id, trading_number):
 
     return render(request, 'compose_message.html', {'form': form, 'proposed_value':proposed_value})
 
-
+#Messagerie---------------------------------------------------------------
 from .forms import PlayerForm, TeamForm
 
 def create_player(request):
@@ -83,7 +70,7 @@ def create_player(request):
             player = form.save(commit=False)  # Crée l'instance du joueur sans enregistrer
             player.player_team = form.cleaned_data['player_team']
             player.save()  # Enregistre le joueur avec le propriétaire
-            return redirect('gestion:gestion')  # Redirigez vers la liste des joueurs
+            return redirect('gestion:home')  # Redirigez vers la liste des joueurs
     else:
         form = PlayerForm()
     return render(request, 'create_player.html', {'form': form})
@@ -95,7 +82,7 @@ def create_team(request):
             team = form.save(commit=False)  # Crée l'instance du joueur sans enregistrer
             team.owner = request.user  # Définit le propriétaire comme l'utilisateur connecté
             team.save()  # Enregistre le joueur avec le propriétaire
-            return redirect('gestion:gestion')  # Redirigez vers la liste des joueurs
+            return redirect('gestion:home')  # Redirigez vers la liste des joueurs
     else:
         form = TeamForm()
     return render(request, 'create_team.html', {'form': form})
@@ -103,7 +90,37 @@ def create_team(request):
 def player_list(request):
     players = Player.objects.all()
     teams = Team.objects.all()
-    return render(request, 'gestion.html', {'players': players, 'teams':teams})
+    return render(request, 'player_list.html', {'players': players, 'teams':teams})
+def team_list(request):
+    players = Player.objects.all()
+    teams = Team.objects.all()
+    return render(request, 'team_list.html', {'players': players, 'teams':teams})
+
+def player_detail(request, player_id):
+    player = get_object_or_404(Player, id=player_id)
+    return render(request, 'player_detail.html', {'player': player})
+
+def team_detail(request, team_id):
+    team = get_object_or_404(Team, id=team_id)
+    return render(request, 'team_detail.html', {'team': team})
+
+
+#Trading-----------------------------------------------------------------------------------------------------------------------------------------------
+from django.utils import timezone
+def propose_trading(request, player_id):
+    player = get_object_or_404(Player, pk=player_id)
+    
+    if request.method == 'POST':
+        form = TradingForm(request.POST)
+        if form.is_valid():
+            proposed_value = form.cleaned_data['proposed_value']
+            trading = Trading(player=player, buyer=request.user, seller=player.player_team.owner, proposed_value=proposed_value)
+            trading.save()
+            return redirect('gestion:trading_list')
+    else:
+        form = TradingForm()
+    
+    return render(request, 'propose_trading.html', {'player': player, 'form': form})
 
 def trading_list(request):
 
@@ -115,9 +132,6 @@ def trading_list(request):
 
 
 
-from django.utils import timezone
-
-
 def manage_trading(request, trading_id):
     trading = get_object_or_404(Trading, pk=trading_id)
     
@@ -126,12 +140,13 @@ def manage_trading(request, trading_id):
         
         if action == 'accept':
             trading.is_accepted = True
+            trading.sell_price = trading.proposed_value
         elif action == 'reject':
             trading.is_accepted = False
             trading.status = 'rejected'
         elif action == 'propose':
             new_value = request.POST['new_value']
-            trading.proposed_value = new_value
+            trading.contre_proposition_price = new_value
         
         trading.save()
         

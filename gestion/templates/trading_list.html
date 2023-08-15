@@ -1,25 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    table {
+        border-collapse: separate;
+        border-spacing: 10px;
+    }
+    th, td {
+        padding: 10px;
+        
+    }
+    .status-pending {
+        color: green;
+    }
+    .status-closed {
+        color: red;
+    }
+</style>
+
 <h2>Your Trading List:</h2>
-<ul>
+
+<table>
+    <tr>
+        <th>Trading ID</th>
+        <th>Buyer</th>
+        <th>Seller</th>
+        <th>Player</th>
+        <th>Proposed Value</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    <tr>
+        <td colspan="7"><h2>Buy Trading :</h2></td>
+    </tr>
     {% for trading in buyer_tradings %}
-        <li>
-            Buyer: {{ trading.buyer.username }} | Player: {{ trading.player.name }} | Proposed Value: ${{ trading.proposed_value }} euros 
-            | Status : {{trading.status_trading}}
-            {% if trading.status_trading == 'rejected' %}
-                (Closed)
-            {% else %}
-                <a href="{% url 'gestion:manage_trading' trading_id=trading.id %}">Manage trading</a>
-            {% endif %}
-        </li>
+        <tr>
+            <td>{{ trading.id }}</td>
+            <td>{{ trading.buyer.username }}</td>
+            <td>{{ trading.player.player_team.owner }}</td>
+            <td>{{ trading.player.name }}</td>
+            <td>${{ trading.proposed_value }} euros</td>
+            <td class="{% if trading.status_trading == 'pending' %}status-pending{% elif trading.status_trading == 'rejected' %}status-closed{% endif %}">
+                {{ trading.status_trading }}
+            </td>
+            <td>
+                {% if trading.status_trading != 'rejected' %}
+                    <a href="{% url 'gestion:manage_trading' trading_id=trading.id %}">Manage trading</a>
+                {% endif %}
+            </td>
+        </tr>
     {% endfor %}
+    <tr>
+        <td colspan="7"><h2>Sell Trading :</h2></td>
+    </tr>
     {% for trading in seller_tradings %}
-        <li>
-            Seller: {{ trading.seller.username }} | Player: {{ trading.player.name }} | Proposed Value: ${{ trading.proposed_value }} euros
-            Status : {{trading.status_trading}}
-            {% if trading.status_trading == 'rejected' %}
-                (Closed)
-            {% else %}
-                <a href="{% url 'gestion:manage_trading' trading_id=trading.id %}">Manage trading</a>
-            {% endif %}
-        </li>
+        <tr>
+            <td>{{ trading.id }}</td>
+            <td>{{ trading.buyer.username }}</td>
+            <td>{{ trading.seller.username }}</td>
+            <td>{{ trading.player.name }}</td>
+            <td>${{ trading.proposed_value }} euros</td>
+            <td class="{% if trading.status_trading == 'pending' %}status-pending{% elif trading.status_trading == 'rejected' %}status-closed{% endif %}">
+                {{ trading.status_trading }}
+            </td>
+            <td>
+                {% if trading.status_trading != 'rejected' %}
+                    <a href="{% url 'gestion:manage_trading' trading_id=trading.id %}">Manage trading</a>
+                {% endif %}
+            </td>
+        </tr>
     {% endfor %}
-</ul>
+</table>
+{% endblock %}

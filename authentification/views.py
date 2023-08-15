@@ -5,17 +5,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-# Create your views here.
-def index(request):
-        users = User.objects.all()  # Récupérer tous les utilisateurs
-        user_ip = request.META.get('HTTP_X_FORWARDED_FOR', None)
-        if user_ip:
-        # Séparez les adresses IP si elles sont fournies sous forme de liste
-            user_ip = user_ip.split(',')[0].strip()
-        else:
-            user_ip = request.META.get('REMOTE_ADDR', None)
-        return render(request, 'index.html', {'users': users,'user_ip': user_ip})
-
 
 def inscription(request):
     if request.method == 'POST':
@@ -27,8 +16,6 @@ def inscription(request):
     else:
         form = NewUserForm()
     return render(request, 'inscription.html', {'form': form})
-
-
 
 
 def user_login(request):
@@ -47,7 +34,7 @@ def user_login(request):
                 login(request, user)
                 message = f'Hello {user.username}! You have been logged in'
                 print('step3')
-                return redirect('authentification:index')
+                return redirect('gestion:home')
             else:
                 message = 'Login failed!'
     return render(request, 'login.html', context={'form': form, 'message': message})
@@ -56,5 +43,5 @@ def user_login(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return redirect('authentification:index')
+    return redirect('gestion:home')
 

@@ -1,4 +1,8 @@
 
+{% extends 'base.html' %}
+
+{% block content %}
+
 <h1>Propose tradingfor {{ player.name }}</h1>
 <form method="post" action="">
     {% csrf_token %}
@@ -7,3 +11,5 @@
     <br>
     <button type="submit">Propose</button>
 </form>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Team List</h1>
+{% if teams %}
+<ul>
+    {% for team in teams %}
+        <li>{{ team.name }} </li>
+        <a href="{% url 'gestion:team_detail' team_id=team.id %}">Detail {{ team.name }}</a>
+
+
+    {% endfor %}
+</ul>
+{% else %}
+<p>Aucune equipe</p>
+{% endif %}
+
+
+
+
+{% endblock %}

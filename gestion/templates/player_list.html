@@ -1,23 +1,21 @@
 
-<h2>Player list :</h2>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Player List</h1>
+{% if players %}
 <ul>
     {% for player in players %}
-        <li>
-            {{ trading.player.name }}: ${{ trading.value }} euros
-            {% if trading.is_accepted %}
-                (Accepted)
-            {% else %}
-            <a href="{% url 'gestion:manage_trading' player_id=trading.player.id %}">Enter trading</a>
+        <li>{{ player.name }} - {{ player.value }} euros / Team : {{ player.player_team}}</li>
+        <a href="{% url 'gestion:player_detail' player_id=player.id %}">Detail {{ player.name }}</a>
 
-            {% endif %}
-        </li>
-        Team existing :
-<ul>
-    {% for team in teams %}
-        <li>{{ team.name }}</li>
-  
+        <a href="{% url 'gestion:propose_trading' player_id=player.id %}">Proposer Transfert</a>
     {% endfor %}
 </ul>
-    {% endfor %}
-</ul>
+{% else %}
+<p>Aucun joueur n'est disponible pour le moment.</p>
+{% endif %}
 
+
+{% endblock %}
