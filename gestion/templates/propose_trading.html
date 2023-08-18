@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<h1>Propose tradingfor {{ player.name }}</h1>
+<h1>Propose trading for {{ player.name }}</h1>
 <form method="post" action="">
     {% csrf_token %}
     <label for="{{ form.proposed_value.id_for_label }}">Proposed Value ($ million):</label><br>

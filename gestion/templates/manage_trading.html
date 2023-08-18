@@ -1,29 +1,70 @@
-
-
 {% extends 'base.html' %}
 
-{% block content %}
+errors {% block content %}
+<p>Error message: {{ error_message }}</p>
+-----------{{trading.status_trading}} --- {{trading.status_trading}}<br>
 
 <h1>Manage trading for {{ trading.player.player_team.owner }}</h1>
-<h2> i am {{request.user}} buyer {{trading.buyer}} seller {{trading.seller}}</h2>
+<h1>Valeur Joueur {{ trading.player.value }}</h1>
+<h1>I am : {{ request.user }} Buyer :  {{ trading.buyer }} Seller : {{ trading.seller }}</h1>
+
+{% if trading.contre_proposition_price %}
+<h2>Proposed Value : {{ trading.contre_proposition_price}} euros </h2>
+{% else %}
+<h2>Proposed Value : {{ trading.proposed_value }} euros </h2>
+{% endif %}
+
+{% if trading.info %}
+{{trading.info}}
+{% endif %}
 {% if request.user == trading.seller %}
-    <p>Your Proposed Value: ${{ trading.proposed_value }} million</p>
+
+    {% if trading.talking_to == trading.buyer %}
+    <p>Attente reponse Vendeur</p>
+    {% else %}
+    {% if not trading.status_trading == 'accepted' and not trading.status_trading == 'closed' %}
+
+
+        <form method="post" action="">
+            {% csrf_token %}
+            <label for="new_value">Change Proposed Value:</label>
+            <input type="number" name="new_value" step="10000">
+            <button type="submit" name="action" value="counter">New counter propostion</button>
+            <button type="submit" name="action" value="accept">Accept</button>
+            <button type="submit" name="action" value="reject">Reject</button>
+        </form>
+        <form method="post" action="">
+            {% csrf_token %}
+            <button type="submit" name="action" value="close">Close Trading</button>
+        </form>
+        {% endif %}
+    {% endif %}
+{% elif request.user == trading.buyer %}
+
+
+    {% if trading.talking_to == trading.seller %}
+        <p>Attente reponse Vendeur</p>
+
+    {% else %}
+    {% if not trading.status_trading == 'accepted' and not trading.status_trading == 'closed' %}
+
+
     <form method="post" action="">
         {% csrf_token %}
         <label for="new_value">Change Proposed Value:</label>
-        <input type="number" name="new_value" step="0.01">
-        <button type="submit" name="action" value="propose">Change</button>
+        <input type="number" name="new_value" step="10000">
+        <button type="submit" name="action" value="counter">New counter propostion</button>
         <button type="submit" name="action" value="accept">Accept</button>
         <button type="submit" name="action" value="reject">Reject</button>
     </form>
-{% elif request.user == trading.buyer %}
-    <p>Proposed Value: ${{ trading.proposed_value }} million</p>
-    <form method="post" action="">
-        {% csrf_token %}
-        <label for="new_value">Propose New Value:</label>
-        <input type="number" name="new_value" step="0.01">
-        <button type="submit" name="action" value="propose">Propose</button>
-    </form>
+    {% endif %}
+    {% endif %}
+
+
 
 {% endif %}
+{% if trading.sell_price %}
+<h2>Sell Price : {{ trading.sell_price }}</h2>
+{% endif %}
+
 {% endblock %}

@@ -19,7 +19,26 @@
 </style>
 
 <h2>Your Trading List:</h2>
+<p>Sort by:
+    <a href="{% url 'gestion:trading_list' %}?sort_by=status{% if status_accepted %}&status_accepted=1{% endif %}{% if status_rejected %}&status_rejected=1{% endif %}{% if status_pending %}&status_pending=1{% endif %}{% if status_closed %}&status_closed=1{% endif %}{% if status_proposed %}&status_proposed=1{% endif %}">Status</a> |
+    <a href="{% url 'gestion:trading_list' %}?sort_by=price{% if status_accepted %}&status_accepted=1{% endif %}{% if status_rejected %}&status_rejected=1{% endif %}{% if status_pending %}&status_pending=1{% endif %}{% if status_closed %}&status_closed=1{% endif %}{% if status_proposed %}&status_proposed=1{% endif %}">Price</a>
+</p>
 
+
+<form method="get">
+    <label for="status_filter">Filter by Status:</label>
+    <input type="checkbox" id="status_accepted" name="status_accepted" {% if status_accepted %}checked{% endif %}>
+    <label for="status_accepted">Accepted</label>
+    <input type="checkbox" id="status_rejected" name="status_rejected" {% if status_rejected %}checked{% endif %}>
+    <label for="status_rejected">Rejected</label>
+    <input type="checkbox" id="status_pending" name="status_pending" {% if status_pending %}checked{% endif %}>
+    <label for="status_pending">Pending</label>
+    <input type="checkbox" id="status_closed" name="status_closed" {% if status_closed %}checked{% endif %}>
+    <label for="status_closed">Closed</label>
+    <input type="checkbox" id="status_proposed" name="status_proposed" {% if status_proposed %}checked{% endif %}>
+    <label for="status_proposed">Proposed</label>
+    <button type="submit">Apply Filters</button>
+</form>
 <table>
     <tr>
         <th>Trading ID</th>
@@ -33,7 +52,9 @@
     <tr>
         <td colspan="7"><h2>Buy Trading :</h2></td>
     </tr>
+    
     {% for trading in buyer_tradings %}
+  
         <tr>
             <td>{{ trading.id }}</td>
             <td>{{ trading.buyer.username }}</td>
@@ -49,7 +70,9 @@
                 {% endif %}
             </td>
         </tr>
+   
     {% endfor %}
+    
     <tr>
         <td colspan="7"><h2>Sell Trading :</h2></td>
     </tr>

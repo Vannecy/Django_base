@@ -1,23 +1,83 @@
+<style>
+.team-list {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.team-list h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.team-list-items {
+    list-style: none;
+    padding: 0;
+}
+
+.team-item {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+}
+
+.team-name {
+    font-weight: bold;
+}
+
+.team-detail-link {
+    background-color: #3498db;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.no-teams {
+    font-style: italic;
+    color: #666;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
 
 {% extends 'base.html' %}
 
 {% block content %}
 
-<h1>Team List</h1>
-{% if teams %}
-<ul>
-    {% for team in teams %}
-        <li>{{ team.name }} </li>
-        <a href="{% url 'gestion:team_detail' team_id=team.id %}">Detail {{ team.name }}</a>
-
-
-    {% endfor %}
-</ul>
-{% else %}
-<p>Aucune equipe</p>
-{% endif %}
-
-
-
+<div class="team-list">
+    <h1>Team List</h1>
+    {% if teams %}
+    <ul class="team-list-items">
+        {% for team in teams %}
+        <li class="team-item">
+            <span class="team-name">{{ team.name }}</span>
+            <span class="team-name">Europe</span>
+            <a href="{% url 'gestion:team_detail' team_id=team.id %}" class="team-detail-link">Detail {{ team.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="no-teams">Aucune équipe</p>
+    {% endif %}
+</div>
 
 {% endblock %}

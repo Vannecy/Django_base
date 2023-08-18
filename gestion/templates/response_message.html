@@ -1,0 +1,18 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+{% if receiver %}
+<h2> Response To : {{receiver}} <br>
+For trading number : {{trading_number}}<br>
+Player : {{player}}</h2>
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}<br>
+
+    <button type="submit">Send Message</button>
+</form>
+{% endblock %}
+
+

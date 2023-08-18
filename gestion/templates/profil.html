@@ -1,1 +1,15 @@
-profil
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="profil-name">
+    <div class="profil-content">
+        <h1>Profil de {{profil}}</h1>
+        <br>
+        <h1>Team : {{profil.team_profil}}</h1>
+        <br>
+        <h1>Budget : {{profil.team_profil.budget}} euros</h1>
+    </div>
+</div>
+
+{% endblock %}

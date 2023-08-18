@@ -3,6 +3,7 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style_base.css' %}">
+    
 </head>
 <body>
     <header>
@@ -17,18 +18,23 @@
                 <li><a href="{% url 'gestion:trading_list' %}">Trading List</a></li>
                 <li><a href="{% url 'gestion:create_player' %}">Create Player</a></li>
                 <li><a href="{% url 'gestion:create_team' %}">Create Team</a></li>
+                {% if request.user %}
                 {% if request.user.is_authenticated %}
-                <li><a href="{% url 'authentification:user_logout' %}">Logout</a></li>
+                <li><a href="{% url 'authentification:user_logout' %}">Logout ( {{ request.user }} )</a></li>
             {% else %}
-                <li><a href="{% url 'authentification:user_login' %}">Login</a></li>
+                <li><a href="{% url 'authentification:user_login' %}">Login ( {{ request.user }} )</a></li>
+            {% endif %}
             {% endif %}
             </ul>
         </nav>
     </header>
-
     <div class="content">
         {% block content %}
         {% endblock %}
+        {% block javascript %}
+        {% endblock %}
     </div>
+
+
 </body>
 </html>

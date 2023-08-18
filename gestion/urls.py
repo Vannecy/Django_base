@@ -25,7 +25,8 @@ urlpatterns = [
     path('accept_trading/<int:trading_id>/', views.accept_trading, name='accept_trading'),
 
     path('messagerie/', views.messagerie, name='messagerie'),
+    path('create_message/', views.create_message, name='create_message'),
     path('message_detail/<int:messagerie_id>/', views.message_detail, name='message_detail'),
-    path('compose_message/<int:receiver_id>/<int:trading_number>/', views.compose_message, name='compose_message'),
+    path('response_message/<int:receiver_id>/<int:trading_number>/<int:message_id>/', views.response_message, name='response_message'),
     
 ]

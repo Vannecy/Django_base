@@ -1,21 +1,88 @@
+<style>
+.player-list {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.player-list h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.player-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.player-table th,
+.player-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.player-table th {
+    background-color: #f0f8ff;
+    font-weight: bold;
+}
+
+.player-row:hover {
+    background-color: #f0f8ff;
+}
+
+.player-detail-link,
+.player-trading-link {
+    background-color: #3498db;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.no-players {
+    font-style: italic;
+    color: #666;
+}
+
+</style>
 
 {% extends 'base.html' %}
 
 {% block content %}
 
-<h1>Player List</h1>
-{% if players %}
-<ul>
-    {% for player in players %}
-        <li>{{ player.name }} - {{ player.value }} euros / Team : {{ player.player_team}}</li>
-        <a href="{% url 'gestion:player_detail' player_id=player.id %}">Detail {{ player.name }}</a>
-
-        <a href="{% url 'gestion:propose_trading' player_id=player.id %}">Proposer Transfert</a>
-    {% endfor %}
-</ul>
-{% else %}
-<p>Aucun joueur n'est disponible pour le moment.</p>
-{% endif %}
-
+<div class="player-list">
+    <h1>Player List</h1>
+    {% if players %}
+    <table class="player-table">
+        <tr>
+            <th>Name</th>
+            <th>Price (euros)</th>
+            <th>Team</th>
+            <th>User</th>
+            <th>Actions</th>
+        </tr>
+        {% for player in players %}
+        <tr class="player-row">
+            <td>{{ player.name }}</td>
+            <td>{{ player.value }}</td>
+            <td>{{ player.player_team }}</td>
+            <td>{{ player.player_team.owner }}</td>
+            <td>
+                <a href="{% url 'gestion:player_detail' player_id=player.id %}" class="player-detail-link">Detail</a>
+                <a href="{% url 'gestion:propose_trading' player_id=player.id %}" class="player-trading-link">Proposer Transfert</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p class="no-players">Aucun joueur n'est disponible pour le moment.</p>
+    {% endif %}
+</div>
 
 {% endblock %}
+
