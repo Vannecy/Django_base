@@ -50,13 +50,26 @@
 }
 
 </style>
-
 {% extends 'base.html' %}
 
 {% block content %}
 
 <div class="player-list">
     <h1>Player List</h1>
+    <div class="player-search">
+        <form method="get" action="{% url 'gestion:player_list' %}">
+            <input type="text" name="search_name" placeholder="Search by name" value="">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <div class="filter-buttons">
+        <a href="{% url 'gestion:player_list' %}" class="filter-button">Reset Filters</a>
+        <a href="{% url 'gestion:player_list' %}?sort_by=name" class="filter-button">Sort by Name</a>
+        <a href="{% url 'gestion:player_list' %}?sort_by=team" class="filter-button">Sort by Team</a>
+        <a href="{% url 'gestion:player_list' %}?sort_by=user" class="filter-button">Sort by User</a>
+        <a href="{% url 'gestion:player_list' %}?sort_by=price" class="filter-button">Sort by Price</a>
+    </div>
+
     {% if players %}
     <table class="player-table">
         <tr>
@@ -85,4 +98,6 @@
 </div>
 
 {% endblock %}
+
+
 

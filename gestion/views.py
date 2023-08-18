@@ -132,8 +132,32 @@ def create_team(request):
 
 def player_list(request):
     players = Player.objects.all()
+
+    search_name = request.GET.get('search_name')
+    sort_by = request.GET.get('sort_by')
+
+    if search_name:
+        players = players.filter(name__istartswith=search_name)
+    else:
+        if sort_by == 'name':
+            players = players.order_by('name')
+        elif sort_by == 'team':
+            players = players.order_by('player_team')
+        elif sort_by == 'user':
+            players = players.order_by('player_team__owner')
+        elif sort_by == 'price':
+            players = players.order_by('value')
+
     teams = Team.objects.all()
-    return render(request, 'player_list.html', {'players': players, 'teams':teams})
+    return render(request, 'player_list.html', {
+        'players': players,
+        'teams': teams,
+        'search_name': search_name,
+        'sort_by': sort_by,
+    })
+
+
+
 def team_list(request):
     players = Player.objects.all()
     teams = Team.objects.all()
