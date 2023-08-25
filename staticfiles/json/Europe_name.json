@@ -1,0 +1,402 @@
+[
+    {
+        "pays": "Albania",
+        "prenom_masculin": "Luan",
+        "nom": "Popescu"
+    },
+
+    {
+        "pays": "Andorra",
+        "prenom_masculin": "Marc",
+        "nom": "López"
+    },
+    {
+        "pays": "Austria",
+        "prenom_masculin": "Wolfgang",
+        "nom": "Schmidt"
+    },
+    {
+        "pays": "Belgium",
+        "prenom_masculin": "Jean",
+        "nom": "Dubois"
+    },
+    {
+        "pays": "Belarus",
+        "prenom_masculin": "Dmitri",
+        "nom": "Ivanov"
+    },
+    {
+        "pays": "Bosnia and Herzegovina",
+        "prenom_masculin": "Davor",
+        "nom": "Kovač"
+    },
+    {
+        "pays": "Bulgaria",
+        "prenom_masculin": "Ivan",
+        "nom": "Georgiev"
+    },
+    {
+        "pays": "Cyprus",
+        "prenom_masculin": "Nikos",
+        "nom": "Papadopoulos"
+    },
+    {
+        "pays": "Croatia",
+        "prenom_masculin": "Ivan",
+        "nom": "Horvat"
+    },
+    {
+        "pays": "Denmark",
+        "prenom_masculin": "Lars",
+        "nom": "Madsen"
+    },
+
+    {
+        "pays": "Estonia",
+        "prenom_masculin": "Tõnis",
+        "nom": "Kask"
+    },
+    {
+        "pays": "Faroe Islands",
+        "prenom_masculin": "Mikko",
+        "nom": "Lahtinen"
+    },
+    {
+        "pays": "Finland",
+        "prenom_masculin": "Mikko",
+        "nom": "Lahtinen"
+    },
+    {
+        "pays": "France",
+        "prenom_masculin": "Pierre",
+        "nom": "Dupont"
+    },
+
+    {
+        "pays": "Germany",
+        "prenom_masculin": "Nikos",
+        "nom": "Papadopoulos"
+    },
+    {
+        "pays": "Greece",
+        "prenom_masculin": "Nikos",
+        "nom": "Papadopoulos"
+    },
+    {
+        "pays": "Gibraltar",
+        "prenom_masculin": "Nikos",
+        "nom": "Papadopoulos"
+    },
+    {
+        "pays": "Hungary",
+        "prenom_masculin": "Gábor",
+        "nom": "Nagy"
+    },
+    {
+        "pays": "Ireland",
+        "prenom_masculin": "Sean",
+        "nom": "O'Connor"
+    },
+    {
+        "pays": "Iceland",
+        "prenom_masculin": "Einar",
+        "nom": "Jónsson"
+    },
+    {
+        "pays": "Italy",
+        "prenom_masculin": "Marco",
+        "nom": "Ricci"
+    },
+    {
+        "pays": "Kosovo",
+        "prenom_masculin": "Ardian",
+        "nom": "Krasniqi"
+    },
+    {
+        "pays": "Latvia",
+        "prenom_masculin": "Jānis",
+        "nom": "Lācis"
+    },
+    {
+        "pays": "Liechtenstein",
+        "prenom_masculin": "Hans",
+        "nom": "Müller"
+    },
+    {
+        "pays": "Lithuania",
+        "prenom_masculin": "Linas",
+        "nom": "Petrauskas"
+    },
+    {
+        "pays": "Luxembourg",
+        "prenom_masculin": "Jean",
+        "nom": "Schmit"
+    },
+    {
+        "pays": "North Macedonia",
+        "prenom_masculin": "Stefan",
+        "nom": "Stojanovski"
+    },
+    {
+        "pays": "Malta",
+        "prenom_masculin": "Joseph",
+        "nom": "Borg"
+    },
+    {
+        "pays": "Montenegro",
+        "prenom_masculin": "Nikola",
+        "nom": "Petrović"
+    },
+    {
+        "pays": "Moldova",
+        "prenom_masculin": "Nikola",
+        "nom": "Petrović"
+    },
+    {
+        "pays": "Norway",
+        "prenom_masculin": "Olav",
+        "nom": "Olsen"
+    },
+    {
+        "pays": "Netherlands",
+        "prenom_masculin": "Johan",
+        "nom": "De Vries",
+        "joueurs":[
+            {
+               "nom":"Johan Cruyff",
+               "poste":"Attaquant / Milieu Offensif",
+               "date_naissance":"25 avril 1947"
+            },
+            {
+               "nom":"Marco van Basten",
+               "poste":"Attaquant",
+               "date_naissance":"31 octobre 1964"
+            },
+            {
+               "nom":"Ruud Gullit",
+               "poste":"Milieu de Terrain Offensif",
+               "date_naissance":"1er septembre 1962"
+            },
+            {
+               "nom":"Dennis Bergkamp",
+               "poste":"Attaquant",
+               "date_naissance":"10 mai 1969"
+            },
+            {
+               "nom":"Frank Rijkaard",
+               "poste":"Milieu Défensif / Défenseur Central",
+               "date_naissance":"30 septembre 1962"
+            },
+            {
+               "nom":"Ruud Krol",
+               "poste":"Défenseur Central / Arrière Gauche",
+               "date_naissance":"24 mars 1949"
+            },
+            {
+               "nom":"Edgar Davids",
+               "poste":"Milieu de Terrain Défensif",
+               "date_naissance":"13 mars 1973"
+            },
+            {
+               "nom":"Clarence Seedorf",
+               "poste":"Milieu de Terrain",
+               "date_naissance":"1er avril 1976"
+            },
+            {
+               "nom":"Arjen Robben",
+               "poste":"Ailier Droit",
+               "date_naissance":"23 janvier 1984"
+            },
+            {
+               "nom":"Wesley Sneijder",
+               "poste":"Milieu de Terrain",
+               "date_naissance":"9 juin 1984"
+            },
+            {
+               "nom":"Patrick Kluivert",
+               "poste":"Attaquant",
+               "date_naissance":"1er juillet 1976"
+            },
+            {
+               "nom":"Ronald Koeman",
+               "poste":"Défenseur Central / Milieu de Terrain",
+               "date_naissance":"21 mars 1963"
+            },
+            {
+               "nom":"Johnny Rep",
+               "poste":"Ailier Gauche",
+               "date_naissance":"25 novembre 1951"
+            },
+            {
+               "nom":"Rob Rensenbrink",
+               "poste":"Ailier Gauche",
+               "date_naissance":"3 juillet 1947"
+            },
+            {
+               "nom":"Willem van Hanegem",
+               "poste":"Milieu de Terrain",
+               "date_naissance":"20 février 1944"
+            },
+            {
+               "nom":"Dirk Kuyt",
+               "poste":"Attaquant / Ailier Droit",
+               "date_naissance":"22 juillet 1980"
+            },
+            {
+               "nom":"Johan Neeskens",
+               "poste":"Milieu de Terrain Défensif",
+               "date_naissance":"15 septembre 1951"
+            },
+            {
+               "nom":"Frank de Boer",
+               "poste":"Défenseur Central",
+               "date_naissance":"15 mai 1970"
+            },
+            {
+               "nom":"Phillip Cocu",
+               "poste":"Milieu de Terrain",
+               "date_naissance":"29 octobre 1970"
+            },
+            {
+               "nom":"Jan Wouters",
+               "poste":"Milieu de Terrain Défensif",
+               "date_naissance":"17 juillet 1960"
+            },
+            {
+               "nom":"Wim van Hanegem",
+               "poste":"Milieu de Terrain",
+               "date_naissance":"20 février 1944"
+            },
+            {
+               "nom":"Marc Overmars",
+               "poste":"Ailier Gauche",
+               "date_naissance":"29 mars 1973"
+            },
+            {
+               "nom":"Piet Keizer",
+               "poste":"Ailier Gauche",
+               "date_naissance":"14 juin 1943"
+            },
+            {
+               "nom":"Jan Vertonghen",
+               "poste":"Défenseur Central / Arrière Gauche",
+               "date_naissance":"24 avril 1987"
+            },
+            {
+               "nom":"Edwin van der Sar",
+               "poste":"Gardien de But",
+               "date_naissance":"29 octobre 1970"
+            },
+            {
+               "nom":"Aron Winter",
+               "poste":"Milieu de Terrain Défensif",
+               "date_naissance":"1er mars 1967"
+            },
+            {
+               "nom":"Arie Haan",
+               "poste":"Milieu de Terrain Défensif",
+               "date_naissance":"16 janvier 1948"
+            },
+            {
+               "nom":"Klaas-Jan Huntelaar",
+               "poste":"Attaquant",
+               "date_naissance":"12 août 1983"
+            },
+            {
+               "nom":"Johnny Heitinga",
+               "poste":"Défenseur Central",
+               "date_naissance":"15 novembre 1983"
+            },
+            {
+               "nom":"Rafael van der Vaart",
+               "poste":"Milieu de Terrain",
+               "date_naissance":"11 février 1983"
+            }
+         ]
+    },
+    {
+        "pays": "Poland",
+        "prenom_masculin": "Piotr",
+        "nom": "Kowalski"
+    },
+    {
+        "pays": "Portugal",
+        "prenom_masculin": "João",
+        "nom": "Santos"
+    },
+    {
+        "pays": "Czechia",
+        "prenom_masculin": "Pavel",
+        "nom": "Novák"
+    },
+    {
+        "pays": "Romania",
+        "prenom_masculin": "Andrei",
+        "nom": "Popescu"
+    },
+    {
+        "pays": "United Kingdom",
+        "prenom_masculin": "James",
+        "nom": "Smith"
+    },
+    {
+        "pays": "Russia",
+        "prenom_masculin": "Ivan",
+        "nom": "Ivanov"
+    },
+    {
+        "pays": "Saint-Marin",
+        "prenom_masculin": "Giovanni",
+        "nom": "Ricci"
+    },
+    {
+        "pays": "Serbia",
+        "prenom_masculin": "Dragan",
+        "nom": "Jovanović"
+    },
+    {
+        "pays": "Slovakia",
+        "prenom_masculin": "Peter",
+        "nom": "Novák"
+    },
+    {
+        "pays": "Slovenia",
+        "prenom_masculin": "Marko",
+        "nom": "Kovač"
+    },
+    {
+        "pays": "Sweden",
+        "prenom_masculin": "Erik",
+        "nom": "Larsson"
+    },
+    {
+        "pays": "Switzerland",
+        "prenom_masculin": "Erik",
+        "nom": "Larsson"
+    },
+    {
+        "pays": "Spain",
+        "prenom_masculin": "Javier",
+        "nom": "García"
+    },
+    {
+        "pays": "San Marino",
+        "prenom_masculin": "Javier",
+        "nom": "García"
+    },
+    {
+        "pays": "Turkey",
+        "prenom_masculin": "Recep Tayyip",
+        "nom": "Erdoğan"
+    },
+    {
+        "pays": "United Kingdom",
+        "prenom_masculin": "James",
+        "nom": "Smith"
+    },
+    {
+        "pays": "Ukraine",
+        "prenom_masculin": "Erik",
+        "nom": "Larsson"
+    }
+]

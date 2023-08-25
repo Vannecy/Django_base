@@ -1,6 +1,6 @@
 # forms.py (dans l'application "gestion")
 from django import forms
-from .models import Player, Trading, Team
+from .models import Player, Trading, Team,Messagerie
 from django.contrib.auth.models import User 
 from django_select2.forms import ModelSelect2Widget
 
@@ -43,4 +43,17 @@ class ComposeMessageForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea, label='Message')
     #trading_number = forms.IntegerField(label='Trading Number')
     #proposed_amount = forms.DecimalField(max_digits=10, decimal_places=0, label='Proposed Amount')
+    def clean_receiver(self):
+        receiver_name = self.cleaned_data.get('receiver')
+        try:
+            receiver_team = Team.objects.get(name=receiver_name)
+        except Team.DoesNotExist:
+            raise forms.ValidationError("L'équipe spécifiée n'existe pas.")
+        return receiver_name
 
+class DeleteMessagesForm(forms.Form):
+    selected_messages = forms.ModelMultipleChoiceField(
+        queryset=Messagerie.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )

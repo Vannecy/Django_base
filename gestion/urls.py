@@ -9,7 +9,7 @@ urlpatterns = [
     
     path('', views.home, name='home'),
     path('profil/', views.profil, name='profil'),
-
+    path('custom_404/', views.custom_404, name='custom_404'),
 
     path('create_player/', views.create_player, name='create_player'),
     path('create_team/', views.create_team, name='create_team'),
@@ -26,6 +26,10 @@ urlpatterns = [
 
     path('messagerie/', views.messagerie, name='messagerie'),
     path('create_message/', views.create_message, name='create_message'),
+    path('delete_message/<int:message_id>/', views.delete_message, name='delete_message'),
+    path('confirm_delete_message/<int:message_id>/', views.confirm_delete_message, name='confirm_delete_message'),
+     path('messagerie/delete_selected/', views.delete_selected_messages, name='delete_selected_messages'),
+
     path('message_detail/<int:messagerie_id>/', views.message_detail, name='message_detail'),
     path('response_message/<int:receiver_id>/<int:trading_number>/<int:message_id>/', views.response_message, name='response_message'),
     

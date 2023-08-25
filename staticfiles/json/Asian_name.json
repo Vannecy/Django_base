@@ -1,0 +1,148 @@
+[
+    {
+        "pays": "Afghanistan",
+        "prenom_masculin": "Ashraf Ghani",
+        "nom": "bib"
+    },
+    {
+        "pays": "Armenia",
+        "prenom_masculin": "Nikol",
+        "nom": "Pachinian"
+    },
+    {
+        "pays": "Azerbaijan",
+        "prenom_masculin": "Ilham",
+        "nom": "Aliyev"
+    },
+
+    {
+        "pays": "Bangladesh",
+        "prenom_masculin": "Abdul Hamid",
+        "nom": "bib"
+    },
+    {
+        "pays": "Bhutan",
+        "prenom_masculin": "Lotay Tshering",
+        "nom": "bib"
+    },
+    {
+        "pays": "Brunei Darussalam",
+        "prenom_masculin": "Hassanal Bolkiah",
+        "nom": "bib"
+    },
+    {
+        "pays": "Cambodia",
+        "prenom_masculin": "Hun Sen",
+        "nom": "bib"
+    },
+    {
+        "pays": "China",
+        "prenom_masculin": "Xi Jinping",
+        "nom": "bib"
+    },
+    {
+        "pays": "North Korea",
+        "prenom_masculin": "Kim Jong-un",
+        "nom": "bib"
+    },
+    {
+        "pays": "South Korea",
+        "prenom_masculin": "Moon Jae-in",
+        "nom": "bib"
+    },
+    {
+        "pays": "Georgia",
+        "prenom_masculin": "Salome",
+        "nom": "Zourabichvili"
+    },
+    {
+        "pays": "India",
+        "prenom_masculin": "Narendra",
+        "nom": "Modi"
+    },
+    {
+        "pays": "Indonesia",
+        "prenom_masculin": "Joko",
+        "nom": "Widodo"
+    },
+    {
+        "pays": "Japan",
+        "prenom_masculin": "Yoshihide",
+        "nom": "Suga"
+    },
+    {
+        "pays": "Hong Kong",
+        "prenom_masculin": "Yoshihide",
+        "nom": "Suga"
+    },
+    {
+        "pays": "Kazakhstan",
+        "prenom_masculin": "Yoshihide",
+        "nom": "Suga"
+    },
+    {
+        "pays": "Kyrgyzstan",
+        "prenom_masculin": "Yoshihide",
+        "nom": "Suga"
+    },
+    {
+        "pays": "Laos",
+        "prenom_masculin": "Thongloun Sisoulith",
+        "nom": "bib"
+    },
+    {
+        "pays": "Malaysia",
+        "prenom_masculin": "Ismail Sabri Yaakob",
+        "nom": "bib"
+    },
+    {
+        "pays": "Mongolia",
+        "prenom_masculin": "Ismail Sabri Yaakob",
+        "nom": "bib"
+    },
+    {
+        "pays": "Myanmar",
+        "prenom_masculin": "Win Myint",
+        "nom": "bib"
+    },
+    {
+        "pays": "Philippines",
+        "prenom_masculin": "Rodrigo",
+        "nom": "Duterte"
+    },
+    {
+        "pays": "Pakistan",
+        "prenom_masculin": "Rodrigo",
+        "nom": "Duterte"
+    },
+    {
+        "pays": "Uzbekistan",
+        "prenom_masculin": "Rodrigo",
+        "nom": "Duterte"
+    },
+    {
+        "pays": "Singapore",
+        "prenom_masculin": "Lee Hsien Loong",
+        "nom": "bib"
+    },
+    {
+        "pays": "Taiwan",
+        "prenom_masculin": "Prayuth",
+        "nom": "Chan-o-cha"
+    },
+    {
+        "pays": "Thailand",
+        "prenom_masculin": "Prayuth",
+        "nom": "Chan-o-cha"
+    },
+    {
+        "pays": "Timor-Leste",
+        "prenom_masculin": "Francisco",
+        "nom": "Guterres"
+    },
+    {
+        "pays": "Viet Nam",
+        "prenom_masculin": "Nguyn",
+        "nom": "Ph Trng"
+    }
+]

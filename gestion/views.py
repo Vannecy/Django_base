@@ -1,10 +1,15 @@
 # Vues (views.py)
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Trading, Player,Team, Messagerie, Profil
-from .forms import PlayerForm, TradingForm,ComposeMessageForm,ComposeInitialMessageForm
+from .forms import PlayerForm, TradingForm,ComposeMessageForm,ComposeInitialMessageForm, DeleteMessagesForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
+from django.contrib import messages
+from django.http import HttpResponseNotFound
 
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
 
 def home(request):   
     if request.user.team_set.exists():
@@ -23,9 +28,38 @@ def profil(request):
 #Messagerie---------------------------------------------------------------
 def messagerie(request):
     user = request.user
-    messages = Messagerie.objects.filter(recever=user) 
+    status_filter = request.GET.get('status')
+    from_filter = request.GET.get('from')  # Récupérer la valeur du champ 'from'
+    trading_number_filter = request.GET.get('trading_number')  # Récupérer la valeur du champ 'trading_number'
+    delete_form = DeleteMessagesForm(request.POST or None)
+                
+    messages = Messagerie.objects.filter(recever=user)
+    if 'delete_selected' in request.POST:
+            selected_messages = delete_form.cleaned_data['selected_messages']
+            print(selected_messages)
+            # Bouclez à travers les messages sélectionnés et supprimez-les
+    # Appliquer les filtres en fonction des valeurs des champs de recherche
+    if status_filter == 'unread':
+        messages = messages.filter(status='non lus')
+    elif status_filter == 'read':
+        messages = messages.filter(status='lus')
+    elif status_filter == 'replied':
+        messages = messages.filter(status='repondu')
     
-    return render(request, 'messagerie.html', {'messages': messages})
+    if from_filter:  # Vérifier si 'from_filter' est défini
+        messages = messages.filter(sender__username__icontains=from_filter)  # Filtrer par nom d'utilisateur (from)
+    
+    if trading_number_filter:  # Vérifier si 'trading_number_filter' est défini
+        print(trading_number_filter)
+
+        messages = messages.filter(trading_number_id=trading_number_filter)
+    
+    return render(request, 'messagerie.html', {
+        'messages': messages,
+        'status_filter': status_filter,
+        'from_filter': from_filter,  # Passer 'from_filter' au modèle pour pré-remplir le champ de recherche
+        'trading_number_filter': trading_number_filter,  # Passer 'trading_number_filter' au modèle pour pré-remplir le champ de recherche
+    })
 
 
 
@@ -37,23 +71,57 @@ def message_detail(request, messagerie_id):
     
     
     return render(request, 'message_detail.html', {'message': message, 'trading':trading})
-
 def create_message(request):
     if request.method == 'POST':
-        form = ComposeInitialMessageForm(request.POST,)
+        form = ComposeInitialMessageForm(request.POST)
         if form.is_valid():
             sender = request.user
             text = form.cleaned_data['text']
             subject = form.cleaned_data['subject']
-            receiver = form.cleaned_data['receiver']
-            team = get_object_or_404(Team, name=receiver)
-            print(team)
-            message = Messagerie(sender=sender,status='non lus', recever=team.owner, subject=subject, text=text, trading_number=None)
-            message.save()
-            return redirect('gestion:messagerie')
+            receiver_name = form.cleaned_data['receiver']
+
+            try:
+                # Vérifiez si l'équipe spécifiée dans le champ "From" existe
+                receiver_team = Team.objects.get(name=receiver_name)
+
+                # Créez le message avec l'équipe en tant que destinataire
+                message = Messagerie(sender=sender, status='non lus', recever=receiver_team.owner, subject=subject, text=text, trading_number=None)
+                message.save()
+
+                return redirect('gestion:messagerie')
+
+            except Team.DoesNotExist:
+                # L'équipe spécifiée n'existe pas, ajoutez une erreur au formulaire
+                form.add_error('receiver', "L'équipe spécifiée n'existe pas.")
     else:
         form = ComposeInitialMessageForm()
+
     return render(request, 'response_message.html', {'form': form})
+
+def confirm_delete_message(request, message_id):
+    message = Messagerie.objects.get(pk=message_id)
+    if request.method == "POST":
+        # Traitez la logique de suppression ici
+        message.delete()
+        return redirect('gestion:message_deleted')  # Redirigez vers la page de confirmation de suppression
+
+    return render(request, 'confirm_delete_message.html', {'message_id': message_id})
+
+def delete_message(request, message_id):
+    
+    message = Messagerie.objects.get(id=message_id)
+    message.delete()
+
+    return redirect('gestion:messagerie')
+
+def delete_selected_messages(request):
+    if request.method == 'POST':
+        selected_messages = request.POST.getlist('selected_messages')
+        # Supprimer les messages sélectionnés
+        Messagerie.objects.filter(id__in=selected_messages).delete()
+        return redirect('gestion:messagerie')
+
+    return HttpResponseNotFound("Page not found")
 
 def response_message(request, receiver_id, trading_number,message_id):
    

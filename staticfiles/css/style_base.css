@@ -1,0 +1,128 @@
+/* Style des liens dans le bandeau */
+header .home-link {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+/* Réinitialiser les styles par défaut */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Appliquer une police de caractères par défaut */
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+.logo {
+    width: 60px; /* Ajustez la largeur automatiquement pour maintenir les proportions */
+    height: 60px; /* Ajustez la hauteur selon vos besoins */
+    margin: 0;
+    padding: 0;
+    border: none;
+    display: inline; /* Assurez-vous que l'image est affichée en ligne */
+    float: left; /* Déplacez l'élément à gauche */
+    margin-right: 20px; /* Espace entre le logo et le texte du header */
+    vertical-align: middle; /* Ajustez la position verticale au milieu */
+}
+/* Style des liens dans la navigation */
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+/* Style de la zone de contenu */
+.content {
+    padding: 20px;
+}
+
+/* Style des formulaires */
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.game-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Ajoutez cette ligne pour centrer horizontalement */
+    justify-content: center; /* Ajoutez cette ligne pour centrer verticalement */
+    height: 80vh; /* Ajoutez cette ligne pour occuper toute la hauteur de la fenêtre */
+}
+
+.game-menu-item {
+    position: relative;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 35px 200px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transform: skewX(-20deg);
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+    font-size: 18px; /* Ajustez la taille de la police pour augmenter la taille du texte */
+
+}
+
+.game-menu-item:hover {
+    background-color: #e74c3c;
+    transform: skewX(-20deg) translateX(10px);
+    margin-left: 50px;
+}
+
+
+.profil-name {
+    display: flex;
+    justify-content: center; /* Centre horizontalement le contenu */
+}
+
+.profil-content {
+    text-align: center; /* Centre horizontalement le texte */
+}

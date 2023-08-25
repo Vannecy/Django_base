@@ -1,0 +1,264 @@
+[
+    {
+        "pays": "Algeria",
+        "prenom_masculin": "Karim",
+        "nom": "Benzema"
+    },
+    {
+        "pays": "Angola",
+        "prenom_masculin": "Manuel",
+        "nom": "Fernandes"
+    },
+    {
+        "pays": "Benin",
+        "prenom_masculin": "Jean",
+        "nom": "Kossi"
+    },
+    {
+        "pays": "Botswana",
+        "prenom_masculin": "Tebogo",
+        "nom": "Moloi"
+    },
+    {
+        "pays": "Burkina Faso",
+        "prenom_masculin": "Lassina",
+        "nom": "Traoré"
+    },
+    {
+        "pays": "Burundi",
+        "prenom_masculin": "Freddy",
+        "nom": "Amin"
+    },
+    {
+        "pays": "Cameroon",
+        "prenom_masculin": "Samuel",
+        "nom": "Eto'o"
+    },
+    {
+        "pays": "Cabo Verde",
+        "prenom_masculin": "Nelson",
+        "nom": "Fernandes"
+    },
+    {
+        "pays": "Central African Republic",
+        "prenom_masculin": "Freddy",
+        "nom": "Amin"
+    },
+    {
+        "pays": "Chad",
+        "prenom_masculin": "Ahmed",
+        "nom": "Ali"
+    },
+    {
+        "pays": "Comoros",
+        "prenom_masculin": "Ahmed",
+        "nom": "Ali"
+    },
+    {
+        "pays": "Congo, The Democratic Republic of the",
+        "prenom_masculin": "Dimitri",
+        "nom": "Makosso"
+    },
+    {
+        "pays": "Congo",
+        "prenom_masculin": "Dimitri",
+        "nom": "Makosso"
+    },
+  
+    {
+        "pays": "Côte d'Ivoire",
+        "prenom_masculin": "Didier",
+        "nom": "Drogba"
+    },
+    {
+        "pays": "Djibouti",
+        "prenom_masculin": "Omar",
+        "nom": "Hassan"
+    },
+    {
+        "pays": "Egypt",
+        "prenom_masculin": "Mohamed",
+        "nom": "Salah"
+    },
+    {
+        "pays": "Eritrea",
+        "prenom_masculin": "Yonas",
+        "nom": "Tekle"
+    },
+    {
+        "pays": "Ethiopia",
+        "prenom_masculin": "Haile",
+        "nom": "Gebrselassie"
+    },
+    {
+        "pays": "Gabon",
+        "prenom_masculin": "Pierre-Emerick",
+        "nom": "Aubameyang"
+    },
+    {
+        "pays": "Gambia",
+        "prenom_masculin": "Modou",
+        "nom": "Barrow"
+    },
+    {
+        "pays": "Ghana",
+        "prenom_masculin": "Asamoah",
+        "nom": "Gyan"
+    },
+    {
+        "pays": "Equatorial Guinea",
+        "prenom_masculin": "Naby",
+        "nom": "Keita"
+    },
+    {
+        "pays": "Guinea-Bissau",
+        "prenom_masculin": "José",
+        "nom": "Lopes"
+    },
+
+    {
+        "pays": "Kenya",
+        "prenom_masculin": "Eliud",
+        "nom": "Kipchoge"
+    },
+    {
+        "pays": "Lesotho",
+        "prenom_masculin": "Mosisili",
+        "nom": "Mosisili"
+    },
+    {
+        "pays": "Liberia",
+        "prenom_masculin": "Abdallah",
+        "nom": "II"
+    },
+    {
+        "pays": "Libye",
+        "prenom_masculin": "Muammar",
+        "nom": "Kadhafi"
+    },
+    {
+        "pays": "Madagascar",
+        "prenom_masculin": "Andry",
+        "nom": "Rajoelina"
+    },
+    {
+        "pays": "Malawi",
+        "prenom_masculin": "Lazarus",
+        "nom": "Chakwera"
+    },
+    {
+        "pays": "Mali",
+        "prenom_masculin": "Ibrahim",
+        "nom": "Boubacar Keïta"
+    },
+    {
+        "pays": "Morocco",
+        "prenom_masculin": "Mohammed",
+        "nom": "VI"
+    },
+
+    {
+        "pays": "Mauritania",
+        "prenom_masculin": "Mohamed",
+        "nom": "Ould Ghazouani"
+    },
+    {
+        "pays": "Mozambique",
+        "prenom_masculin": "Filipe",
+        "nom": "Nyusi"
+    },
+    {
+        "pays": "Namibia",
+        "prenom_masculin": "Hage",
+        "nom": "Geingob"
+    },
+    {
+        "pays": "Niger",
+        "prenom_masculin": "Mohamed",
+        "nom": "Bazoum"
+    },
+    {
+        "pays": "Nigeria",
+        "prenom_masculin": "Muhammadu",
+        "nom": "Buhari"
+    },
+    {
+        "pays": "Uganda",
+        "prenom_masculin": "Yoweri",
+        "nom": "Museveni"
+    },
+    {
+        "pays": "Rwanda",
+        "prenom_masculin": "Paul",
+        "nom": "Kagame"
+    },
+
+    {
+        "pays": "Senegal",
+        "prenom_masculin": "Macky",
+        "nom": "Sall"
+    },
+
+    {
+        "pays": "Sierra Leone",
+        "prenom_masculin": "Julius",
+        "nom": "Maada Bio"
+    },
+    {
+        "pays": "Sri Lanka",
+        "prenom_masculin": "Julius",
+        "nom": "Maada Bio"
+    },
+
+    {
+        "pays": "Somalia",
+        "prenom_masculin": "Mohamed",
+        "nom": "Farmaajo"
+    },
+    {
+        "pays": "Sudan",
+        "prenom_masculin": "Abdel Fattah",
+        "nom": "al-Burhan"
+    },
+    {
+        "pays": "South Sudan",
+        "prenom_masculin": "Salva",
+        "nom": "Kiir Mayardit"
+    },
+    {
+        "pays": "Sierra Leone",
+        "prenom_masculin": "Mswati III",
+        "nom": "Dlamini"
+    },
+    {
+        "pays": "South Africa",
+        "prenom_masculin": "Mswati III",
+        "nom": "Dlamini"
+    },
+    {
+        "pays": "Tanzania",
+        "prenom_masculin": "John",
+        "nom": "Magufuli"
+    },
+
+    {
+        "pays": "Togo",
+        "prenom_masculin": "Faure Gnassingbé",
+        "nom": null
+    },
+    {
+        "pays": "Tunisia",
+        "prenom_masculin": "Kais",
+        "nom": "Saied"
+    },
+    {
+        "pays": "Zambia",
+        "prenom_masculin": "Edgar",
+        "nom": "Lungu"
+    },
+    {
+        "pays": "Zimbabwe",
+        "prenom_masculin": "Emmerson",
+        "nom": "Mnangagwa"
+    }
+]

@@ -1,0 +1,91 @@
+[
+    {
+        "pays": "Saudi Arabia",
+        "prenom_masculin": "Salman",
+        "nom": "Al Saoud"
+    },
+    {
+        "pays": "Iran",
+        "prenom_masculin": "Ebrahim",
+        "nom": "Raïssi"
+    },
+    {
+        "pays": "Iraq",
+        "prenom_masculin": "Barham",
+        "nom": "Salih"
+    },
+    {
+        "pays": "Israel",
+        "prenom_masculin": "Naftali",
+        "nom": "Bennett"
+    },
+    {
+        "pays": "Jordan",
+        "prenom_masculin": "Abdallah",
+        "nom": "II"
+    },
+
+    {
+        "pays": "Lebanon",
+        "prenom_masculin": "Michel",
+        "nom": "Aoun"
+    },
+    {
+        "pays": "Libya",
+        "prenom_masculin": "Michel",
+        "nom": "Aoun"
+    },
+    {
+        "pays": "Palestine, State of",
+        "prenom_masculin": "Mahmoud",
+        "nom": "Abbas"
+    },
+    {
+        "pays": "United Arab Emirates",
+        "prenom_masculin": "Khalifa",
+        "nom": "Al Nahyan"
+    },
+    {
+        "pays": "Qatar",
+        "prenom_masculin": "Tamim",
+        "nom": "Al Thani"
+    },
+    {
+        "pays": "Kuwait",
+        "prenom_masculin": "Nawaf",
+        "nom": "Al Ahmad Al Jaber Al Sabah"
+    },
+    {
+        "pays": "Oman",
+        "prenom_masculin": "Haitham",
+        "nom": "bin Tariq Al Said"
+    },
+    {
+        "pays": "Yemen",
+        "prenom_masculin": "Abdrabbo Mansour",
+        "nom": "Hadi"
+    },
+    {
+        "pays": "Syria",
+        "prenom_masculin": "Bachar",
+        "nom": "el-Assad"
+    },
+
+    {
+        "pays": "Egypt",
+        "prenom_masculin": "Abdel Fattah",
+        "nom": "al-Sissi"
+    },
+    {
+        "pays": "Bahrain",
+        "prenom_masculin": "Hamad bin Isa",
+        "nom": "Al Khalifa"
+    },
+
+
+    {
+        "pays": "Jordan",
+        "prenom_masculin": "Abdallah",
+        "nom": "Ier"
+    }
+]

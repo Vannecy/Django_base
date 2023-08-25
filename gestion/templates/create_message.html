@@ -1,11 +1,19 @@
-
+<style>
+    /* Supprime le point de liste (::marker) dans les formulaires Django */
+    form ul.errorlist {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    </style>
 {% extends 'base.html' %}
 
 {% block content %}
 
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}<br>
+    <label for="{{ form.to.id_for_label }}">To:</label> gfd<br>
+    <label for="{{ form.subject.id_for_label }}">Subject:</label> gfgf<br>
+    <label for="{{ form.text.id_for_label }}">Text:</label> je veux enlever le point de style de paragraphe avant le message n'existe pas<br>
 
     <button type="submit">Send Message</button>
 </form>

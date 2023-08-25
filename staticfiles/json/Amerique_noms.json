@@ -1,0 +1,108 @@
+[
+    {
+        "pays": "Argentina",
+        "prenom_masculin": "Joe",
+        "nom": "Biden"
+    },
+    {
+        "pays": "Canada",
+        "prenom_masculin": "Justin",
+        "nom": "Trudeau"
+    },
+    {
+        "pays": "Brazil",
+        "prenom_masculin": "Jair",
+        "nom": "Bolsonaro"
+    },
+    {
+        "pays": "Uruguay",
+        "prenom_masculin": "Alberto",
+        "nom": "Fernández"
+    },
+    {
+        "pays": "Mexico",
+        "prenom_masculin": "Andrés Manuel",
+        "nom": "López Obrador"
+    },
+    {
+        "pays": "Chile",
+        "prenom_masculin": "Sebastián",
+        "nom": "Piñera"
+    },
+    {
+        "pays": "Colombia",
+        "prenom_masculin": "Iván Duque",
+        "nom": "Márquez"
+    },
+    {
+        "pays": "Haiti",
+        "prenom_masculin": "Iván Duque",
+        "nom": "Márquez"
+    },
+    {
+        "pays": "Venezuela",
+        "prenom_masculin": "Nicolás",
+        "nom": "Maduro"
+    },
+    {
+        "pays": "Cuba",
+        "prenom_masculin": "Miguel Díaz-Canel",
+        "nom": null
+    },
+    {
+        "pays": "Peru",
+        "prenom_masculin": "Pedro Castillo",
+        "nom": null
+    },
+    {
+        "pays": "Ecuador",
+        "prenom_masculin": "Lenín",
+        "nom": "Moreno"
+    },
+    {
+        "pays": "Bolivia",
+        "prenom_masculin": "Luis Arce",
+        "nom": "Catacora"
+    },
+
+    {
+        "pays": "Paraguay",
+        "prenom_masculin": "Mario Abdo",
+        "nom": "Benítez"
+    },
+    {
+        "pays": "Guatemala",
+        "prenom_masculin": "Alejandro",
+        "nom": "Giammattei"
+    },
+    {
+        "pays": "Honduras",
+        "prenom_masculin": "Juan Orlando",
+        "nom": "Hernández"
+    },
+    {
+        "pays": "Salvador",
+        "prenom_masculin": "Nayib",
+        "nom": "Bukele"
+    },
+    {
+        "pays": "United States",
+        "prenom_masculin": "Nayib",
+        "nom": "Bukele"
+    },
+    {
+        "pays": "Nicaragua",
+        "prenom_masculin": "Daniel",
+        "nom": "Ortega"
+    },
+    {
+        "pays": "Costa Rica",
+        "prenom_masculin": "Carlos Alvarado",
+        "nom": "Quesada"
+    },
+    {
+        "pays": "Panama",
+        "prenom_masculin": "Laurentino",
+        "nom": "Cortizo"
+    }
+]

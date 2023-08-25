@@ -1,14 +1,16 @@
 
 
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
  
-    <h1>Bienvenue {{request.user}}</h1>
+    
     {% if message %}
         <div id="message" class="alert alert-info">{{ message }}</div>
     {% endif %}
     <div class="game-menu">
+        <h1>Bienvenue {{request.user}}</h1>
         <h1>Menu</h1>
         <a href="{% url 'gestion:player_list' %}" class="game-menu-item">Jeu 1</a>
         <a href="{% url 'gestion:player_list' %}" class="game-menu-item">Jeu 2</a>
@@ -17,6 +19,8 @@
         <a href="{% url 'gestion:player_list' %}" class="game-menu-item">Jeu 5</a>
         <a href="{% url 'gestion:player_list' %}" class="game-menu-item">Jeu 6</a>
     </div>
+
+
 
 {% endblock %}
 
