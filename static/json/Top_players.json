@@ -1,0 +1,155 @@
+{
+    "joueurs": [
+      {
+        "club": "Milan AC",
+        "nom": "Maldini",
+        "prenom": "Paolo"
+      },
+      {
+        "club": "Milan AC",
+        "nom": "Shevchenko",
+        "prenom": "Andriy"
+      },
+      {
+        "club": "Milan AC",
+        "nom": "Gattuso",
+        "prenom": "Gennaro"
+      },
+      {
+        "club": "Milan AC",
+        "nom": "Kaka",
+        "prenom": "Ricardo"
+      },
+      {
+        "club": "Milan AC",
+        "nom": "Inzaghi",
+        "prenom": "Filippo"
+      },
+      {
+        "club": "Manchester United",
+        "nom": "Giggs",
+        "prenom": "Ryan"
+      },
+      {
+        "club": "Manchester United",
+        "nom": "Scholes",
+        "prenom": "Paul"
+      },
+      {
+        "club": "Manchester United",
+        "nom": "Beckham",
+        "prenom": "David"
+      },
+      {
+        "club": "Manchester United",
+        "nom": "Neville",
+        "prenom": "Gary"
+      },
+      {
+        "club": "Manchester United",
+        "nom": "van Nistelrooy",
+        "prenom": "Ruud"
+      },
+      {
+        "club": "Real Madrid",
+        "nom": "Ronaldo",
+        "prenom": "Fenomeno"
+      },
+      {
+        "club": "Real Madrid",
+        "nom": "Zidane",
+        "prenom": "Zinedine"
+      },
+      {
+        "club": "Real Madrid",
+        "nom": "Beckham",
+        "prenom": "David"
+      },
+      {
+        "club": "Real Madrid",
+        "nom": "Casillas",
+        "prenom": "Iker"
+      },
+      {
+        "club": "Real Madrid",
+        "nom": "Raul",
+        "prenom": "Gonzalez"
+      },
+      {
+        "club": "Valence CF",
+        "nom": "Aimar",
+        "prenom": "Pablo"
+      },
+      {
+        "club": "Valence CF",
+        "nom": "Villa",
+        "prenom": "David"
+      },
+      {
+        "club": "Valence CF",
+        "nom": "Mendieta",
+        "prenom": "Gaizka"
+      },
+      {
+        "club": "Valence CF",
+        "nom": "Ayala",
+        "prenom": "Roberto"
+      },
+      {
+        "club": "Valence CF",
+        "nom": "Baraja",
+        "prenom": "Ruben"
+      },
+      {
+        "club": "Parme FC",
+        "nom": "Crespo",
+        "prenom": "Hernan"
+      },
+      {
+        "club": "Parme FC",
+        "nom": "Buffon",
+        "prenom": "Gianluigi"
+      },
+      {
+        "club": "Parme FC",
+        "nom": "Cannavaro",
+        "prenom": "Fabio"
+      },
+      {
+        "club": "Parme FC",
+        "nom": "Zola",
+        "prenom": "Gianfranco"
+      },
+      {
+        "club": "Parme FC",
+        "nom": "Nesta",
+        "prenom": "Alessandro"
+      },
+      {
+        "club": "FC Barcelone",
+        "nom": "Ronaldinho",
+        "prenom": "Ronaldo"
+      },
+      {
+        "club": "FC Barcelone",
+        "nom": "Xavi",
+        "prenom": "Hernandez"
+      },
+      {
+        "club": "FC Barcelone",
+        "nom": "Iniesta",
+        "prenom": "Andres"
+      },
+      {
+        "club": "FC Barcelone",
+        "nom": "Puyol",
+        "prenom": "Carles"
+      },
+      {
+        "club": "FC Barcelone",
+        "nom": "Deco",
+        "prenom": "Anderson"
+      }
+    ]
+  }
+  

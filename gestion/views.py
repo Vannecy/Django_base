@@ -7,13 +7,30 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.contrib import messages
 from django.http import HttpResponseNotFound
+from .tests import generate_offensive_player_profile,generate_random_birthdate,generate_defensive_player_profile,generate_goalkipper_player_profile
+from datetime import datetime
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import random
 
 def custom_404(request, exception):
     return render(request, '404.html', status=404)
 
 def home(request):   
-    if request.user.team_set.exists():
-        print("exist")
+
+    team = Team.objects.all()
+    team = random.choice(team)
+    player_profile = generate_offensive_player_profile()
+    date_obj = datetime.strptime(player_profile['Birthday'], "%d/%m/%Y")
+    player = Player(nationnality=player_profile['Nationnality'], name=player_profile['Name'],player_team=team,value=500000,price=0,date_de_naissance=date_obj,size=player_profile['taille'],weight=player_profile['poids'],feet=player_profile['Feet'], style=player_profile['Style'],main_position=player_profile['Poste'],general=player_profile['General'],attaque=player_profile['Attaque'],defense=player_profile['Defense'],)
+    player.save()
+    team = Team.objects.all()
+    team = random.choice(team)
+    player_profile = generate_defensive_player_profile()
+    date_obj = datetime.strptime(player_profile['Birthday'], "%d/%m/%Y")
+    player = Player(nationnality=player_profile['Nationnality'],name=player_profile['Name'],player_team=team,value=500000,price=0,date_de_naissance=date_obj,size=player_profile['taille'],weight=player_profile['poids'],feet=player_profile['Feet'], style=player_profile['Style'],main_position=player_profile['Poste'],general=player_profile['General'],attaque=player_profile['Attaque'],defense=player_profile['Defense'],)
+    player.save()
+
+
     return render(request, 'home.html')
 
 def profil(request): 
@@ -202,25 +219,71 @@ def player_list(request):
     players = Player.objects.all()
 
     search_name = request.GET.get('search_name')
+    search_team = request.GET.get('search_team')
+    search_poste = request.GET.get('search_poste')
+    search_foot = request.GET.get('search_foot')
+    search_style = request.GET.get('search_style')
+    search_general_min = request.GET.get('search_general_min')
+    search_general_max = request.GET.get('search_general_max')
     sort_by = request.GET.get('sort_by')
 
+    # Créez un objet Q vide pour les filtres
+    filters = Q()
+
+    if search_foot:
+        filters &= Q(feet=search_foot)
+
     if search_name:
-        players = players.filter(name__istartswith=search_name)
-    else:
-        if sort_by == 'name':
-            players = players.order_by('name')
-        elif sort_by == 'team':
-            players = players.order_by('player_team')
-        elif sort_by == 'user':
-            players = players.order_by('player_team__owner')
-        elif sort_by == 'price':
-            players = players.order_by('value')
+        filters &= Q(name__istartswith=search_name)
+
+    if search_team:
+        filters &= Q(player_team__name__istartswith=search_team)
+
+
+       
+
+    if search_style:
+        filters &= Q(style=search_style)
+
+    if search_poste:
+        filters &= Q(main_position=search_poste)
+
+    if search_general_min:
+        filters &= Q(general__gte=search_general_min)
+
+    if search_general_max:
+        filters &= Q(general__lte=search_general_max)
+
+    # Appliquez les filtres uniquement si au moins un champ de recherche est spécifié
+    if search_foot or search_name or search_style or search_general_min or search_general_max or search_poste or search_team:
+        players = players.filter(filters)
+
+    # Créez un objet Paginator avec 15 joueurs par page
+    paginator = Paginator(players, 15)
+
+    page = request.GET.get('page')
+    
+    try:
+        players = paginator.page(page)
+    except PageNotAnInteger:
+        # Si la page n'est pas un entier, affichez la première page
+        players = paginator.page(1)
+    except EmptyPage:
+        # Si la page est hors limites (par exemple, 9999), affichez la dernière page
+        players = paginator.page(paginator.num_pages)
 
     teams = Team.objects.all()
+    player = Player()
+    
     return render(request, 'player_list.html', {
+        'player': player,
         'players': players,
         'teams': teams,
         'search_name': search_name,
+        'search_foot': search_foot,
+        'search_style': search_style,
+        'search_general_min': search_general_min,
+        'search_general_max': search_general_max,
         'sort_by': sort_by,
     })
 

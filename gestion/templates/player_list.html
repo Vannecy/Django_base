@@ -63,6 +63,42 @@
         overflow: hidden; /* Masquer tout contenu dépassant de la limite de largeur */
         text-overflow: ellipsis; /* Afficher des points de suspension (...) si le contenu est masqué */
     }
+    .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.step-links a {
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    margin: 0 3px;
+}
+
+.current-page {
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+.step-links a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.step-links a:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.step-links a:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
 </style>
 {% extends 'base.html' %}
 
@@ -73,8 +109,37 @@
     <div class="player-search">
         <form method="get" action="{% url 'gestion:player_list' %}">
             <input type="text" name="search_name" placeholder="Search by name" value="">
+            <input type="text" name="search_team" placeholder="Search by team" value="">
+
+            <select name="search_foot">
+                <option value="">-- Select Foot --</option>
+                <option value="L">Left</option>
+                <option value="R">Right</option>
+                <option value="RL">RL</option>
+            </select>
+            <!-- Champ de recherche pour le style -->
+            <select name="search_style">
+                <option value="">-- Sélectionnez un style --</option>
+                {% for style, style_label in player.STYLE_CHOICE %}
+                    <option value="{{ style }}">{{ style_label }}</option>
+                {% endfor %}
+            </select>
+            
+            <select name="search_poste">
+                <option value="">-- Sélectionnez un poste --</option>
+                {% for main_position, main_position_label in player.POSTE_CHOICES %}
+                    <option value="{{ main_position_label }}">{{ main_position }}</option>
+                {% endfor %}
+            </select>
+            
+            
+            <!-- Champ de recherche pour le général (min) -->
+            <input type="number" name="search_general_min" placeholder="Min General" value="{{ search_general_min }}">
+            <!-- Champ de recherche pour le général (max) -->
+            <input type="number" name="search_general_max" placeholder="Max General" value="{{ search_general_max }}">
             <button type="submit">Search</button>
         </form>
+        
     </div>
     <div class="filter-buttons">
         <a href="{% url 'gestion:player_list' %}" class="filter-button">Reset Filters</a>
@@ -82,6 +147,10 @@
         <a href="{% url 'gestion:player_list' %}?sort_by=team" class="filter-button">Sort by Team</a>
         <a href="{% url 'gestion:player_list' %}?sort_by=user" class="filter-button">Sort by User</a>
         <a href="{% url 'gestion:player_list' %}?sort_by=price" class="filter-button">Sort by Price</a>
+        <a href="{% url 'gestion:player_list' %}?sort_by=style" class="filter-button">Sort by Style</a>
+        <a href="{% url 'gestion:player_list' %}?sort_by=general" class="filter-button">Sort by General</a>
+        <a href="{% url 'gestion:player_list' %}?sort_by=foot" class="filter-button">Sort by Foot</a>
+
     </div>
 
     {% if players %}
@@ -90,7 +159,13 @@
             <th>Name</th>
             <th>Price (euros)</th>
             <th>Team</th>
-            <th>User</th>
+            <th>Nationnality</th>
+            <th>Poste</th>
+            <th>Style</th>
+            <th>Foot</th>
+            <th>Size</th>
+            <th>Weight</th>
+            <th>General</th>
             <th class="actions-header">Actions</th>
         </tr>
         {% for player in players %}
@@ -98,10 +173,18 @@
             <td>{{ player.name }}</td>
             <td>{{ player.value }}</td>
             <td>{{ player.player_team }}</td>
-            <td>{{ player.player_team.owner }}</td>
+            <td>{{ player.nationnality}}</td>
+            <td>{{player.main_position}}</td>
+            <td>{{player.style}}</td>
+            <td>{{player.feet}}</td>
+            <td>{{player.size}}</td>
+            <td>{{player.weight}}</td>
+            <td>{{player.general}}</td>
             <td class="player-actions"> <!-- Utilisation de la classe "player-actions" pour aligner les liens à droite -->
                 <a href="{% url 'gestion:player_detail' player_id=player.id %}" class="player-detail-link">Detail</a>
+                {% if player.player_team.owner != request.user %}
                 <a href="{% url 'gestion:propose_trading' player_id=player.id %}" class="player-trading-link">Proposer Transfert</a>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}
@@ -110,6 +193,24 @@
     <p class="no-players">Aucun joueur n'est disponible pour le moment.</p>
     {% endif %}
 </div>
+<div class="pagination">
+    <span class="step-links">
+        {% if players.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ players.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current-page">
+            Page {{ players.number }} of {{ players.paginator.num_pages }}.
+        </span>
+
+        {% if players.has_next %}
+            <a href="?page={{ players.next_page_number }}">next</a>
+            <a href="?page={{ players.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
 
 {% endblock %}
 

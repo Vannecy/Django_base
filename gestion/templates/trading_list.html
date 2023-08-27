@@ -3,19 +3,46 @@
 {% block content %}
 <style>
     table {
-        border-collapse: separate;
-        border-spacing: 10px;
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
     }
+
     th, td {
-        padding: 10px;
-        
+    text-align: left;
+    padding: 8px;
+    width: 8%; /* Ajustez la largeur selon vos besoins */
+}
+
+    th {
+        background-color: #f2f2f2;
     }
+
     .status-pending {
         color: green;
     }
+
     .status-closed {
         color: red;
     }
+
+    .table-header {
+        background-color: #333;
+        color: rgb(0, 0, 0);
+    }
+
+    .table-header th {
+        padding: 10px;
+    }
+
+    .table-content td {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table-content tr:last-child td {
+        border-bottom: none;
+    }
+
 </style>
 
 <h2>Your Trading List:</h2>
@@ -39,7 +66,7 @@
     <label for="status_proposed">Proposed</label>
     <button type="submit">Apply Filters</button>
 </form>
-<table>
+<table class="table-header">
     <tr>
         <th>Trading ID</th>
         <th>Buyer</th>
@@ -49,6 +76,8 @@
         <th>Status</th>
         <th>Action</th>
     </tr>
+</table>
+<table class="table-content">
     <tr>
         <td colspan="7"><h2>Buy Trading :</h2></td>
     </tr>

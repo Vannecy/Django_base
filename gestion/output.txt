@@ -1,0 +1,350 @@
+Profil de Joueur 1:
+Taille: 185 cm
+Poids: 86 kg
+Postes: [('Milieu_defensif', 'MDC')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 2:
+Taille: 183 cm
+Poids: 80 kg
+Postes: [('Milieu_defensif', 'MDC')] 
+Style: [('Runner', 'Runner')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 3:
+Taille: 173 cm
+Poids: 80 kg
+Postes: [('Defenseur_Gauche', 'DG')] 
+Style: [('Random', 'Random')] 
+Feet: [('Left', 'L')] 
+
+Profil de Joueur 4:
+Taille: 166 cm
+Poids: 60 kg
+Postes: [('Milieu_Offensif', 'MO')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 5:
+Taille: 187 cm
+Poids: 85 kg
+Postes: [('Milieu_droit', 'MD')] 
+Style: [('Fighter', 'Fighter')] 
+Feet: [('Left', 'L')] 
+
+Profil de Joueur 6:
+Taille: 178 cm
+Poids: 82 kg
+Postes: [('Goalkipper', 'GK')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 7:
+Taille: 188 cm
+Poids: 96 kg
+Postes: [('Milieu_droit', 'MD')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 8:
+Taille: 174 cm
+Poids: 71 kg
+Postes: [('Ailier_droit', 'AD')] 
+Style: [('Fidele', 'Fidele')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 9:
+Taille: 161 cm
+Poids: 56 kg
+Postes: [('Ailier_droit', 'AD')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 10:
+Taille: 179 cm
+Poids: 77 kg
+Postes: [('Milieu_droit', 'MD')] 
+Style: [('Dog', 'Dog')] 
+Feet: [('Left', 'L')] 
+
+Profil de Joueur 11:
+Taille: 177 cm
+Poids: 70 kg
+Postes: [('Defenseur_Centrale', 'DC')] 
+Style: [('Elegant', 'Elegant')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 12:
+Taille: 165 cm
+Poids: 57 kg
+Postes: [('Goalkipper', 'GK')] 
+Style: [('Random', 'Random')] 
+Feet: [('Left', 'L')] 
+
+Profil de Joueur 13:
+Taille: 176 cm
+Poids: 84 kg
+Postes: [('Milieu_Centrale', 'MC')] 
+Style: [('Fighter', 'Fighter')] 
+Feet: [('Left', 'L')] 
+
+Profil de Joueur 14:
+Taille: 179 cm
+Poids: 77 kg
+Postes: [('Aillier_gauche', 'AG')] 
+Style: [('Artiste', 'Artiste')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 15:
+Taille: 180 cm
+Poids: 85 kg
+Postes: [('Milieu_defensif', 'MDC')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 16:
+Taille: 179 cm
+Poids: 80 kg
+Postes: [('Milieu_Centrale', 'MC')] 
+Style: [('Runner', 'Runner')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 17:
+Taille: 177 cm
+Poids: 76 kg
+Postes: [('Goalkipper', 'GK')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 18:
+Taille: 177 cm
+Poids: 78 kg
+Postes: [('Goalkipper', 'GK')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 19:
+Taille: 190 cm
+Poids: 88 kg
+Postes: [('Milieu_Centrale', 'MC')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 20:
+Taille: 175 cm
+Poids: 83 kg
+Postes: [('Ailier_droit', 'AD')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 21:
+Taille: 177 cm
+Poids: 77 kg
+Postes: [('Milieu_droit', 'MD')] 
+Style: [('Artiste', 'Artiste')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 22:
+Taille: 180 cm
+Poids: 74 kg
+Postes: [('Milieu_defensif', 'MDC')] 
+Style: [('Dog', 'Dog')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 23:
+Taille: 189 cm
+Poids: 84 kg
+Postes: [('Aillier_gauche', 'AG')] 
+Style: [('Fidele', 'Fidele')] 
+Feet: [('Left', 'L')] 
+
+Profil de Joueur 24:
+Taille: 178 cm
+Poids: 71 kg
+Postes: [('Defenseur_Droit', 'DD')] 
+Style: [('Fidele', 'Fidele')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 25:
+Taille: 180 cm
+Poids: 74 kg
+Postes: [('Defenseur_Droit', 'DD')] 
+Style: [('Runner', 'Runner')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 26:
+Taille: 178 cm
+Poids: 80 kg
+Postes: [('Defenseur_Gauche', 'DG')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 27:
+Taille: 180 cm
+Poids: 86 kg
+Postes: [('Milieu_defensif', 'MDC')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 28:
+Taille: 179 cm
+Poids: 85 kg
+Postes: [('Milieu_Centrale', 'MC')] 
+Style: [('Random', 'Random')] 
+Feet: [('Left', 'L')] 
+
+Profil de Joueur 29:
+Taille: 170 cm
+Poids: 73 kg
+Postes: [('Milieu_Centrale', 'MC')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 30:
+Taille: 178 cm
+Poids: 70 kg
+Postes: [('Ailier_droit', 'AD')] 
+Style: [('Random', 'Random')] 
+Feet: [('RL', 'RL')] 
+
+Profil de Joueur 31:
+Taille: 181 cm
+Poids: 83 kg
+Postes: [('Milieu_droit', 'MD')] 
+Style: [('Random', 'Random')] 
+Feet: [('Left', 'L')] 
+
+Profil de Joueur 32:
+Taille: 172 cm
+Poids: 71 kg
+Postes: [('Defenseur_Centrale', 'DC')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 33:
+Taille: 186 cm
+Poids: 92 kg
+Postes: [('Milieu_defensif', 'MDC')] 
+Style: [('Dog', 'Dog')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 34:
+Taille: 178 cm
+Poids: 86 kg
+Postes: [('Defenseur_Droit', 'DD')] 
+Style: [('Random', 'Random')] 
+Feet: [('Left', 'L')] 
+
+Profil de Joueur 35:
+Taille: 178 cm
+Poids: 77 kg
+Postes: [('Milieu_Gauche', 'MG')] 
+Style: [('Artiste', 'Artiste')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 36:
+Taille: 175 cm
+Poids: 69 kg
+Postes: [('Milieu_Gauche', 'MG')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 37:
+Taille: 173 cm
+Poids: 70 kg
+Postes: [('Milieu_defensif', 'MDC')] 
+Style: [('Killer', 'Killer')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 38:
+Taille: 185 cm
+Poids: 89 kg
+Postes: [('Aillier_gauche', 'AG')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 39:
+Taille: 181 cm
+Poids: 74 kg
+Postes: [('Milieu_Centrale', 'MC')] 
+Style: [('Killer', 'Killer')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 40:
+Taille: 166 cm
+Poids: 59 kg
+Postes: [('Defenseur_Gauche', 'DG')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 41:
+Taille: 176 cm
+Poids: 70 kg
+Postes: [('Milieu_droit', 'MD')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 42:
+Taille: 160 cm
+Poids: 62 kg
+Postes: [('Aillier_gauche', 'AG')] 
+Style: [('Leader', 'Leader')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 43:
+Taille: 178 cm
+Poids: 81 kg
+Postes: [('Goalkipper', 'GK')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 44:
+Taille: 183 cm
+Poids: 82 kg
+Postes: [('Ailier_droit', 'AD')] 
+Style: [('Dog', 'Dog')] 
+Feet: [('RL', 'RL')] 
+
+Profil de Joueur 45:
+Taille: 168 cm
+Poids: 73 kg
+Postes: [('Milieu_defensif', 'MDC')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 46:
+Taille: 189 cm
+Poids: 81 kg
+Postes: [('Milieu_Gauche', 'MG')] 
+Style: [('Random', 'Random')] 
+Feet: [('Left', 'L')] 
+
+Profil de Joueur 47:
+Taille: 176 cm
+Poids: 74 kg
+Postes: [('Aillier_gauche', 'AG')] 
+Style: [('Fighter', 'Fighter')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 48:
+Taille: 178 cm
+Poids: 80 kg
+Postes: [('Goalkipper', 'GK')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 49:
+Taille: 183 cm
+Poids: 85 kg
+Postes: [('Defenseur_Droit', 'DD')] 
+Style: [('Killer', 'Killer')] 
+Feet: [('Right', 'R')] 
+
+Profil de Joueur 50:
+Taille: 174 cm
+Poids: 82 kg
+Postes: [('Defenseur_Droit', 'DD')] 
+Style: [('Random', 'Random')] 
+Feet: [('Right', 'R')] 
+

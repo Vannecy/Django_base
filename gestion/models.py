@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.core.validators import MaxValueValidator,MinValueValidator
 
 class Team(models.Model):
     name = models.CharField(max_length=100)
@@ -18,11 +19,41 @@ class Profil(models.Model):
         return self.name
 
 class Player(models.Model):
+    POSTE_CHOICES = (('Buteur', 'BU'), ('Ailier_droit', 'AD'), ('Aillier_gauche', 'AG'), ('Milieu_Offensif', 'MO'), ('Milieu_droit', 'MD'), ('Milieu_Gauche', 'MG'), ('Milieu_Centrale','MC'),('Milieu_defensif','MDC'),('Defenseur_Gauche','DG'),('Defenseur_Droit','DD'),('Defenseur_Centrale','DC'),('Goalkipper','GK'))
+    FEET_CHOICE = (('Right', 'R'),('Left','L'),('RL','RL'))
+    STYLE_CHOICE = (('Random','Random'),('Artiste','Artiste'), ('Dog','Dog'), ('Elegant','Elegant'), ('Killer','Killer'), ('Fidele','Fidele'), ('Leader','Leader'), ('Runner','Runner'), ('Fighter','Fighter'))
+    CATEGORIE_CHOICE = (('Random','Random'),('Normal','Normal'), ('Prometteur','Promotteur'), ('Team_Star','Team_Star'), ('Internationnal','Internationnal'), ('Superstar', 'Superstar'), ('Legend','Legend'))
+
     name = models.CharField(max_length=100)
+    nationnality = models.CharField(max_length=100,blank=True, null=True)
     player_team = models.ForeignKey(Team, on_delete=models.CASCADE)
     value = models.DecimalField(max_digits=10, decimal_places=0)  # Ajoutez ce champ pour la valeur du joueur
     on_transfert_list = models.BooleanField(default=False)
     price = models.DecimalField(max_digits=10, decimal_places=0)
+
+    date_de_naissance = models.DateField(blank=True, null=True)
+    size= models.PositiveSmallIntegerField(verbose_name="Taille (cm)", validators=[MinValueValidator(150), MaxValueValidator(220)], blank=True, null=True)
+    weight = models.DecimalField(verbose_name="Poids (kg)", max_digits=5, decimal_places=2, validators=[MinValueValidator(40), MaxValueValidator(110)], blank=True, null=True)
+    feet = models.CharField(max_length=15, choices=FEET_CHOICE, default='R', blank=True, null=True)
+    style =models.CharField(max_length=15, choices=STYLE_CHOICE, blank=True, null=True)
+    categorie = models.CharField(max_length=15, choices=CATEGORIE_CHOICE, default='Random', blank=True, null=True)
+
+    main_position = models.CharField(max_length=20, choices=POSTE_CHOICES, blank=True, null=True)
+    second_position = models.CharField(max_length=20, choices=POSTE_CHOICES, blank=True, null=True)
+    third_position = models.CharField(max_length=20, choices=POSTE_CHOICES, blank=True, null=True)
+
+    general = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
+    defense = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
+    attaque = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
+
+    def get_main_position_display_full(self):
+        # Cette méthode renvoie le libellé complet du poste en fonction de l'abréviation
+        for choice in self.POSTE_CHOICES:
+            if choice[1] == self.main_position:
+                return choice[0]
+        return "Inconnu"
+    
+
     def __str__(self):
         return self.name
 
