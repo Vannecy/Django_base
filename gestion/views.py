@@ -239,9 +239,6 @@ def player_list(request):
     if search_team:
         filters &= Q(player_team__name__istartswith=search_team)
 
-
-       
-
     if search_style:
         filters &= Q(style=search_style)
 
@@ -257,7 +254,23 @@ def player_list(request):
     # Appliquez les filtres uniquement si au moins un champ de recherche est spécifié
     if search_foot or search_name or search_style or search_general_min or search_general_max or search_poste or search_team:
         players = players.filter(filters)
-
+    if sort_by:
+        if sort_by == 'name':
+            players = players.order_by('name')
+        elif sort_by == 'team':
+            players = players.order_by('player_team__name')
+        elif sort_by == 'user':
+            players = players.order_by('player_team__owner__username')
+        elif sort_by == 'price':
+            players = players.order_by('price')
+        elif sort_by == 'style':
+            players = players.order_by('style')
+        elif sort_by == 'general':
+            players = players.order_by('general')
+        elif sort_by == 'foot':
+            players = players.order_by('feet')
+        elif sort_by == 'nationnality':
+            players = players.order_by('nationnality')
     # Créez un objet Paginator avec 15 joueurs par page
     paginator = Paginator(players, 15)
 
