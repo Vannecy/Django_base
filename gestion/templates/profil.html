@@ -1,15 +1,105 @@
-
 {% extends 'base.html' %}
 
 {% block content %}
 <div class="profil-name">
+
+    {% if profil %}
     <div class="profil-content">
-        <h1>Profil de {{profil}}</h1>
+        <h1 class="profil-header">Profil de {{profil}}</h1>
+        <hr>
+        <h2 class="team-name">Team Name : {{profil.team_profil}}<br> <a href="{% url 'gestion:team_detail' team_id=profil.team_profil.id %}" class="my-button">Détail Équipe</a></h2>
         <br>
-        <h1>Team : {{profil.team_profil}}</h1>
-        <br>
-        <h1>Budget : {{profil.team_profil.budget}} euros</h1>
+        <p class="note-effectif">Note general : {{profil.team_profil.get_general}}</p>
+        <p class="budget">Budget : {{profil.team_profil.budget}} euros</p>
+        <p class="date-creation">Date de Création : 1915</p>
+        <p class="nombres-joueurs">Nombre de Joueurs : {{profil.team_profil.get_total_players}}</p>
+        
+        <p class="valeur-effectif">Valeur de l'Effectif : {{profil.team_profil.get_total_value}} euros</p>
+
     </div>
+    {% endif %}
+    {% if not profil %}
+    <form method="post">
+        {% csrf_token %}
+        <h1 class="profil-header">Create Profile</h1>
+    
+        <!-- Include the Profil Name field for creating a profile -->
+        {{ profil_form.profil_name.label_tag }} {{ profil_form.profil_name }}
+    
+        <!-- Include the Team Name field for creating a team -->
+        {{ team_form.team_name.label_tag }} {{ team_form.team_name }}
+    
+        <button type="submit" class="my-button">Create Profile</button>
+    </form>
+    {% endif %}
+    <div class="create-team">
+        {% if profil and not profil.team_profil %}
+        <form method="post">
+            {% csrf_token %}
+            <h1 class="team-create-header">Create Team</h1>
+    
+            <!-- Include the Team Name field for creating a team -->
+            {{ team_form.team_name.label_tag }} {{ team_form.team_name }}
+    
+            <button type="submit" class="my-button">Create Team</button>
+        </form>
+        {% endif %}
+
+    </div>
+    
+  
+    
 </div>
+
+
+<style>
+    /* Styles pour le contenu du profil */
+    .profil-content {
+        background-color: #f5f5f5;
+        padding: 68px;
+        border-radius: 15px;
+        margin-top: 20px;
+    }
+
+    .profil-header {
+        font-size: 44px;
+        margin-bottom: 10px;
+    }
+
+    .team-name {
+        font-size: 38px;
+        font-weight: bold;
+    }
+    .note-effectif,
+    .budget,
+    .date-creation,
+    .nombres-joueurs,
+    .valeur-effectif {
+        font-size: 26px;
+        margin: 10px 0;
+    }
+
+    /* Styles pour le formulaire */
+    .team-create-header {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+
+    /* Style pour le bouton personnalisé */
+    .my-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .my-button:hover {
+        background-color: #2980b9;
+    }
+</style>
 
 {% endblock %}

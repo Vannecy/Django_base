@@ -2,19 +2,43 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.core.validators import MaxValueValidator,MinValueValidator
-
+from datetime import date
 class Team(models.Model):
     name = models.CharField(max_length=100)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     budget = models.DecimalField(max_digits=10, decimal_places=0,default=None,null=True) #prix de vente
     country = models.CharField(max_length=100,default=None,null=True)
+
+    def get_general(self):
+        players = Player.objects.filter(player_team=self)
+        general_team = 0
+        if players:
+            for player in players:
+                general_team += player.general
+            general_team = general_team / len(players)
+            return int(general_team)
+        else:
+            return "No Player"
+        
+    def get_total_players(self):
+        players = Player.objects.filter(player_team=self)
+        return len(players)
+    
+    def get_total_value(self):
+        players = Player.objects.filter(player_team=self)
+        total_value = 0
+        for player in players:    
+            total_value += player.value   
+         
+        return total_value
+
     def __str__(self):
         return self.name
 
 class Profil(models.Model):
-    name = name = models.CharField(max_length=100)
+    name =models.CharField(max_length=100)
     user_profil = models.ForeignKey(User, on_delete=models.CASCADE)
-    team_profil = models.ForeignKey(Team, on_delete=models.CASCADE)
+    team_profil = models.ForeignKey(Team, on_delete=models.CASCADE,blank=True, null=True)
     def __str__(self):
         return self.name
 
@@ -25,6 +49,7 @@ class Player(models.Model):
     CATEGORIE_CHOICE = (('Random','Random'),('Normal','Normal'), ('Prometteur','Promotteur'), ('Team_Star','Team_Star'), ('Internationnal','Internationnal'), ('Superstar', 'Superstar'), ('Legend','Legend'))
 
     name = models.CharField(max_length=100)
+    second_name = models.CharField(max_length=100,default='John',blank=True, null=True)
     nationnality = models.CharField(max_length=100,blank=True, null=True)
     player_team = models.ForeignKey(Team, on_delete=models.CASCADE)
     value = models.DecimalField(max_digits=10, decimal_places=0)  # Ajoutez ce champ pour la valeur du joueur
@@ -45,14 +70,30 @@ class Player(models.Model):
     general = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
     defense = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
     attaque = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
-
+    def get_age():
+        return
     def get_main_position_display_full(self):
         # Cette méthode renvoie le libellé complet du poste en fonction de l'abréviation
         for choice in self.POSTE_CHOICES:
             if choice[1] == self.main_position:
                 return choice[0]
         return "Inconnu"
-    
+    def get_age(self):
+        if self.date_de_naissance:
+            today = date.today()
+            age = today.year - self.date_de_naissance.year - ((today.month, today.day) < (self.date_de_naissance.month, self.date_de_naissance.day))
+            return age
+        else:
+            return None
+    def value_visual(self):
+        
+        nombre_str = str(self.value)
+        parties = []
+        while nombre_str:
+            parties.append(nombre_str[-3:])
+            nombre_str = nombre_str[:-3]
+        nombre_formate = ' '.join(reversed(parties))
+        return nombre_formate
 
     def __str__(self):
         return self.name

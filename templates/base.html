@@ -9,6 +9,7 @@
 </head>
 <body>
     <header>
+        <meta charset="UTF-8">
 
             
         </a>
@@ -22,8 +23,7 @@
                 <li><a href="{% url 'gestion:player_list' %}">Player List</a></li>
                 <li><a href="{% url 'gestion:team_list' %}">Team List</a></li>
                 <li><a href="{% url 'gestion:trading_list' %}">Trading List</a></li>
-                <li><a href="{% url 'gestion:create_player' %}">Create Player</a></li>
-                <li><a href="{% url 'gestion:create_team' %}">Create Team</a></li>
+
                 {% if request.user %}
                 {% if request.user.is_authenticated %}
                 <li><a href="{% url 'authentification:user_logout' %}">Logout ( {{ request.user }} )</a></li>

@@ -131,54 +131,49 @@
     <a href="{% url 'gestion:messagerie' %}?status=replied" {% if status_filter == 'replied' %}class="active"{% endif %}>Replied</a>
 </div>
 
-
 <div class="mailbox">
     <h2>Your Messages:</h2>
     
-    <ul class="message-list">
-        <table class="message-table">
-            <tr>
-                <th>From</th>
-                <th>To</th>
-                <th>Subject</th>
-                <th>Status</th>
-                <th>Tranding Number</th>
-                <th>Date</th>
-                <th>ID</th>
-                <th></th>
-                <th><a href="#" class="delete-selection" id="delete-selected">Delete Selection</a></th>
-              
-                <th>Select All<input type="checkbox" id="select-all-checkbox"></th> <!-- Checkbox pour sélectionner tout -->
-            
-            </tr>
-            {% for message in messages %}
-           
-            <tr class="message-row {% if message.status == 'non lus' %}unread-message{% endif %}" onclick="window.location.href='{% url 'gestion:message_detail' messagerie_id=message.id %}'">
-                <td>{{ message.sender }}</td>
-                <td>{{ message.buyer }}</td>
-                <td>{{ message.subject }}</td>
-                <td>{{ message.status }}</td>
-                <td>{{ message.trading_number }}</td>
-                <td>{{ message.date }}</td>
-                <td>{{ message.id }}</td>
-                <td><a href="{% url 'gestion:confirm_delete_message' message_id=message.id %}" class="delete-button" onclick="return confirmDelete(this);"> Delete</a></td>
-                <td><input type="checkbox" name="selected_messages" value="{{ message.id }}" onclick="event.stopPropagation();"></td>
-                
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="delete-button" name="delete_selected">Delete Selected</button>
+    
 
-               
-                
-
-
-                
-
-            </tr>
-            
-
-            {% endfor %}
-        </table>
-    </ul>
-
+        <ul class="message-list">
+            <table class="message-table">
+                <tr>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Subject</th>
+                    <th>Status</th>
+                    <th>Trading Number</th>
+                    <th>Date</th>
+                    <th>ID</th>
+                  
+                    <th>Select All<input type="checkbox" id="select-all-checkbox"></th>
+                </tr>
+                {% for message in messages %}
+                <tr class="message-row {% if message.status == 'non lus' %}unread-message{% endif %}" onclick="window.location.href='{% url 'gestion:message_detail' messagerie_id=message.id %}'">
+                    <td>{{ message.sender }}</td>
+                    <td>{{ message.buyer }}</td>
+                    <td>{{ message.subject }}</td>
+                    <td>{{ message.status }}</td>
+                    {% if message.trading_number %}
+                    <td>{{ message.trading_number }}</td>
+                    {% else %}
+                    <td>No</td>
+                    {% endif %}
+                    <td>{{ message.date }}</td>
+                    <td>{{ message.id }}</td>
+        
+                    <td><input type="checkbox" name="selected_messages" value="{{ message.id }}" onclick="event.stopPropagation();"></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </ul>
+    </form>
 </div>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const selectAllCheckbox = document.getElementById("select-all-checkbox");
@@ -190,7 +185,6 @@
             });
         });
     });
-    </script>
-
+</script>
 
 {% endblock %}

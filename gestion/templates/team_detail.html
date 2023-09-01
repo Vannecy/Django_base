@@ -1,1 +1,59 @@
-team
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    /* Styles pour centrer le contenu */
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    /* Styles pour le titre de l'équipe */
+    h1.team-heading {
+        font-size: 34px;
+        color: blue;
+        margin-bottom: 20px;
+    }
+
+    /* Styles pour les informations des joueurs sans fond gris */
+    div.player-info {
+        font-size: 18px;
+        margin-bottom: 10px;
+        /* background-color: #f0f0f0; */ /* Supprimez cette ligne pour enlever le fond gris */
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    /* Styles pour le bouton "Detail" */
+    .player-detail-link {
+        
+        color: rgb(0, 0, 0);
+        padding: 5px 10px;
+        border-radius: 3px;
+        text-decoration: none; /* Enlève le soulignement des liens */
+        margin-left: 10px;
+    }
+
+    .player-detail-link:hover {
+        background-color: darkblue;
+        color: rgb(255, 255, 255);
+    }
+</style>
+
+<div class="container">
+    <h1 class="team-heading">Team : {{team}} - Général : {{team.get_general}}</h1>
+
+    {% for player in players %}
+    <div class="player-info">
+        <a href="{% url 'gestion:player_detail' player_id=player.id %}" class="player-detail-link">{{player.name}} {{player.second_name}} - Général : {{player.general}} - {{player.main_position}}</a>
+    </div>
+    {% empty %}
+    <p>Aucun joueur dans cette équipe.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

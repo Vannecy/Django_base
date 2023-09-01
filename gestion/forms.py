@@ -1,6 +1,6 @@
 # forms.py (dans l'application "gestion")
 from django import forms
-from .models import Player, Trading, Team,Messagerie
+from .models import Player, Trading, Team,Messagerie,Profil
 from django.contrib.auth.models import User 
 from django_select2.forms import ModelSelect2Widget
 
@@ -23,10 +23,17 @@ class TradingForm(forms.ModelForm):
         self.fields['proposed_value'].widget = forms.NumberInput(attrs={'step': 10000})
 
 class TeamForm(forms.ModelForm):
+    team_name = forms.CharField(max_length=100)  # Champ de nom d'équipe distinct
+
     class Meta:
         model = Team
-        fields = ['name']  # Ajoutez d'autres champs au besoin
+        fields = ['team_name']  # Ajoutez d'autres champs au besoin
+class ProfilForm(forms.ModelForm):
+    profil_name = forms.CharField(max_length=100)  # Champ de nom de profil distinct
 
+    class Meta:
+        model = Profil
+        fields = ['profil_name']  # Ajoutez d'autres champs au besoin
 class ComposeInitialMessageForm(forms.Form):
     #receiver = forms.CharField(widget=forms.Textarea,label='Receiver'),
     receiver = forms.CharField(max_length=50, label='To')
@@ -50,6 +57,13 @@ class ComposeMessageForm(forms.Form):
         except Team.DoesNotExist:
             raise forms.ValidationError("L'équipe spécifiée n'existe pas.")
         return receiver_name
+
+class DeleteMessagesForm(forms.Form):
+    selected_messages = forms.ModelMultipleChoiceField(
+        queryset=Messagerie.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
 
 class DeleteMessagesForm(forms.Form):
     selected_messages = forms.ModelMultipleChoiceField(

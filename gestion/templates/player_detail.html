@@ -1,1 +1,80 @@
-player
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* Styles pour centrer le contenu */
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    /* Styles pour le titre de l'équipe */
+    h1.team-heading {
+        font-size: 34px;
+        color: rgb(0, 0, 0);
+        margin-bottom: 20px;
+    }
+
+    /* Styles pour les informations du joueur */
+    ul.player-info {
+        list-style: none;
+        padding: 0;
+    }
+
+    ul.player-info li {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    /* Styles pour le diagramme en triangle */
+    .triangle {
+        width: 0;
+        height: 0;
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-bottom: 100px solid rgb(0, 0, 0);
+        margin-top: 20px;
+    }
+
+    /* Styles pour les valeurs du diagramme */
+    .triangle-values {
+        display: flex;
+        justify-content: space-between;
+        width: 100px;
+        margin-top: 10px;
+    }
+
+    .triangle-values span {
+        font-size: 14px;
+    }
+</style>
+
+<div class="container">
+    <h1 class="team-heading">Informations sur le joueur : {{ player.name }}</h1>
+
+    <ul class="player-info">
+        <li>Nom : {{ player.name }}</li>
+        <li>Second nom : {{ player.second_name }}</li>
+        <li>Nationalité : {{ player.nationnality }}</li>
+        <li>Équipe : {{ player.player_team.name }}</li>
+        <li>Valeur : {{ player.value_visual }} euros</li>
+        <li>En transfert : {{ player.on_transfert_list }}</li>
+        <li>Born : {{ player.get_age }} ans</li>
+        <li>General : {{ player.general }}</li>
+        <li>Attaque : {{ player.attaque }}</li>
+        <li>Defense : {{ player.defense }}</li>
+        <!-- Ajoutez d'autres attributs du joueur ici -->
+    </ul>
+
+    <!-- Diagramme en triangle -->
+    <div class="triangle"></div>
+    <div class="triangle-values">
+        <span>Attaque</span>
+        <span>General</span>
+        <span>Défense</span>
+    </div>
+</div>
+{% endblock %}

@@ -61,10 +61,75 @@ def Recup_Nationnality():
 
     print(nationality_choisie)
     return nationality_choisie
+def Recup_real_name():
+
+        # Définissez le chemin vers le répertoire où vous stockez vos fichiers JSON
+    json_directory = os.path.join(settings.STATIC_ROOT, 'json')
+
+    # Liste des fichiers JSON disponibles dans le répertoire
+    json_files = [
+        "Europe_name.json",
+        "Afrique_name.json",
+        "Amerique_name.json",
+        "Asian_name.json",
+        "Pacific_name.json",
+        "Arabic_name.json",
+    ]
+
+    # Choisissez un fichier JSON au hasard dans la liste
+    json_filename = random.choice(json_files)
+
+    # Construisez le chemin complet vers le fichier JSON
+    json_path = os.path.join(json_directory, json_filename)
+
+    # Ouvrez et chargez le fichier JSON
+    with open(json_path, 'r',encoding='utf-8') as json_file:
+        data = json.load(json_file)
+
+    # Choisir une nationalité au hasard parmi la liste des nationalités
+    nationalities = [item['pays'] for item in data]  # Obtenez une liste de nationalités
+    if nationalities:
+        nationality_choisie = random.choice(nationalities)
+    else:
+        nationality_choisie = None
+
+    
+    nb = len(data)
+    pays = random.randint(0, nb - 1)
+
+    if 'nom' in data[pays] and 'prenom_masculin' in data[pays]:
+        print('sans un s')
+        print(data[pays]['pays'])
+        print(data[pays]['prenom_masculin'])
+        print(data[pays]['nom'])
+        civil = {'name': data[pays]['nom'], 'second_name': data[pays]['prenom_masculin'], 'nationnality': data[pays]['pays']}
+
+    elif 'noms' in data[pays] and 'prenoms_masculins' in data[pays]:
+        print('avec un s------------------------------')
+        print(data[pays]['pays'])
+        print(data[pays]['prenoms_masculins'][0])
+        print(data[pays]['noms'][0])
+        civil = {'name': data[pays]['noms'][0], 'second_name': data[pays]['prenoms_masculins'][0], 'nationnality': data[pays]['pays']}
+
+    else:
+        # Handle the case where the keys are missing or have unexpected values
+        print('Missing or unexpected keys in data for pays:', data[pays])
+        civil = civil = {'name': "114", 'second_name': '55', 'nationnality': '555'}
+
+    return civil
+
+def recup_value():
+    random_factor = random.randint(5, 50)
+    random_number = random_factor * 10000
+    final_number = random_number + 500000
+    return final_number
 
 def Recup_name():
     # Chemin vers le fichier JSON
-    json_path = "/home/louis/django/Django_base/static/json/Top_players.json"
+
+    json_directory = os.path.join(settings.STATIC_ROOT, 'json')
+    json_filename = "Top_players.json"
+    json_path = os.path.join(json_directory, json_filename)
 
     # Ouvrir et charger le fichier JSON
     with open(json_path, 'r') as json_file:
@@ -96,11 +161,14 @@ def generate_offensive_player_profile():
     feet = random.choices(FEET_CHOICE, weights=[0.80, 0.15,0.05])
     style = random.choices(STYLE_CHOICE, weights=[0.94, 0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1])
     poste = random.choices(POSTES_CHOICES)
-    print("poste------------",poste[0][1])
     poste = poste[0][1]
     style = style[0][1]
     feet = feet[0][1]
-    Nationnality = Recup_Nationnality()
+    civil = Recup_real_name()
+    Nationnality = civil['nationnality']
+    Name = civil['name']
+    Second_name = civil['second_name']
+    Value =recup_value()
    
     #categorie = random.choices(CATEGORIE_CHOICE, weights=[0.4,0.2,0.1,0.1,0.1,0.05,0.01])
     # Choisissez aléatoirement une taille parmi les six profils avec les pourcentages spécifiés
@@ -127,8 +195,6 @@ def generate_offensive_player_profile():
     plage_variation = list(range(-7, 7))
     poids_variation = random.choice(plage_variation )
     poids = taille_last_two_digits + poids_variation
-    player_recup = Recup_name()
-    Name = player_recup['nom']
     Birthday = generate_random_birthdate()
     Attaque = random.randint(60,75)
     Defense = random.randint(60,75)
@@ -147,7 +213,9 @@ def generate_offensive_player_profile():
         "Attaque": Attaque,
         "Defense":Defense,
         "General":General,
-        "Nationnality":Nationnality
+        "Nationnality":Nationnality,
+        "Second_name":Second_name,
+        "Value":Value
 
         
         # Ajoutez d'autres champs ici si nécessaire
@@ -173,11 +241,15 @@ def generate_defensive_player_profile():
     feet = random.choices(FEET_CHOICE, weights=[0.80, 0.15,0.05])
     style = random.choices(STYLE_CHOICE, weights=[0.94, 0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1])
     poste = random.choices(POSTES_CHOICES)
-    print("poste------------",poste[0][1])
+
     poste = poste[0][1]
     style = style[0][1]
     feet = feet[0][1]
-    Nationnality = Recup_Nationnality()
+    civil = Recup_real_name()
+    Nationnality = civil['nationnality']
+    Name = civil['name']
+    Second_name = civil['second_name']
+    Value =recup_value()
     #categorie = random.choices(CATEGORIE_CHOICE, weights=[0.4,0.2,0.1,0.1,0.1,0.05,0.01])
     # Choisissez aléatoirement une taille parmi les six profils avec les pourcentages spécifiés
     taille, _ = random.choices(taille_weights, weights=[0.01, 0.01, 0.05, 0.54, 0.24, 0.15])[0]
@@ -203,8 +275,7 @@ def generate_defensive_player_profile():
     plage_variation = list(range(-5, 9))
     poids_variation = random.choice(plage_variation )
     poids = taille_last_two_digits + poids_variation
-    player_recup = Recup_name()
-    Name = player_recup['nom']
+
     Birthday = generate_random_birthdate()
     Attaque = random.randint(60,75)
     Defense = random.randint(60,75)
@@ -221,7 +292,9 @@ def generate_defensive_player_profile():
         "Attaque": Attaque,
         "Defense":Defense,
         "General":General,
-        "Nationnality":Nationnality
+        "Nationnality":Nationnality,
+        "Second_name":Second_name,
+        "Value":Value
 
         
         # Ajoutez d'autres champs ici si nécessaire

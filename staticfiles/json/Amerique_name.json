@@ -47,12 +47,12 @@
     {
         "pays": "Cuba",
         "prenom_masculin": "Miguel Díaz-Canel",
-        "nom": null
+        "nom": "cuba"
     },
     {
         "pays": "Peru",
         "prenom_masculin": "Pedro Castillo",
-        "nom": null
+        "nom":"Peru"
     },
     {
         "pays": "Ecuador",

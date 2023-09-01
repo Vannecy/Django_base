@@ -1,7 +1,7 @@
 # Vues (views.py)
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Trading, Player,Team, Messagerie, Profil
-from .forms import PlayerForm, TradingForm,ComposeMessageForm,ComposeInitialMessageForm, DeleteMessagesForm
+from .forms import PlayerForm, TradingForm,ComposeMessageForm,ComposeInitialMessageForm, DeleteMessagesForm, ProfilForm, TeamForm,DeleteMessagesForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
@@ -21,41 +21,74 @@ def home(request):
     team = random.choice(team)
     player_profile = generate_offensive_player_profile()
     date_obj = datetime.strptime(player_profile['Birthday'], "%d/%m/%Y")
-    player = Player(nationnality=player_profile['Nationnality'], name=player_profile['Name'],player_team=team,value=500000,price=0,date_de_naissance=date_obj,size=player_profile['taille'],weight=player_profile['poids'],feet=player_profile['Feet'], style=player_profile['Style'],main_position=player_profile['Poste'],general=player_profile['General'],attaque=player_profile['Attaque'],defense=player_profile['Defense'],)
+    
+    player = Player(nationnality=player_profile['Nationnality'], name=player_profile['Name'],second_name=player_profile['Second_name'],player_team=team,value=player_profile['Value'],price=0,date_de_naissance=date_obj,size=player_profile['taille'],weight=player_profile['poids'],feet=player_profile['Feet'], style=player_profile['Style'],main_position=player_profile['Poste'],general=player_profile['General'],attaque=player_profile['Attaque'],defense=player_profile['Defense'],)
     player.save()
     team = Team.objects.all()
     team = random.choice(team)
     player_profile = generate_defensive_player_profile()
     date_obj = datetime.strptime(player_profile['Birthday'], "%d/%m/%Y")
-    player = Player(nationnality=player_profile['Nationnality'],name=player_profile['Name'],player_team=team,value=500000,price=0,date_de_naissance=date_obj,size=player_profile['taille'],weight=player_profile['poids'],feet=player_profile['Feet'], style=player_profile['Style'],main_position=player_profile['Poste'],general=player_profile['General'],attaque=player_profile['Attaque'],defense=player_profile['Defense'],)
+    player = Player(nationnality=player_profile['Nationnality'],name=player_profile['Name'],second_name=player_profile['Second_name'],player_team=team,value=player_profile['Value'],price=0,date_de_naissance=date_obj,size=player_profile['taille'],weight=player_profile['poids'],feet=player_profile['Feet'], style=player_profile['Style'],main_position=player_profile['Poste'],general=player_profile['General'],attaque=player_profile['Attaque'],defense=player_profile['Defense'],)
     player.save()
 
 
     return render(request, 'home.html')
 
-def profil(request): 
+@login_required(login_url='/auth/inscription/')
+def profil(request):
     profil = Profil.objects.filter(user_profil=request.user).first()
-    
-    return render(request, 'profil.html', {'profil':profil})
+    team_form = TeamForm()
+    profil_form = ProfilForm()
 
+    if request.method == 'POST':
+        if profil and not profil.team_profil:
+            # Si un profil existe mais pas d'équipe, associez l'équipe au profil
+            team_form = TeamForm(request.POST)
+            if team_form.is_valid():
+                team_name = team_form.cleaned_data['team_name']
+                print('team nammmmmmmme', team_name)
+                team = Team(name=team_name, owner=request.user, budget=50000)
+                team.save()
+                team.save()
+                profil.team_profil = team
+                profil.save()
+                return redirect('gestion:profil')
+        else:
+            # Si ni un profil ni une équipe n'existent, créez-les
+            team_form = TeamForm(request.POST)
+            profil_form = ProfilForm(request.POST)
+            if team_form.is_valid() and profil_form.is_valid():
+                team_name = team_form.cleaned_data['team_name']
+                print('team nammmmmmmme', team_name)
+                team = Team(name=team_name, owner=request.user, budget=50000)
+                team.save()
+                profil_name = profil_form.cleaned_data['profil_name']
+                profil = Profil(name=profil_name, user_profil=request.user, team_profil=team)
+                profil.save()
+                return redirect('gestion:profil')
 
-
+    return render(request, 'profil.html', {'team_form': team_form, 'profil_form': profil_form, 'profil': profil })
 
 
 #Messagerie---------------------------------------------------------------
+@login_required(login_url='/auth/inscription/')
 def messagerie(request):
     user = request.user
     status_filter = request.GET.get('status')
-    from_filter = request.GET.get('from')  # Récupérer la valeur du champ 'from'
-    trading_number_filter = request.GET.get('trading_number')  # Récupérer la valeur du champ 'trading_number'
+    from_filter = request.GET.get('from')
+    trading_number_filter = request.GET.get('trading_number')
     delete_form = DeleteMessagesForm(request.POST or None)
-                
+    
     messages = Messagerie.objects.filter(recever=user)
-    if 'delete_selected' in request.POST:
-            selected_messages = delete_form.cleaned_data['selected_messages']
-            print(selected_messages)
-            # Bouclez à travers les messages sélectionnés et supprimez-les
-    # Appliquer les filtres en fonction des valeurs des champs de recherche
+    
+    if request.method == 'POST':
+        if 'delete_selected' in request.POST:
+            delete_form = DeleteMessagesForm(request.POST)
+            if delete_form.is_valid():
+                selected_messages = delete_form.cleaned_data.get('selected_messages')
+                if selected_messages:
+                    Messagerie.objects.filter(id__in=selected_messages).delete()
+    
     if status_filter == 'unread':
         messages = messages.filter(status='non lus')
     elif status_filter == 'read':
@@ -63,23 +96,21 @@ def messagerie(request):
     elif status_filter == 'replied':
         messages = messages.filter(status='repondu')
     
-    if from_filter:  # Vérifier si 'from_filter' est défini
-        messages = messages.filter(sender__username__icontains=from_filter)  # Filtrer par nom d'utilisateur (from)
+    if from_filter:
+        messages = messages.filter(sender__username__icontains=from_filter)
     
-    if trading_number_filter:  # Vérifier si 'trading_number_filter' est défini
-        print(trading_number_filter)
-
+    if trading_number_filter:
         messages = messages.filter(trading_number_id=trading_number_filter)
     
     return render(request, 'messagerie.html', {
         'messages': messages,
         'status_filter': status_filter,
-        'from_filter': from_filter,  # Passer 'from_filter' au modèle pour pré-remplir le champ de recherche
-        'trading_number_filter': trading_number_filter,  # Passer 'trading_number_filter' au modèle pour pré-remplir le champ de recherche
+        'from_filter': from_filter,
+        'trading_number_filter': trading_number_filter,
+        'delete_form': delete_form,  # Passer le formulaire au modèle
     })
 
-
-
+@login_required(login_url='/auth/inscription/')
 def message_detail(request, messagerie_id):
     message = get_object_or_404(Messagerie, pk=messagerie_id)
     message.status = 'lus'
@@ -88,6 +119,7 @@ def message_detail(request, messagerie_id):
     
     
     return render(request, 'message_detail.html', {'message': message, 'trading':trading})
+@login_required(login_url='/auth/inscription/')
 def create_message(request):
     if request.method == 'POST':
         form = ComposeInitialMessageForm(request.POST)
@@ -123,23 +155,22 @@ def confirm_delete_message(request, message_id):
         return redirect('gestion:message_deleted')  # Redirigez vers la page de confirmation de suppression
 
     return render(request, 'confirm_delete_message.html', {'message_id': message_id})
-
+@login_required(login_url='/auth/inscription/')
 def delete_message(request, message_id):
     
     message = Messagerie.objects.get(id=message_id)
     message.delete()
 
     return redirect('gestion:messagerie')
-
+@login_required(login_url='/auth/inscription/')
 def delete_selected_messages(request):
     if request.method == 'POST':
-        selected_messages = request.POST.getlist('selected_messages')
-        # Supprimer les messages sélectionnés
-        Messagerie.objects.filter(id__in=selected_messages).delete()
-        return redirect('gestion:messagerie')
-
-    return HttpResponseNotFound("Page not found")
-
+        delete_form = DeleteMessagesForm(request.POST)
+        if delete_form.is_valid():
+            selected_messages = delete_form.cleaned_data['selected_messages']
+            Messagerie.objects.filter(id__in=selected_messages).delete()
+    return redirect('gestion:messagerie')
+@login_required(login_url='/auth/inscription/')
 def response_message(request, receiver_id, trading_number,message_id):
    
     receiver = User.objects.get(id=receiver_id)  # Assurez-vous d'importer le modèle User
@@ -186,7 +217,7 @@ def response_message(request, receiver_id, trading_number,message_id):
 
 #Messagerie---------------------------------------------------------------
 from .forms import PlayerForm, TeamForm
-
+@login_required(login_url='/auth/inscription/')
 def create_player(request):
     if request.method == 'POST':
         form = PlayerForm(request.POST)
@@ -198,27 +229,33 @@ def create_player(request):
     else:
         form = PlayerForm()
     return render(request, 'create_player.html', {'form': form})
-
+@login_required(login_url='/auth/inscription/')
 def create_team(request):
     if not request.user.team_set.exists():
         if request.method == 'POST':
             form = TeamForm(request.POST)
-            if form.is_valid():
+            form2 = ProfilForm(request.POST)
+            if form.is_valid() and form2.is_valid():             
                 team = form.save(commit=False)  # Crée l'instance du joueur sans enregistrer
                 team.owner = request.user  # Définit le propriétaire comme l'utilisateur connecté
+                team.budget = 500000             
                 team.save()  # Enregistre le joueur avec le propriétaire
-                return redirect('gestion:home')  # Redirigez vers la liste des joueurs
+                name = f'{team.owner} team'
+                profil = Profil(name=name, user_profil=request.user, team_profil=team)
+                profil.save()
+                return redirect('profil:home')  # Redirigez vers la liste des joueurs
         else:
             form = TeamForm()
-        return render(request, 'create_team.html', {'form': form})
+            form2 = ProfilForm()
+        return render(request, 'profil.html', {'form': form})
     else:
         message = 'Vous avez deja une equipe'
         return render(request, 'home.html', {'message': message})
 
 def player_list(request):
     players = Player.objects.all()
-
     search_name = request.GET.get('search_name')
+    search_nationnality = request.GET.get('search_nationnality')
     search_team = request.GET.get('search_team')
     search_poste = request.GET.get('search_poste')
     search_foot = request.GET.get('search_foot')
@@ -236,6 +273,9 @@ def player_list(request):
     if search_name:
         filters &= Q(name__istartswith=search_name)
 
+    if search_nationnality:
+        filters &= Q(nationnality__istartswith=search_nationnality)
+
     if search_team:
         filters &= Q(player_team__name__istartswith=search_team)
 
@@ -252,7 +292,7 @@ def player_list(request):
         filters &= Q(general__lte=search_general_max)
 
     # Appliquez les filtres uniquement si au moins un champ de recherche est spécifié
-    if search_foot or search_name or search_style or search_general_min or search_general_max or search_poste or search_team:
+    if search_foot or search_name or search_style or search_general_min or search_general_max or search_poste or search_team or search_nationnality:
         players = players.filter(filters)
     if sort_by:
         if sort_by == 'name':
@@ -313,11 +353,15 @@ def player_detail(request, player_id):
 
 def team_detail(request, team_id):
     team = get_object_or_404(Team, id=team_id)
-    return render(request, 'team_detail.html', {'team': team})
+    players = Player.objects.filter(player_team=team)
+    
+    return render(request, 'team_detail.html', {'team': team, 'players':players})
 
 
 #Trading-----------------------------------------------------------------------------------------------------------------------------------------------
-from django.utils import timezone
+
+
+@login_required(login_url='/auth/inscription/')
 def propose_trading(request, player_id):
     player = get_object_or_404(Player, pk=player_id)
     
@@ -338,7 +382,7 @@ def propose_trading(request, player_id):
     return render(request, 'propose_trading.html', {'player': player, 'form': form})
 
 from django.db.models import Q
-
+@login_required(login_url='/auth/inscription/')
 def trading_list(request):
     user = request.user
     sort_by = request.GET.get('sort_by')
@@ -482,7 +526,7 @@ def manage_trading(request, trading_id):
     
 
 
-
+@login_required(login_url='/auth/inscription/')
 def accept_trading(request, trading_id):
     trading = get_object_or_404(Trading, pk=trading_id)
 

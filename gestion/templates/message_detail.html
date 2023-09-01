@@ -79,15 +79,14 @@
     <hr>
     <p>{{ message.text }}</p><br>
     <td><a href="{% url 'gestion:confirm_delete_message' message_id=message.id %}" class="delete-button" onclick="return confirmDelete(this);"> Delete</a></td>
+
     {% if message.trading_number %}
 
-   
-    {% if trading.status_trading == 'pending' or trading.status_trading == 'proposed' %}
-    <a href="{{ message.get_reply_link }}" class="new-message-button">Répondre</a>
-        
+    {% if trading.status_trading == 'pending' or trading.status_trading == 'proposed'  %}
+            <a href="{{ message.get_reply_link }}" class="new-message-button">Répondre</a>      
             <a href="{% url 'gestion:manage_trading' trading_id=message.trading_number.id %}" class="new-message-button">Manage trading</a>
-            
-
-        {% endif %}
+        {% endif %}  
     {% endif %}
+    
+
 {% endblock %}

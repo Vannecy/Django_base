@@ -110,6 +110,7 @@
         <form method="get" action="{% url 'gestion:player_list' %}">
             <input type="text" name="search_name" placeholder="Search by name" value="">
             <input type="text" name="search_team" placeholder="Search by team" value="">
+            <input type="text" name="search_nationnality" placeholder="Search by nationnality" value="">
 
             <select name="search_foot">
                 <option value="">-- Select Foot --</option>
@@ -158,6 +159,7 @@
     <table class="player-table">
         <tr>
             <th>Name</th>
+            <th>Prenom</th>
             <th>Price (euros)</th>
             <th>Team</th>
             <th>Nationnality</th>
@@ -172,7 +174,8 @@
         {% for player in players %}
         <tr class="player-row">
             <td>{{ player.name }}</td>
-            <td>{{ player.value }}</td>
+            <td>{{ player.second_name }}</td>
+            <td>{{ player.value_visual }}</td>
             <td>{{ player.player_team }}</td>
             <td>{{ player.nationnality}}</td>
             <td>{{player.main_position}}</td>
