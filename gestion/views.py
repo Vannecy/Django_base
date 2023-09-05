@@ -11,9 +11,31 @@ from .tests import generate_offensive_player_profile,generate_random_birthdate,g
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import random
+from .heptagone import coordonnes_point
 
 def custom_404(request, exception):
     return render(request, '404.html', status=404)
+
+def diagramme(request):
+    player = Player.objects.all().first()
+    A_HEPTAGONE_X = 200
+    A_HEPTAGONE_Y = 0
+    positions= coordonnes_point(0.8, player.general, player.attaque, player.defense,player.attaque, player.general,player.defense, player.attaque)
+    liste_x = []
+    liste_y = []
+    for i in range(7):
+        print(positions[i])
+        liste_x.append(positions[i][0])
+        liste_y.append(positions[i][1])
+        print(liste_x[i])
+        print(liste_y[i])
+    AX,BX,CX,DX,EX,FX,GX = liste_x[0],liste_x[1],liste_x[2],liste_x[3],liste_x[4],liste_x[5],liste_x[6]
+    AY,BY,CY,DY,EY,FY,GY = liste_y[0],liste_y[1],liste_y[2],liste_y[3],liste_y[4],liste_y[5],liste_y[6]
+    points = [
+    {"x": A_HEPTAGONE_X, "y": A_HEPTAGONE_Y  -20},
+
+    ]
+    return render(request, 'diagramme.html', {'points':points,'AX': AX, 'BX':BX,'CX':CX, 'DX':DX, 'EX':EX, 'FX':FX, 'GX':GX, 'AY':AY, 'BY':BY, 'CY':CY, 'DY':DY, 'EY':EY, 'FY':FY, 'GY':GY})
 
 def home(request):   
 
@@ -22,13 +44,13 @@ def home(request):
     player_profile = generate_offensive_player_profile()
     date_obj = datetime.strptime(player_profile['Birthday'], "%d/%m/%Y")
     
-    player = Player(nationnality=player_profile['Nationnality'], name=player_profile['Name'],second_name=player_profile['Second_name'],player_team=team,value=player_profile['Value'],price=0,date_de_naissance=date_obj,size=player_profile['taille'],weight=player_profile['poids'],feet=player_profile['Feet'], style=player_profile['Style'],main_position=player_profile['Poste'],general=player_profile['General'],attaque=player_profile['Attaque'],defense=player_profile['Defense'],)
+    player = Player(nationnality=player_profile['Nationnality'], name=player_profile['Name'],second_name=player_profile['Second_name'],player_team=team,value=player_profile['Value'],price=0,date_de_naissance=date_obj,size=player_profile['taille'],weight=player_profile['poids'],feet=player_profile['Feet'], style=player_profile['Style'],main_position=player_profile['Poste'],general=player_profile['General'],attaque=player_profile['Attaque'],defense=player_profile['Defense'],vitesse = player_profile['Vitesse'],interception=player_profile['Interception'], passe=player_profile['Passe'], mental=player_profile['Mental'],physique=player_profile['Physique'])
     player.save()
     team = Team.objects.all()
     team = random.choice(team)
     player_profile = generate_defensive_player_profile()
     date_obj = datetime.strptime(player_profile['Birthday'], "%d/%m/%Y")
-    player = Player(nationnality=player_profile['Nationnality'],name=player_profile['Name'],second_name=player_profile['Second_name'],player_team=team,value=player_profile['Value'],price=0,date_de_naissance=date_obj,size=player_profile['taille'],weight=player_profile['poids'],feet=player_profile['Feet'], style=player_profile['Style'],main_position=player_profile['Poste'],general=player_profile['General'],attaque=player_profile['Attaque'],defense=player_profile['Defense'],)
+    player = Player(nationnality=player_profile['Nationnality'],name=player_profile['Name'],second_name=player_profile['Second_name'],player_team=team,value=player_profile['Value'],price=0,date_de_naissance=date_obj,size=player_profile['taille'],weight=player_profile['poids'],feet=player_profile['Feet'], style=player_profile['Style'],main_position=player_profile['Poste'],general=player_profile['General'],attaque=player_profile['Attaque'],defense=player_profile['Defense'],vitesse = player_profile['Vitesse'],interception=player_profile['Interception'], passe=player_profile['Passe'], mental=player_profile['Mental'],physique=player_profile['Physique'])
     player.save()
 
 
@@ -349,7 +371,30 @@ def team_list(request):
 
 def player_detail(request, player_id):
     player = get_object_or_404(Player, id=player_id)
-    return render(request, 'player_detail.html', {'player': player})
+    
+
+    A_HEPTAGONE_X = 200
+    A_HEPTAGONE_Y = 0
+    positions= coordonnes_point(0.8, player.attaque, player.vitesse,player.physique, player.defense,player.interception, player.passe,player.mental)
+    liste_x = []
+    liste_y = []
+    for i in range(7):
+        print(positions[i])
+        liste_x.append(positions[i][0])
+        liste_y.append(positions[i][1])
+        print(liste_x[i])
+        print(liste_y[i])
+    AX,BX,CX,DX,EX,FX,GX = liste_x[0],liste_x[1],liste_x[2],liste_x[3],liste_x[4],liste_x[5],liste_x[6]
+    AY,BY,CY,DY,EY,FY,GY = liste_y[0],liste_y[1],liste_y[2],liste_y[3],liste_y[4],liste_y[5],liste_y[6]
+    points = [
+    {"x": A_HEPTAGONE_X, "y": A_HEPTAGONE_Y  -20},
+
+    ]
+    return render(request, 'player_detail.html', {'player': player,'points':points,'AX': AX, 'BX':BX,'CX':CX, 'DX':DX, 'EX':EX, 'FX':FX, 'GX':GX, 'AY':AY, 'BY':BY, 'CY':CY, 'DY':DY, 'EY':EY, 'FY':FY, 'GY':GY})
+
+
+
+
 
 def team_detail(request, team_id):
     team = get_object_or_404(Team, id=team_id)

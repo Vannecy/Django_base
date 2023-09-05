@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Styles CSS pour le SVG */
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .hepta {
+            width: 100%; /* Utilisez 100% de la largeur de la fenêtre */
+            height: auto; /* Hauteur automatique en fonction de la largeur */
+            background-color: pink;
+            height: 90%; /* Augmentation de la hauteur à 90% */
+        }
+
+        svg {
+            display: block; /* Pour éviter les espaces indésirables */
+            margin: 0 auto; /* Centre le SVG horizontalement */
+            padding: 30px;
+        }
+
+        .heptagon {
+            fill: rgba(173, 216, 230, 0.3);
+            stroke: blue;
+            stroke-width: 2;
+            stroke-dasharray: 5;
+            
+        }
+
+        circle {
+            fill: red;
+        }
+
+        /* Style pour le premier groupe de lignes */
+        .first-group {
+            stroke: rgba(173, 216, 230, 0.6);
+            stroke-width: 2;
+        }
+
+        /* Style pour le deuxième groupe de lignes */
+        .second-group {
+            stroke: green; /* Couleur différente (vert) */
+            stroke-width: 2;
+        }
+
+        text {
+            font-size: 14px; /* Taille de la police */
+            text-anchor: middle; /* Centre le texte par rapport au point */
+            alignment-baseline: middle; /* Centre le texte verticalement */
+        }
+    </style>
+</head>
+<body>
+    Positions {{positions}}
+    <!-- Le SVG avec l'heptagone -->
+    <div class="hepta">
+        <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600">
+            <!-- Lignes reliant les points au centre -->
+            <line x1="250" y1="50" x2="250" y2="250" class="first-group" />
+            <line x1="410" y1="130" x2="250" y2="250" class="first-group" />
+            <line x1="430" y1="290" x2="250" y2="250" class="first-group" />
+            <line x1="330" y1="410" x2="250" y2="250" class="first-group" />
+            <line x1="170" y1="410" x2="250" y2="250" class="first-group" />
+            <line x1="70" y1="290" x2="250" y2="250" class="first-group" />
+            <line x1="90" y1="130" x2="250" y2="250" class="first-group" />
+
+            <!-- Heptagone plus harmonieux doublé en taille -->
+            <polygon class="heptagon" points="250,50 410,130 430,290 330,410 170,410 70,290 90,130" />
+
+            <!-- Points le long des axes avec des coordonnées absolues -->
+            <circle cx="250" cy="50" r="5" />
+            <circle cx="410" cy="130" r="5" />
+            <circle cx="430" cy="290" r="5" />
+            <circle cx="330" cy="410" r="5" />
+            <circle cx="170" cy="410" r="5" />
+            <circle cx="70" cy="290" r="5" />
+            <circle cx="90" cy="130" r="5" />
+
+            <!-- Deuxième groupe de lignes avec une couleur différente (vert) -->
+            <line x1="250" y1="50" x2="410" y2="130" class="second-group" />
+            <line x1="410" y1="130" x2="430" y2="290" class="second-group" />
+            <line x1="430" y1="290" x2="330" y2="410" class="second-group" />
+            <line x1="330" y1="410" x2="170" y2="410" class="second-group" />
+            <line x1="170" y1="410" x2="70" y2="290" class="second-group" />
+            <line x1="70" y1="290" x2="90" y2="130" class="second-group" />
+            <line x1="90" y1="130" x2="250" y2="50" class="second-group" />
+
+            <!-- Texte au-dessus des points d'extrémité -->
+            <text x="250" y="40">ATTAQUE</text> <!-- Ajustez la valeur "15" pour l'espacement vertical souhaité -->
+            <text x="440" y="120">VITESSE</text> <!-- Ajustez la valeur "15" pour l'espacement vertical souhaité -->
+            <text x="470" y="280">PHYSIQUE</text> <!-- Ajustez la valeur "15" pour l'espacement vertical souhaité -->
+            <text x="330" y="430">DEFENSE</text> <!-- Ajustez la valeur "15" pour l'espacement vertical souhaité -->
+            <text x="170" y="430">INTERCEPTION</text> <!-- Ajustez la valeur "15" pour l'espacement vertical souhaité -->
+            <text x="40" y="290">PASSE</text> <!-- Ajustez la valeur "15" pour l'espacement vertical souhaité -->
+            <text x="50" y="130">MENTAL</text> <!-- Ajustez la valeur "15" pour l'espacement vertical souhaité -->
+
+            <!-- POINTS STATS-->
+            <circle cx="{{AX}}" cy="{{AY}}" r="5" />
+            <circle cx="{{BX}}" cy="{{BY}}" r="5" />
+            <circle cx="{{CX}}" cy="{{CY}}" r="5" />
+            <circle cx="{{DX}}" cy="{{DY}}" r="5" />
+            <circle cx="{{EX}}" cy="{{EY}}" r="5" />
+            <circle cx="{{FX}}" cy="{{FY}}" r="5" />
+            <circle cx="{{GX}}" cy="{{GY}}" r="5" />
+
+            <line x1="{{AX}}" y1="{{AY}}" x2="{{BX}}" y2="{{BY}}" class="second-group" />
+            <line x1="{{BX}}" y1="{{BY}}" x2="{{CX}}" y2="{{CY}}" class="second-group" />
+            <line x1="{{CX}}" y1="{{CY}}" x2="{{DX}}" y2="{{DY}}" class="second-group" />
+            <line x1="{{DX}}" y1="{{DY}}" x2="{{EX}}" y2="{{EY}}" class="second-group" />
+            <line x1="{{EX}}" y1="{{EY}}" x2="{{FX}}" y2="{{FY}}" class="second-group" />
+            <line x1="{{FX}}" y1="{{FY}}" x2="{{GX}}" y2="{{GY}}" class="second-group" />
+            <line x1="{{GX}}" y1="{{GY}}" x2="{{AX}}" y2="{{AY}}" class="second-group" />
+         
+        </svg>
+    </div>
+</body>
+</html>

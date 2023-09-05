@@ -70,6 +70,11 @@ class Player(models.Model):
     general = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
     defense = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
     attaque = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
+    passe = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
+    vitesse = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
+    interception = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
+    mental = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
+    physique =models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
     def get_age():
         return
     def get_main_position_display_full(self):

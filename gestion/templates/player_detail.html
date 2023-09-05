@@ -1,80 +1,175 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<style>
-    /* Styles pour centrer le contenu */
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Styles pour centrer le contenu */
+        .container {
+            display: flex;
+            flex-direction: row; /* Utilisation de flex-direction pour aligner horizontalement */
+            justify-content: center; /* Aligner les éléments horizontalement au centre */
+            align-items: center;
+            text-align: center;
+          
+        }
 
-    /* Styles pour le titre de l'équipe */
-    h1.team-heading {
-        font-size: 34px;
-        color: rgb(0, 0, 0);
-        margin-bottom: 20px;
-    }
+        /* Styles pour le titre de l'équipe */
+        h1.team-heading {
+            font-size: 34px;
+            color: rgb(0, 0, 0);
+            margin-bottom: 20px;
+        }
 
-    /* Styles pour les informations du joueur */
-    ul.player-info {
-        list-style: none;
-        padding: 0;
-    }
+        /* Styles pour les informations du joueur */
+        ul.player-info {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            margin-right: 20px; /* Espacement entre les informations et le diagramme */
+        }
 
-    ul.player-info li {
-        font-size: 18px;
-        margin-bottom: 10px;
-    }
+        ul.player-info li {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
 
-    /* Styles pour le diagramme en triangle */
-    .triangle {
-        width: 0;
-        height: 0;
-        border-left: 50px solid transparent;
-        border-right: 50px solid transparent;
-        border-bottom: 100px solid rgb(0, 0, 0);
-        margin-top: 20px;
-    }
 
-    /* Styles pour les valeurs du diagramme */
-    .triangle-values {
-        display: flex;
-        justify-content: space-between;
-        width: 100px;
-        margin-top: 10px;
-    }
 
-    .triangle-values span {
-        font-size: 14px;
-    }
-</style>
+        .hepta {
+            /* Ajout de styles pour le positionnement du diagramme */
+            margin-left: 20px; /* Espacement entre les informations et le diagramme */
+        }
 
-<div class="container">
-    <h1 class="team-heading">Informations sur le joueur : {{ player.name }}</h1>
+        svg {
+            display: block;
+            margin: 0 auto;
+            padding: 30px;
+        }
 
-    <ul class="player-info">
-        <li>Nom : {{ player.name }}</li>
-        <li>Second nom : {{ player.second_name }}</li>
-        <li>Nationalité : {{ player.nationnality }}</li>
-        <li>Équipe : {{ player.player_team.name }}</li>
-        <li>Valeur : {{ player.value_visual }} euros</li>
-        <li>En transfert : {{ player.on_transfert_list }}</li>
-        <li>Born : {{ player.get_age }} ans</li>
-        <li>General : {{ player.general }}</li>
-        <li>Attaque : {{ player.attaque }}</li>
-        <li>Defense : {{ player.defense }}</li>
-        <!-- Ajoutez d'autres attributs du joueur ici -->
-    </ul>
+        .heptagon {
+            fill: rgba(173, 216, 230, 0.3);
+            stroke: blue;
+            stroke-width: 2;
+            stroke-dasharray: 5;
+        }
 
-    <!-- Diagramme en triangle -->
-    <div class="triangle"></div>
-    <div class="triangle-values">
-        <span>Attaque</span>
-        <span>General</span>
-        <span>Défense</span>
+        circle {
+            fill: red;
+        }
+
+        /* Style pour le premier groupe de lignes */
+        .first-group {
+            stroke: rgba(173, 216, 230, 0.6);
+            stroke-width: 2;
+        }
+
+        /* Style pour le deuxième groupe de lignes */
+        .second-group {
+            stroke: rgb(19, 0, 128);
+            stroke-width: 2;
+        }
+
+        text {
+            font-size: 14px;
+            text-anchor: middle;
+            alignment-baseline: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+        
+
+            <ul class="player-info">
+                <li><h2>Nom : {{ player.name }}</h2></li>
+                <li><h2>Second nom : {{ player.second_name }}</h2></li>
+                <li>Nationalité : {{ player.nationnality }}</li>
+                <li>Équipe : {{ player.player_team.name }}</li>
+                <li>Valeur : {{ player.value_visual }} euros</li>
+                <li>Poste : {{ player.main_position }}</li>
+                <li>Born : {{ player.get_age }} ans</li>
+                <li>General : {{ player.general }}</li>
+                <li>Attaque : {{ player.attaque }}</li>
+                <li>Defense : {{ player.defense }}</li>
+                <li>Physique: {{ player.physique }}</li>
+                <!-- Ajoutez d'autres attributs du joueur ici -->
+            </ul>
+        </div>
+        <div class="hepta">
+            <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600">
+                <!-- Lignes reliant les points au centre -->
+                <line x1="250" y1="50" x2="250" y2="250" class="first-group" />
+                <line x1="410" y1="130" x2="250" y2="250" class="first-group" />
+                <line x1="430" y1="290" x2="250" y2="250" class="first-group" />
+                <line x1="330" y1="410" x2="250" y2="250" class="first-group" />
+                <line x1="170" y1="410" x2="250" y2="250" class="first-group" />
+                <line x1="70" y1="290" x2="250" y2="250" class="first-group" />
+                <line x1="90" y1="130" x2="250" y2="250" class="first-group" />
+                
+                <!-- Heptagone plus harmonieux doublé en taille -->
+                <polygon class="heptagon" points="250,50 410,130 430,290 330,410 170,410 70,290 90,130" />
+ <!-- Ligne 50  (250.0, 150.0), (330.0, 190.0), (340.0, 270.0), (290.0, 330.0), (210.0, 330.0), (160.0, 270.0), (170.0, 190.0)]%-->
+                <line x1="250" y1="150" x2="330" y2="190" class="first-group" />
+                <line x1="330" y1="190" x2="340" y2="270" class="first-group" />
+                <line x1="340" y1="270" x2="290" y2="330" class="first-group" />
+                <line x1="290" y1="330" x2="210" y2="330" class="first-group" />
+                <line x1="210" y1="330" x2="160" y2="270" class="first-group" />
+                <line x1="160" y1="270" x2="170" y2="190" class="first-group" />
+                <line x1="170" y1="190" x2="250" y2="150" class="first-group" />
+
+                <!-- Points le long des axes avec des coordonnées absolues
+                <circle cx="250" cy="50" r="5" />
+                <circle cx="410" cy="130" r="5" />
+                <circle cx="430" cy="290" r="5" />
+                <circle cx="330" cy="410" r="5" />
+                <circle cx="170" cy="410" r="5" />
+                <circle cx="70" cy="290" r="5" />
+                <circle cx="90" cy="130" r="5" /> -->
+
+                <!-- Deuxième groupe de lignes avec une couleur différente (vert) -->
+                <line x1="250" y1="50" x2="410" y2="130" class="second-group" />
+                <line x1="410" y1="130" x2="430" y2="290" class="second-group" />
+                <line x1="430" y1="290" x2="330" y2="410" class="second-group" />
+                <line x1="330" y1="410" x2="170" y2="410" class="second-group" />
+                <line x1="170" y1="410" x2="70" y2="290" class="second-group" />
+                <line x1="70" y1="290" x2="90" y2="130" class="second-group" />
+                <line x1="90" y1="130" x2="250" y2="50" class="second-group" />
+
+                <!-- Texte au-dessus des points d'extrémité -->
+                <text x="250" y="40">ATTAQUE</text>
+                <text x="440" y="120">VITESSE</text>
+                <text x="470" y="280">PHYSIQUE</text>
+                <text x="330" y="430">DEFENSE</text>
+                <text x="170" y="430">INTERCEPTION</text>
+                <text x="40" y="290">PASSE</text>
+                <text x="50" y="130">MENTAL</text>
+
+                <!-- POINTS STATS -->
+                <circle cx="{{AX}}" cy="{{AY}}" r="5" />
+                <circle cx="{{BX}}" cy="{{BY}}" r="5" />
+                <circle cx="{{CX}}" cy="{{CY}}" r="5" />
+                <circle cx="{{DX}}" cy="{{DY}}" r="5" />
+                <circle cx="{{EX}}" cy="{{EY}}" r="5" />
+                <circle cx="{{FX}}" cy="{{FY}}" r="5" />
+                <circle cx="{{GX}}" cy="{{GY}}" r="5" />
+
+                <line x1="{{AX}}" y1="{{AY}}" x2="{{BX}}" y2="{{BY}}" class="second-group" />
+                <line x1="{{BX}}" y1="{{BY}}" x2="{{CX}}" y2="{{CY}}" class="second-group" />
+                <line x1="{{CX}}" y1="{{CY}}" x2="{{DX}}" y2="{{DY}}" class="second-group" />
+                <line x1="{{DX}}" y1="{{DY}}" x2="{{EX}}" y2="{{EY}}" class="second-group" />
+                <line x1="{{EX}}" y1="{{EY}}" x2="{{FX}}" y2="{{FY}}" class="second-group" />
+                <line x1="{{FX}}" y1="{{FY}}" x2="{{GX}}" y2="{{GY}}" class="second-group" />
+                <line x1="{{GX}}" y1="{{GY}}" x2="{{AX}}" y2="{{AY}}" class="second-group" />
+            </svg>
+        </div>
     </div>
-</div>
+</body>
+</html>
+
+
 {% endblock %}

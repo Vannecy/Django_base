@@ -10,6 +10,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('profil/', views.profil, name='profil'),
     path('custom_404/', views.custom_404, name='custom_404'),
+    path('diagramme/', views.diagramme, name='diagramme'),
 
     path('create_player/', views.create_player, name='create_player'),
     path('create_team/', views.create_team, name='create_team'),
@@ -17,6 +18,7 @@ urlpatterns = [
     path('team_list/', views.team_list, name='team_list'),
     path('team_detail/<int:team_id>/', views.team_detail, name='team_detail'),
     path('player_detail/<int:player_id>/', views.player_detail, name='player_detail'),
+    path('diagramme/<int:player_id>/', views.diagramme, name='diagramme'),
 
 
     path('manage_trading/<int:trading_id>/', views.manage_trading, name='manage_trading'),

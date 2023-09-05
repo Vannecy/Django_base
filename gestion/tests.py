@@ -196,8 +196,16 @@ def generate_offensive_player_profile():
     poids_variation = random.choice(plage_variation )
     poids = taille_last_two_digits + poids_variation
     Birthday = generate_random_birthdate()
-    Attaque = random.randint(60,75)
-    Defense = random.randint(60,75)
+    Attaque = random.randint(65,85)
+    Defense = random.randint(30,75) 
+    Vitesse = random.randint(50,85) 
+    Passe = random.randint(50,85) 
+    Interception = random.randint(30,75)
+    Mental = random.randint(50,85) 
+    Physique = random.randint(50,85) 
+
+
+
     General = (Attaque+Defense) / 2
     
 
@@ -212,6 +220,11 @@ def generate_offensive_player_profile():
         "Birthday":Birthday,
         "Attaque": Attaque,
         "Defense":Defense,
+        "Vitesse":Vitesse,
+        "Passe":Passe,
+        "Interception":Interception,
+        "Physique":Physique,
+        "Mental":Mental,
         "General":General,
         "Nationnality":Nationnality,
         "Second_name":Second_name,
@@ -277,8 +290,13 @@ def generate_defensive_player_profile():
     poids = taille_last_two_digits + poids_variation
 
     Birthday = generate_random_birthdate()
-    Attaque = random.randint(60,75)
-    Defense = random.randint(60,75)
+    Attaque = random.randint(53,85)
+    Defense = random.randint(65,85) 
+    Vitesse = random.randint(30,85) 
+    Passe = random.randint(30,85) 
+    Interception = random.randint(50,75)
+    Mental = random.randint(50,85) 
+    Physique = random.randint(60,85) 
     General = (Attaque+Defense) / 2
     # Créez un dictionnaire de profil de joueur
     player_profile = {
@@ -291,6 +309,11 @@ def generate_defensive_player_profile():
         "Birthday":Birthday,
         "Attaque": Attaque,
         "Defense":Defense,
+        "Vitesse":Vitesse,
+        "Passe":Passe,
+        "Interception":Interception,
+        "Physique":Physique,
+        "Mental":Mental,
         "General":General,
         "Nationnality":Nationnality,
         "Second_name":Second_name,
