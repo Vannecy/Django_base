@@ -67,6 +67,7 @@ def Recup_real_name():
     json_directory = os.path.join(settings.STATIC_ROOT, 'json')
 
     # Liste des fichiers JSON disponibles dans le répertoire
+    """
     json_files = [
         "Europe_name.json",
         "Afrique_name.json",
@@ -75,7 +76,10 @@ def Recup_real_name():
         "Pacific_name.json",
         "Arabic_name.json",
     ]
-
+    """
+    json_files = [
+        "Europe_name.json",
+    ]    
     # Choisissez un fichier JSON au hasard dans la liste
     json_filename = random.choice(json_files)
 

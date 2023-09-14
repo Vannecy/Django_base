@@ -107,9 +107,7 @@ class Joueur:
         print(self.nom, self.poste, self.attaque)
 
 
-one = Joueur("one", 34, "AT", "FR", "D")
-one.enregistrer_statistique(67.65,76,88,65,67,87)
-one.afficher()
+
 
 
 
