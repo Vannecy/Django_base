@@ -1,59 +1,438 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page de l'équipe</title>
+    <style>
+                .dragging {
+            border: 2px dashed #007BFF;
+        }
+                /* Pour enlever le soulignement des liens et ajouter un effet au survol */
+        a {
+            text-decoration: none; /* Enlève le soulignement */
+            color: #007BFF; /* Couleur du lien non survolé */
+            transition: color 0.2s ease-in-out; /* Effet de transition pour la couleur */
+        }
 
-<style>
-    /* Styles pour centrer le contenu */
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
+        a:hover {
+            color: #052241; /* Couleur du lien au survol */
+        }
+        /* Styles pour centrer le contenu */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Centrer verticalement le contenu */
+            text-align: left;
+            padding: 20px;
+        }
 
-    /* Styles pour le titre de l'équipe */
-    h1.team-heading {
-        font-size: 34px;
-        color: blue;
-        margin-bottom: 20px;
-    }
+        /* Styles pour le bloc des joueurs */
+        .player-list {
+            width: 40%;
+        }
 
-    /* Styles pour les informations des joueurs sans fond gris */
-    div.player-info {
-        font-size: 18px;
-        margin-bottom: 10px;
-        /* background-color: #f0f0f0; */ /* Supprimez cette ligne pour enlever le fond gris */
-        padding: 10px;
-        border-radius: 5px;
-    }
+        /* Styles pour la liste des joueurs */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
 
-    /* Styles pour le bouton "Detail" */
-    .player-detail-link {
-        
-        color: rgb(0, 0, 0);
-        padding: 5px 10px;
-        border-radius: 3px;
-        text-decoration: none; /* Enlève le soulignement des liens */
-        margin-left: 10px;
-    }
+        /* Styles pour chaque joueur dans la liste */
+        li {
+            margin-bottom: 10px;
+        }
 
-    .player-detail-link:hover {
-        background-color: darkblue;
-        color: rgb(255, 255, 255);
-    }
-</style>
+        /* Styles pour le terrain de football (image) */
+        .football-field {
+            width: 50%;
+            background-image: url('/static/image/terrain.png'); /* Spécifiez le chemin de votre image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 800px; /* Ajustez la hauteur selon vos besoins */
+            position: relative;
+            margin-right: 20px; /* Ajustez la valeur selon vos besoins */
+        }
 
-<div class="container">
-    <h1 class="team-heading">Team : {{team}} - Général : {{team.get_general}}</h1>
+        /* Styles pour les joueurs (cercles) */
+        .football-player {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-color: rgb(96, 182, 231);
+            border-radius: 50%;
+            border: 2px solid black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: transform 0.2s ease-in-out; /* Ajout de l'effet de transition */
+        }
 
-    {% for player in players %}
-    <div class="player-info">
-        <a href="{% url 'gestion:player_detail' player_id=player.id %}" class="player-detail-link">{{player.name}} {{player.second_name}} - Général : {{player.general}} - {{player.main_position}}</a>
+        /* Styles pour les numéros des joueurs */
+        .player-number {
+            font-weight: bold;
+        }
+
+        /* Styles pour les noms des joueurs au-dessus des cercles */
+        .player-name {
+            text-align: center;
+            position: absolute;
+            top: -30px; /* Ajustez la position verticale au besoin */
+            left: 50%; /* Centre horizontalement */
+            transform: translateX(-50%); /* Centre horizontalement */
+            font-size: 25px;
+            white-space: nowrap; /* Empêche le texte de passer à la ligne suivante */
+        }
+
+        /* Styles pour les joueurs au survol */
+        .football-player:hover {
+            transform: scale(1.1); /* Agrandir légèrement le joueur au survol */
+        }
+        /* Ajoutez ces styles dans votre fichier CSS ou dans la balise <style> existante */
+.hidden {
+    display: none;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="player-list">
+            <h1 class="team-heading">Team : {{team}} - Général : {{team.get_general}}</h1>
+
+            <ul>
+                {% for player in remplacants %}
+                <li>
+                    <a href="{% url 'gestion:player_detail' player_id=player.id %}" class="player-detail-link">{{player.name}} {{player.second_name}} - Général : {{player.general}} - {{player.main_position}}</a>
+                </li>
+                {% empty %}
+                <p>Aucun joueur dans cette équipe.</p>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="football-field" id="football-field">
+
+
+            <div class="football-player" style="top: 10%; left: 47%;" data-formation-player="{{formation.player1.id}}" data-formation-field="1" >
+                {% if player1  %}
+                <span class="player-name">{{player1}}</span>
+                {% else %}
+                <span class="player-name"></span>
+                {% endif %}
+                {% if player1.main_position %}
+                <span class="player-number">{{player1.main_position}}</span>
+                {% else %}
+                <span class="player-number"></span>
+                {% endif %}
+                <select class="player-selection hidden">
+                    <option value="" selected disabled>Sélectionnez un joueur</option>
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{ player.name }} {{ player.second_name }}</option>
+                    {% endfor %}
+                </select>
+                <button class="select-button hidden" data-player-id="{{ player1.id }}">Sélectionner</button>
+            </div>
+
+            <div class="football-player" style="top: 40%; left: 12%;" data-formation-player="{{formation.player2.id}}" data-formation-field="2" >
+                {% if player2  %}
+                <span class="player-name">{{player2}}</span>
+                {% else %}
+                <span class="player-name"></span>
+                {% endif %}
+                {% if player2.main_position %}
+                <span class="player-number">{{player2.main_position}}</span>
+                {% else %}
+                <span class="player-number"></span>
+                {% endif %}
+                <select class="player-selection hidden">
+                    <option value="" selected disabled>Sélectionnez un joueur</option>
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{ player.name }} {{ player.second_name }}</option>
+                    {% endfor %}
+                </select>
+                <button class="select-button hidden" data-player-id="{{ player2.id }}">Sélectionner</button>
+            </div>
+
+            <div class="football-player" style="top: 30%; left: 32%;" data-formation-player="{{formation.player3}}" data-formation-field="3" >
+                {% if player3  %}
+                <span class="player-name">{{player3}}</span>
+                {% else %}
+                <span class="player-name"></span>
+                {% endif %}
+                {% if player3.main_position %}
+                <span class="player-number">{{player3.main_position}}</span>
+                {% else %}
+                <span class="player-number"></span>
+                {% endif %}
+                <select class="player-selection hidden">
+                    <option value="" selected disabled>Sélectionnez un joueur</option>
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{ player.name }} {{ player.second_name }}</option>
+                    {% endfor %}
+                </select>
+                <button class="select-button hidden" data-player-id="{{ player3.id }}">Sélectionner</button>
+            </div>
+
+            <div class="football-player" style="top: 30%; left: 60%;" data-formation-player="{{formation.player4}}" data-formation-field="4" >
+                {% if player4  %}
+                <span class="player-name">{{player4}}</span>
+                {% else %}
+                <span class="player-name"></span>
+                {% endif %}
+                {% if player4.main_position %}
+                <span class="player-number">{{player4.main_position}}</span>
+                {% else %}
+                <span class="player-number"></span>
+                {% endif %}
+                <select class="player-selection hidden">
+                    <option value="" selected disabled>Sélectionnez un joueur</option>
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{ player.name }} {{ player.second_name }}</option>
+                    {% endfor %}
+                </select>
+                <button class="select-button hidden" data-player-id="{{ player4.id }}">Sélectionner</button>
+            </div>
+
+            <div class="football-player" style="top: 40%; left: 82%;" data-formation-player="{{formation.player5}}" data-formation-field="5" >
+                {% if player5  %}
+                <span class="player-name">{{player5}}</span>
+                {% else %}
+                <span class="player-name"></span>
+                {% endif %}
+                {% if player5.main_position %}
+                <span class="player-number">{{player5.main_position}}</span>
+                {% else %}
+                <span class="player-number"></span>
+                {% endif %}
+                <select class="player-selection hidden">
+                    <option value="" selected disabled>Sélectionnez un joueur</option>
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{ player.name }} {{ player.second_name }}</option>
+                    {% endfor %}
+                </select>
+                <button class="select-button hidden" data-player-id="{{ player5.id }}">Sélectionner</button>           
+            </div>
+
+
+            <div class="football-player" style="top: 50%; left: 47%;"data-formation-player="{{formation.player6}}" data-formation-field="6" >
+                {% if player6  %}
+                <span class="player-name">{{player5}}</span>
+                {% else %}
+                <span class="player-name"></span>
+                {% endif %}
+                {% if player6.main_position %}
+                <span class="player-number">{{player6.main_position}}</span>
+                {% else %}
+                <span class="player-number"></span>
+                {% endif %}
+                <select class="player-selection hidden">
+                    <option value="" selected disabled>Sélectionnez un joueur</option>
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{ player.name }} {{ player.second_name }}</option>
+                    {% endfor %}
+                </select>
+                <button class="select-button hidden" data-player-id="{{ player6.id }}">Sélectionner</button>           
+            </div>
+
+            <div class="football-player" style="top: 60%; left: 25%;"data-formation-player="{{formation.player7}}" data-formation-field="7" >
+                {% if player7  %}
+                <span class="player-name">{{player7}}</span>
+                {% else %}
+                <span class="player-name"></span>
+                {% endif %}
+                {% if player6.main_position %}
+                <span class="player-number">{{player7.main_position}}</span>
+                {% else %}
+                <span class="player-number"></span>
+                {% endif %}
+                <select class="player-selection hidden">
+                    <option value="" selected disabled>Sélectionnez un joueur</option>
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{ player.name }} {{ player.second_name }}</option>
+                    {% endfor %}
+                </select>
+                <button class="select-button hidden" data-player-id="{{ player7.id }}">Sélectionner</button>           
+            </div>
+
+            <div class="football-player" style="top: 60%; left: 65%;"data-formation-player="{{formation.player8}}" data-formation-field="8" >
+                {% if player8  %}
+                <span class="player-name">{{player8}}</span>
+                {% else %}
+                <span class="player-name"></span>
+                {% endif %}
+                {% if player6.main_position %}
+                <span class="player-number">{{player8.main_position}}</span>
+                {% else %}
+                <span class="player-number"></span>
+                {% endif %}
+                <select class="player-selection hidden">
+                    <option value="" selected disabled>Sélectionnez un joueur</option>
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{ player.name }} {{ player.second_name }}</option>
+                    {% endfor %}
+                </select>
+                <button class="select-button hidden" data-player-id="{{ player8.id }}">Sélectionner</button>           
+            </div>
+
+            <div class="football-player" style="top: 80%; left: 12%;"data-formation-player="{{formation.player9}}" data-formation-field="9" >
+                {% if player9  %}
+                <span class="player-name">{{player9}}</span>
+                {% else %}
+                <span class="player-name"></span>
+                {% endif %}
+                {% if player6.main_position %}
+                <span class="player-number">{{player9.main_position}}</span>
+                {% else %}
+                <span class="player-number"></span>
+                {% endif %}
+                <select class="player-selection hidden">
+                    <option value="" selected disabled>Sélectionnez un joueur</option>
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{ player.name }} {{ player.second_name }}</option>
+                    {% endfor %}
+                </select>
+                <button class="select-button hidden" data-player-id="{{ player9.id }}">Sélectionner</button>           
+            </div>
+
+            <div class="football-player" style="top: 80%; left: 82%;"data-formation-player="{{formation.player10}}" data-formation-field="10" >
+                {% if player10  %}
+                <span class="player-name">{{player10}}</span>
+                {% else %}
+                <span class="player-name"></span>
+                {% endif %}
+                {% if player6.main_position %}
+                <span class="player-number">{{player10.main_position}}</span>
+                {% else %}
+                <span class="player-number"></span>
+                {% endif %}
+                <select class="player-selection hidden">
+                    <option value="" selected disabled>Sélectionnez un joueur</option>
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{ player.name }} {{ player.second_name }}</option>
+                    {% endfor %}
+                </select>
+                <button class="select-button hidden" data-player-id="{{ player10.id }}">Sélectionner</button>           
+            </div>
+
+            <div class="football-player" style="top: 90%; left: 47%;"data-formation-player="{{formation.player11}}" data-formation-field="11" >
+                {% if player11  %}
+                <span class="player-name">{{player11}}</span>
+                {% else %}
+                <span class="player-name"></span>
+                {% endif %}
+                {% if player6.main_position %}
+                <span class="player-number">{{player11.main_position}}</span>
+                {% else %}
+                <span class="player-number"></span>
+                {% endif %}
+                <select class="player-selection hidden">
+                    <option value="" selected disabled>Sélectionnez un joueur</option>
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{ player.name }} {{ player.second_name }}</option>
+                    {% endfor %}
+                </select>
+                <button class="select-button hidden" data-player-id="{{ player11.id }}">Sélectionner</button>           
+            </div>
+
+           
+        </div>
     </div>
-    {% empty %}
-    <p>Aucun joueur dans cette équipe.</p>
-    {% endfor %}
-</div>
 
+
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+    const footballPlayers = document.querySelectorAll('.football-player');
+
+    footballPlayers.forEach(player => {
+        const select = player.querySelector('.player-selection');
+        const button = player.querySelector('.select-button');
+        const formationPlayer = player.getAttribute('data-formation-player');
+        const formationPlayerName = formationPlayer; // Stockez le nom du joueur de formation
+        const oldPlayerId = player.getAttribute('data-formation-player'); // Récupérez l'ancien ID du joueur
+        
+
+        player.addEventListener('click', () => {
+            select.classList.toggle('hidden');
+            button.classList.toggle('hidden');
+        });
+
+        select.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+
+        button.addEventListener('click', (event) => {
+            event.stopPropagation();
+            handleSelectButtonClick(event, formationPlayerName, oldPlayerId); // Passez l'ancien ID du joueur en paramètre
+        });
+    });
+
+    document.addEventListener('click', (event) => {
+        footballPlayers.forEach(player => {
+            const select = player.querySelector('.player-selection');
+            const button = player.querySelector('.select-button');
+
+            if (!player.contains(event.target)) {
+                select.classList.add('hidden');
+                button.classList.add('hidden');
+            }
+        });
+    });
+
+    function handleSelectButtonClick(event, formationPlayerName, oldPlayerId) {
+        const button = event.currentTarget;
+        const select = button.parentElement.querySelector('.player-selection');
+        const selectedPlayerId = select.value; // Récupérer la valeur sélectionnée dans la liste déroulante (ID du joueur)
+        const formationField = button.parentElement.getAttribute('data-formation-field'); // Récupérer le champ de formation correspondant
+        
+        const teamid = "{{team.id}}";
+        const formationid = "{{team.id}}";
+
+
+        
+
+
+        fetch(`/update_formation_player/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({
+                selected_player_id: selectedPlayerId,
+                formation_player_name: formationPlayerName,
+                formationField: formationField,
+                teamid: teamid,
+                formationid: formationid,
+                oldPlayerId: oldPlayerId, // Incluez l'ancien ID du joueur dans la requête
+
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            const playerNameSpan = button.parentElement.querySelector('.player-name');
+            playerNameSpan.textContent = data.player_name;
+            const playerNumberSpan = button.parentElement.querySelector('.player-number');
+            playerNumberSpan.textContent = data.player_number;
+            button.parentElement.setAttribute('data-formation-player', data.formationplayer_id);
+
+            
+            // Masquez le menu déroulant et le bouton "Sélectionner" du joueur actuel
+            select.classList.add('hidden');
+            button.classList.add('hidden');
+        })
+        .catch(error => {
+            console.error('Erreur lors de la mise à jour du joueur:', error);
+        });
+    }
+});
+
+
+
+    </script>
+</body>
+</html>
 {% endblock %}
