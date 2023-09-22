@@ -404,7 +404,8 @@ def team_detail(request, team_id):
     team = get_object_or_404(Team, id=team_id)
     
     remplacants = Player.objects.filter(player_team=team).filter(Q(position_on_the_field=None) | Q(position_on_the_field__icontains='Remplacent')).exclude(Q(injured=True) | Q(suspended=True))
-    players = Player.objects.all()
+    players = Player.objects.exclude(Q(injured=True) | Q(suspended=True))
+
     formation = Formation.objects.filter(team=team).first()
     injured_players =  Player.objects.filter(player_team=team).filter(injured=True)
     suspended_players = Player.objects.filter(player_team=team).filter(suspended=True)

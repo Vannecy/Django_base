@@ -478,68 +478,6 @@
         });
     }
 });
-let selectedPlayer = null;
-
-footballPlayers.forEach(player => {
-    player.addEventListener('mousedown', (event) => {
-        selectedPlayer = player;
-        const offsetX = event.clientX - player.getBoundingClientRect().left;
-        const offsetY = event.clientY - player.getBoundingClientRect().top;
-
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseUp);
-        player.addEventListener('mousedown', (event) => {
-    console.log('mousedown event triggered'); // Ajoutez cette ligne
-    // ...
-});
-        function onMouseMove(event) {
-            if (!selectedPlayer) return;
-            const newX = event.clientX - offsetX;
-            const newY = event.clientY - offsetY;
-            selectedPlayer.style.left = `${newX}px`;
-            selectedPlayer.style.top = `${newY}px`;
-        }
-
-        function onMouseUp(event) {
-            if (!selectedPlayer) return;
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
-
-            // Récupérez l'ID du joueur que vous êtes en train de glisser
-            const draggedPlayerId = selectedPlayer.getAttribute('data-formation-player');
-            // Récupérez l'ID du joueur cible où vous relâchez le cercle
-            const targetPlayerId = player.getAttribute('data-formation-player');
-            const formationid = "{{team.id}}";
-
-            // Créez un objet pour les données que vous souhaitez envoyer au backend
-            const requestData = {
-                draggedPlayerId: draggedPlayerId,
-                targetPlayerId: targetPlayerId,
-                formationid: formationid,
-                // Ajoutez d'autres données si nécessaire
-            };
-
-            // Effectuez votre fetch en incluant les données dans le corps de la requête
-            fetch(`/switch_formation_players/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}',
-                },
-                body: JSON.stringify(requestData),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // Mettez à jour l'affichage ou effectuez d'autres actions en fonction de la réponse du backend
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la mise à jour des joueurs:', error);
-                });
-
-            selectedPlayer = null;
-        }
-    });
-});
 
 
 
