@@ -11,7 +11,7 @@ class TradingAdmin(admin.ModelAdmin):
     list_filter = ('is_accepted',)
 
 class TeamAdmin(admin.ModelAdmin):
-    list_display = ('name', 'owner', 'budget')
+    list_display = ('name', 'owner', 'budget', 'id')
 
 class MessagerieAdmin(admin.ModelAdmin):
     list_display = ('sender', 'recever', 'status','id', 'date')

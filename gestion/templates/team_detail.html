@@ -22,15 +22,20 @@
         /* Styles pour centrer le contenu */
         .container {
             display: flex;
-            justify-content: space-between;
-            align-items: center; /* Centrer verticalement le contenu */
+            justify-content: center;
+            align-items: flex-start; /* Pour aligner les éléments en haut */
             text-align: left;
-            padding: 20px;
+            padding: 5px;
+           
         }
 
         /* Styles pour le bloc des joueurs */
         .player-list {
-            width: 40%;
+            width: 20%;
+            margin-right: 5% ;
+          
+            
+            
         }
 
         /* Styles pour la liste des joueurs */
@@ -53,6 +58,7 @@
             height: 800px; /* Ajustez la hauteur selon vos besoins */
             position: relative;
             margin-right: 20px; /* Ajustez la valeur selon vos besoins */
+            border: 3px solid #000; /* Bordure de 1 pixel solide de couleur noire */
         }
 
         /* Styles pour les joueurs (cercles) */
@@ -92,15 +98,19 @@
             transform: scale(1.1); /* Agrandir légèrement le joueur au survol */
         }
         /* Ajoutez ces styles dans votre fichier CSS ou dans la balise <style> existante */
-.hidden {
-    display: none;
-}
+        .hidden {
+            display: none;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
+        
+
         <div class="player-list">
             <h1 class="team-heading">Team : {{team}} - Général : {{team.get_general}}</h1>
+            <br>
 
             <ul>
                 {% for player in remplacants %}
@@ -111,19 +121,46 @@
                 <p>Aucun joueur dans cette équipe.</p>
                 {% endfor %}
             </ul>
+                <br><br>
+            <h1 class="team-heading">Suspendus :</h1>
+                <br>
+                <ul>
+                    {% for player in injured_players %}
+                    <li>
+                        <a href="{% url 'gestion:player_detail' player_id=player.id %}" class="player-detail-link">{{player.name}} {{player.second_name}} - Général : {{player.general}} - {{player.main_position}}</a>
+                    </li>
+                    {% empty %}
+                    <p>Aucun joueur dans cette équipe.</p>
+                    {% endfor %}
+                </ul>
+
+            <br><br>
+            <h1 class="team-heading">Injuries :</h1>
+                <br>
+                <ul>
+                    {% for player in suspended_players %}
+                    <li>
+                        <a href="{% url 'gestion:player_detail' player_id=player.id %}" class="player-detail-link">{{player.name}} {{player.second_name}} - Général : {{player.general}} - {{player.main_position}}</a>
+                    </li>
+                    {% empty %}
+                    <p>Aucun joueur dans cette équipe.</p>
+                    {% endfor %}
+                </ul>
         </div>
+
+    
 
         <div class="football-field" id="football-field">
 
 
-            <div class="football-player" style="top: 10%; left: 47%;" data-formation-player="{{formation.player1.id}}" data-formation-field="1" >
+            <div class="football-player" style="top: 10%; left: 47%;" draggable="true" data-formation-player="{{formation.player1.id}}" data-formation-field="1" >
                 {% if player1  %}
                 <span class="player-name">{{player1}}</span>
                 {% else %}
                 <span class="player-name"></span>
                 {% endif %}
-                {% if player1.main_position %}
-                <span class="player-number">{{player1.main_position}}</span>
+                {% if player1 %}
+                <span class="player-number">{{player1.number}}</span>
                 {% else %}
                 <span class="player-number"></span>
                 {% endif %}
@@ -136,14 +173,14 @@
                 <button class="select-button hidden" data-player-id="{{ player1.id }}">Sélectionner</button>
             </div>
 
-            <div class="football-player" style="top: 40%; left: 12%;" data-formation-player="{{formation.player2.id}}" data-formation-field="2" >
+            <div class="football-player" style="top: 40%; left: 12%;" draggable="true" data-formation-player="{{formation.player2.id}}" data-formation-field="2" >
                 {% if player2  %}
                 <span class="player-name">{{player2}}</span>
                 {% else %}
                 <span class="player-name"></span>
                 {% endif %}
-                {% if player2.main_position %}
-                <span class="player-number">{{player2.main_position}}</span>
+                {% if player2 %}
+                <span class="player-number">{{player2.number}}</span>
                 {% else %}
                 <span class="player-number"></span>
                 {% endif %}
@@ -156,14 +193,14 @@
                 <button class="select-button hidden" data-player-id="{{ player2.id }}">Sélectionner</button>
             </div>
 
-            <div class="football-player" style="top: 30%; left: 32%;" data-formation-player="{{formation.player3}}" data-formation-field="3" >
+            <div class="football-player" style="top: 30%; left: 32%;" draggable="true" data-formation-player="{{formation.player3.id}}" data-formation-field="3" >
                 {% if player3  %}
                 <span class="player-name">{{player3}}</span>
                 {% else %}
                 <span class="player-name"></span>
                 {% endif %}
-                {% if player3.main_position %}
-                <span class="player-number">{{player3.main_position}}</span>
+                {% if player3 %}
+                <span class="player-number">{{player3.number}}</span>
                 {% else %}
                 <span class="player-number"></span>
                 {% endif %}
@@ -176,14 +213,14 @@
                 <button class="select-button hidden" data-player-id="{{ player3.id }}">Sélectionner</button>
             </div>
 
-            <div class="football-player" style="top: 30%; left: 60%;" data-formation-player="{{formation.player4}}" data-formation-field="4" >
+            <div class="football-player" style="top: 30%; left: 60%;" draggable="true" data-formation-player="{{formation.player4.id}}" data-formation-field="4" >
                 {% if player4  %}
                 <span class="player-name">{{player4}}</span>
                 {% else %}
                 <span class="player-name"></span>
                 {% endif %}
-                {% if player4.main_position %}
-                <span class="player-number">{{player4.main_position}}</span>
+                {% if player4 %}
+                <span class="player-number">{{player4.number}}</span>
                 {% else %}
                 <span class="player-number"></span>
                 {% endif %}
@@ -196,14 +233,14 @@
                 <button class="select-button hidden" data-player-id="{{ player4.id }}">Sélectionner</button>
             </div>
 
-            <div class="football-player" style="top: 40%; left: 82%;" data-formation-player="{{formation.player5}}" data-formation-field="5" >
+            <div class="football-player" style="top: 40%; left: 82%;" draggable="true" data-formation-player="{{formation.player5.id}}" data-formation-field="5" >
                 {% if player5  %}
                 <span class="player-name">{{player5}}</span>
                 {% else %}
                 <span class="player-name"></span>
                 {% endif %}
-                {% if player5.main_position %}
-                <span class="player-number">{{player5.main_position}}</span>
+                {% if player5 %}
+                <span class="player-number">{{player5.number}}</span>
                 {% else %}
                 <span class="player-number"></span>
                 {% endif %}
@@ -216,15 +253,14 @@
                 <button class="select-button hidden" data-player-id="{{ player5.id }}">Sélectionner</button>           
             </div>
 
-
-            <div class="football-player" style="top: 50%; left: 47%;"data-formation-player="{{formation.player6}}" data-formation-field="6" >
+            <div class="football-player" style="top: 50%; left: 47%;" draggable="true" data-formation-player="{{formation.player6.id}}" data-formation-field="6" >
                 {% if player6  %}
                 <span class="player-name">{{player5}}</span>
                 {% else %}
                 <span class="player-name"></span>
                 {% endif %}
-                {% if player6.main_position %}
-                <span class="player-number">{{player6.main_position}}</span>
+                {% if player6 %}
+                <span class="player-number">{{player6.number}}</span>
                 {% else %}
                 <span class="player-number"></span>
                 {% endif %}
@@ -237,14 +273,14 @@
                 <button class="select-button hidden" data-player-id="{{ player6.id }}">Sélectionner</button>           
             </div>
 
-            <div class="football-player" style="top: 60%; left: 25%;"data-formation-player="{{formation.player7}}" data-formation-field="7" >
+            <div class="football-player" style="top: 60%; left: 25%;" draggable="true" data-formation-player="{{formation.player7.id}}" data-formation-field="7" >
                 {% if player7  %}
                 <span class="player-name">{{player7}}</span>
                 {% else %}
                 <span class="player-name"></span>
                 {% endif %}
-                {% if player6.main_position %}
-                <span class="player-number">{{player7.main_position}}</span>
+                {% if player7 %}
+                <span class="player-number">{{player7.number}}</span>
                 {% else %}
                 <span class="player-number"></span>
                 {% endif %}
@@ -257,14 +293,14 @@
                 <button class="select-button hidden" data-player-id="{{ player7.id }}">Sélectionner</button>           
             </div>
 
-            <div class="football-player" style="top: 60%; left: 65%;"data-formation-player="{{formation.player8}}" data-formation-field="8" >
+            <div class="football-player" style="top: 60%; left: 65%;" draggable="true" data-formation-player="{{formation.player8.id}}" data-formation-field="8" >
                 {% if player8  %}
                 <span class="player-name">{{player8}}</span>
                 {% else %}
                 <span class="player-name"></span>
                 {% endif %}
-                {% if player6.main_position %}
-                <span class="player-number">{{player8.main_position}}</span>
+                {% if player8 %}
+                <span class="player-number">{{player8.number}}</span>
                 {% else %}
                 <span class="player-number"></span>
                 {% endif %}
@@ -277,14 +313,14 @@
                 <button class="select-button hidden" data-player-id="{{ player8.id }}">Sélectionner</button>           
             </div>
 
-            <div class="football-player" style="top: 80%; left: 12%;"data-formation-player="{{formation.player9}}" data-formation-field="9" >
+            <div class="football-player" style="top: 80%; left: 12%;" draggable="true" data-formation-player="{{formation.player9.id}}" data-formation-field="9" >
                 {% if player9  %}
                 <span class="player-name">{{player9}}</span>
                 {% else %}
                 <span class="player-name"></span>
                 {% endif %}
-                {% if player6.main_position %}
-                <span class="player-number">{{player9.main_position}}</span>
+                {% if player9 %}
+                <span class="player-number">{{player9.number}}</span>
                 {% else %}
                 <span class="player-number"></span>
                 {% endif %}
@@ -297,14 +333,14 @@
                 <button class="select-button hidden" data-player-id="{{ player9.id }}">Sélectionner</button>           
             </div>
 
-            <div class="football-player" style="top: 80%; left: 82%;"data-formation-player="{{formation.player10}}" data-formation-field="10" >
+            <div class="football-player" style="top: 80%; left: 82%;" draggable="true" data-formation-player="{{formation.player10.id}}" data-formation-field="10" >
                 {% if player10  %}
                 <span class="player-name">{{player10}}</span>
                 {% else %}
                 <span class="player-name"></span>
                 {% endif %}
-                {% if player6.main_position %}
-                <span class="player-number">{{player10.main_position}}</span>
+                {% if player10 %}
+                <span class="player-number">{{player10.number}}</span>
                 {% else %}
                 <span class="player-number"></span>
                 {% endif %}
@@ -317,14 +353,14 @@
                 <button class="select-button hidden" data-player-id="{{ player10.id }}">Sélectionner</button>           
             </div>
 
-            <div class="football-player" style="top: 90%; left: 47%;"data-formation-player="{{formation.player11}}" data-formation-field="11" >
+            <div class="football-player" style="top: 90%; left: 47%;" draggable="true" data-formation-player="{{formation.player11.id}}" data-formation-field="11" >
                 {% if player11  %}
                 <span class="player-name">{{player11}}</span>
                 {% else %}
                 <span class="player-name"></span>
                 {% endif %}
-                {% if player6.main_position %}
-                <span class="player-number">{{player11.main_position}}</span>
+                {% if player11 %}
+                <span class="player-number">{{player11.number}}</span>
                 {% else %}
                 <span class="player-number"></span>
                 {% endif %}
@@ -339,8 +375,9 @@
 
            
         </div>
+    
     </div>
-
+ 
 
     <script>
         
@@ -350,18 +387,24 @@
     footballPlayers.forEach(player => {
         const select = player.querySelector('.player-selection');
         const button = player.querySelector('.select-button');
-        const formationPlayer = player.getAttribute('data-formation-player');
-        const formationPlayerName = formationPlayer; // Stockez le nom du joueur de formation
+
         const oldPlayerId = player.getAttribute('data-formation-player'); // Récupérez l'ancien ID du joueur
         
 
         player.addEventListener('click', () => {
+            
             select.classList.toggle('hidden');
             button.classList.toggle('hidden');
         });
 
         select.addEventListener('click', (event) => {
             event.stopPropagation();
+        });
+
+        button.addEventListener('click', (event) => {
+            event.stopPropagation();
+            const formationPlayerName = player.getAttribute('data-formation-player'); // Déplacez cette ligne ici
+            handleSelectButtonClick(event, formationPlayerName, oldPlayerId); // Passez l'ancien ID du joueur en paramètre
         });
 
         button.addEventListener('click', (event) => {
@@ -389,11 +432,7 @@
         const formationField = button.parentElement.getAttribute('data-formation-field'); // Récupérer le champ de formation correspondant
         
         const teamid = "{{team.id}}";
-        const formationid = "{{team.id}}";
-
-
-        
-
+        const formationid = "{{formation.id}}";
 
         fetch(`/update_formation_player/`, {
             method: 'POST',
@@ -413,21 +452,93 @@
         })
         .then(response => response.json())
         .then(data => {
+            const playerToRemove = document.querySelector(`[data-formation-player="${selectedPlayerId}"]`);
+            if (playerToRemove) {
+                const playerNameSpan = playerToRemove.querySelector('.player-name');
+                if (playerNameSpan) {
+                    playerNameSpan.textContent = ""; // Effacez le texte du nom du joueur
+                }
+            }
             const playerNameSpan = button.parentElement.querySelector('.player-name');
             playerNameSpan.textContent = data.player_name;
             const playerNumberSpan = button.parentElement.querySelector('.player-number');
             playerNumberSpan.textContent = data.player_number;
             button.parentElement.setAttribute('data-formation-player', data.formationplayer_id);
-
+            
+ 
             
             // Masquez le menu déroulant et le bouton "Sélectionner" du joueur actuel
             select.classList.add('hidden');
             button.classList.add('hidden');
+
+            oldPlayerId = data.formationplayer_id;
         })
         .catch(error => {
             console.error('Erreur lors de la mise à jour du joueur:', error);
         });
     }
+});
+let selectedPlayer = null;
+
+footballPlayers.forEach(player => {
+    player.addEventListener('mousedown', (event) => {
+        selectedPlayer = player;
+        const offsetX = event.clientX - player.getBoundingClientRect().left;
+        const offsetY = event.clientY - player.getBoundingClientRect().top;
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+        player.addEventListener('mousedown', (event) => {
+    console.log('mousedown event triggered'); // Ajoutez cette ligne
+    // ...
+});
+        function onMouseMove(event) {
+            if (!selectedPlayer) return;
+            const newX = event.clientX - offsetX;
+            const newY = event.clientY - offsetY;
+            selectedPlayer.style.left = `${newX}px`;
+            selectedPlayer.style.top = `${newY}px`;
+        }
+
+        function onMouseUp(event) {
+            if (!selectedPlayer) return;
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+
+            // Récupérez l'ID du joueur que vous êtes en train de glisser
+            const draggedPlayerId = selectedPlayer.getAttribute('data-formation-player');
+            // Récupérez l'ID du joueur cible où vous relâchez le cercle
+            const targetPlayerId = player.getAttribute('data-formation-player');
+            const formationid = "{{team.id}}";
+
+            // Créez un objet pour les données que vous souhaitez envoyer au backend
+            const requestData = {
+                draggedPlayerId: draggedPlayerId,
+                targetPlayerId: targetPlayerId,
+                formationid: formationid,
+                // Ajoutez d'autres données si nécessaire
+            };
+
+            // Effectuez votre fetch en incluant les données dans le corps de la requête
+            fetch(`/switch_formation_players/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                body: JSON.stringify(requestData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Mettez à jour l'affichage ou effectuez d'autres actions en fonction de la réponse du backend
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la mise à jour des joueurs:', error);
+                });
+
+            selectedPlayer = null;
+        }
+    });
 });
 
 

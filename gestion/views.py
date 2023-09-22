@@ -402,9 +402,14 @@ def player_detail(request, player_id):
 
 def team_detail(request, team_id):
     team = get_object_or_404(Team, id=team_id)
-    remplacants = Player.objects.filter(player_team=team).filter(Q(position_on_the_field=None) | Q(position_on_the_field__icontains='Rp'))
+    
+    remplacants = Player.objects.filter(player_team=team).filter(Q(position_on_the_field=None) | Q(position_on_the_field__icontains='Remplacent')).exclude(Q(injured=True) | Q(suspended=True))
     players = Player.objects.all()
     formation = Formation.objects.filter(team=team).first()
+    injured_players =  Player.objects.filter(player_team=team).filter(injured=True)
+    suspended_players = Player.objects.filter(player_team=team).filter(suspended=True)
+    
+
     
 
     
@@ -423,6 +428,8 @@ def team_detail(request, team_id):
     player11 = formation.player11
      
     return render(request, 'team_detail.html', {
+        'injured_players':injured_players,
+        'suspended_players':suspended_players,
         'team': team,
         'formation':formation,
         'players':players,
@@ -442,43 +449,77 @@ def team_detail(request, team_id):
 
 def update_formation_player(request):
     if request.method == 'POST':
+        # Dans votre modèle Python (views.py, par exemple)
+        poste_abrege = {
+            'Remplacent': 'Rp',
+            'Buteur': 'BU',
+            'Ailier_droit': 'AD',
+            'Ailier_gauche': 'AG',
+            'Milieu_gauche': 'MG',
+            'Milieu_droit': 'MD',
+            'Milieu_defensif': 'MDC',
+            'Defenseur_Gauche': 'DG',
+            'Defenseur_Droit': 'DD',
+            'Defenseur_Cent_G': 'DCG',
+            'Defenseur_Cent_D': 'DCD',
+            'Goalkipper': 'GK',
+        }
+
         data = json.loads(request.body)
         formation_field = data['formationField']
         selected_player_id = Player.objects.filter(id=data['selected_player_id']).first()
-        formation = Formation.objects.filter(id=data['formationid']).first()       
-        old_formation_player_name =  Player.objects.filter(id=data["oldPlayerId"]).first()
-        gk_player = Player.objects.filter(position_on_the_field="Goalkipper").first()
-
-        poste_liste = ["Goalkipper", "Defenseur_Droit" ]
-        poste = poste_liste[(int(formation_field))-1]
-
-
-        if gk_player:
-            print(gk_player)
-            gk_player.position_on_the_field = "Remplacent"
-            gk_player.save()
-
-        print(old_formation_player_name)
-        old_formation_player_name.set_position_on_the_field("Remplacent" )     
-        old_formation_player_name.save()     
+        formation = Formation.objects.filter(id=data['formationid']).first()
         
-        print(selected_player_id)  
+        print("formation.....", data['formationid'])
+        poste_liste = ["Goalkipper", "Defenseur_Droit", "Defenseur_Cent_D", "Defenseur_Cent_G", "Defenseur_Gauche","Milieu_defensif", "Milieu_droit", "Milieu_gauche","Ailier_droit","Ailier_gauche", "Buteur" ]
+        poste = poste_liste[(int(formation_field))-1]    
+        if data["oldPlayerId"]:   
+            old_formation_player_name =  Player.objects.filter(id=data["oldPlayerId"]).first()
+            old_formation_player_name.set_position_on_the_field("Remplacent" )     
+            old_formation_player_name.save()   
+            old_player_id = old_formation_player_name.id
+            old_formation_player_name.save()
+        else:
+            print("Pas diddddddddddddddddd")
+            old_player_id = 0
+            
+        poste_on_the_field_old_player = Player.objects.filter(position_on_the_field=poste).first()
+        print(poste)
+
+        if poste_on_the_field_old_player:
+            print(poste_on_the_field_old_player)
+            poste_on_the_field_old_player.position_on_the_field = "Remplacent"
+            poste_on_the_field_old_player.save()
+
+               # Check if the selected player is already occupying a position in the formation
+        # Parcourez les 11 attributs de la formation pour mettre à None si un joueur est sélectionné
+        for i in range(1, 12):
+            champ_formation = f'player{i}'
+            joueur = getattr(formation, champ_formation)
+            if joueur:
+                print(str(joueur.id) + " " + str(selected_player_id.id))
+                if joueur.id == selected_player_id.id :
+                    # Mettez à None le champ correspondant dans la formation
+                    print(champ_formation)
+                    setattr(formation, champ_formation, None)
+                    formation.save()
+
         selected_player_id.set_position_on_the_field(poste)
         selected_player_id.save()
 
-        print(data['formationField'])
         if formation_field in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']:
             
             
             formation_attribute = f'player{formation_field}'
+            
             setattr(formation, formation_attribute, selected_player_id)
      
             formation.save()
-            old_formation_player_name.save()
+            
           
             # Récupérez le nom du joueur sélectionné
             player_name = f"{selected_player_id.name} {selected_player_id.second_name}"
-            old_player_id = old_formation_player_name.id
+            
             # Renvoyez les nouvelles données de player_name sous forme de JSON
             response_data = {
                 'player_name': player_name,
@@ -496,7 +537,49 @@ def update_formation_player(request):
     else:
         return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
 
+def switch_formation_players(request):
+    if request.method == 'POST':
+        try:
+            print('enter')
+            # Récupérez les données JSON envoyées depuis le front-end
+            data = json.loads(request.body)
+            dragged_player_id = data['draggedPlayerId']
+            target_player_id = data['targetPlayerId']
+            formationid = data['formationid']
 
+            # Recherchez les joueurs dans la base de données en fonction de leurs ID
+            dragged_player = Player.objects.get(id=dragged_player_id)
+            target_player = Player.objects.get(id=target_player_id)
+            formation = Formation.objects.filter(id=formationid)
+
+            # Obtenez les noms des champs de formation correspondant à ces joueurs
+            dragged_player_field = None
+            target_player_field = None
+
+
+            for field_name in formation._meta.get_fields():
+                if getattr(formation, field_name.name) == dragged_player:
+                    dragged_player_field = field_name.name
+                elif getattr(formation, field_name.name) == target_player:
+                    target_player_field = field_name.name
+
+            # Échangez les joueurs dans les champs de formation
+            if dragged_player_field and target_player_field:
+                setattr(formation, dragged_player_field, target_player)
+                setattr(formation, target_player_field, dragged_player)
+                formation.save()
+            else:
+                return JsonResponse({'error': 'Champs de formation invalides'}, status=400)
+
+            # Retournez une réponse JSON pour indiquer le succès
+            return JsonResponse({'success': True})
+
+        except Player.DoesNotExist:
+            return JsonResponse({'error': 'Joueur introuvable'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
 
 #Trading-----------------------------------------------------------------------------------------------------------------------------------------------
 

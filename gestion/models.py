@@ -72,7 +72,7 @@ class Profil(models.Model):
         return self.name
 
 class Player(models.Model):
-    TEAM_POSTES =  (('Remplacent', 'Rp'),('Buteur', 'BU'), ('Ailier_droit', 'AD'), ('Aillier_gauche', 'AG'), ('Milieu_Offensif', 'MO'), ('Milieu_Centrale','MC'),('Milieu_defensif','MDC'),('Defenseur_Gauche','DG'),('Defenseur_Droit','DD'),('Defenseur_Centrale','DC'),('Goalkipper','GK'))
+    TEAM_POSTES =  (('Remplacent', 'Rp'),('Buteur', 'BU'), ('Ailier_droit', 'AD'), ('Ailier_gauche', 'AG'), ('Milieu_gauche', 'MG'), ('Milieu_droit','MD'),('Milieu_defensif','MDC'),('Defenseur_Gauche','DG'),('Defenseur_Droit','DD'),('Defenseur_Cent_G','DCG'),('Defenseur_Cent_D','DCD'),('Goalkipper','GK'))
     POSTE_CHOICES = (('Buteur', 'BU'), ('Ailier_droit', 'AD'), ('Aillier_gauche', 'AG'), ('Milieu_Offensif', 'MO'), ('Milieu_droit', 'MD'), ('Milieu_Gauche', 'MG'), ('Milieu_Centrale','MC'),('Milieu_defensif','MDC'),('Defenseur_Gauche','DG'),('Defenseur_Droit','DD'),('Defenseur_Centrale','DC'),('Goalkipper','GK'))
     FEET_CHOICE = (('Right', 'R'),('Left','L'),('RL','RL'))
     STYLE_CHOICE = (('Random','Random'),('Artiste','Artiste'), ('Dog','Dog'), ('Elegant','Elegant'), ('Killer','Killer'), ('Fidele','Fidele'), ('Leader','Leader'), ('Runner','Runner'), ('Fighter','Fighter'))
@@ -89,6 +89,9 @@ class Player(models.Model):
 
     is_starter = models.BooleanField(default=False) #Sur le terrain
     position_on_the_field = models.CharField(max_length=20, choices=TEAM_POSTES, blank=True, null=True)
+    injured = models.BooleanField(default=False,blank=True, null=True)
+    suspended = models.BooleanField(default=False,blank=True, null=True)
+    
 
     date_de_naissance = models.DateField(blank=True, null=True)
     size= models.PositiveSmallIntegerField(verbose_name="Taille (cm)", validators=[MinValueValidator(150), MaxValueValidator(220)], blank=True, null=True)
@@ -182,13 +185,13 @@ class Formation(models.Model):
 
     name = models.CharField(max_length=100)
     team = models.ForeignKey(Team, on_delete=models.CASCADE,default=None,null=True)
-    
-    TEAM_POSTES =  (('Remplacent', 'Rp'),('Buteur', 'BU'), ('Ailier_droit', 'AD'), ('Aillier_gauche', 'AG'), ('Milieu_Offensif', 'MO'), ('Milieu_Centrale','MC'),('Milieu_defensif','MDC'),('Defenseur_Gauche','DG'),('Defenseur_Droit','DD'),('Defenseur_Centrale','DC'),('Goalkipper','GK'))
+
+    TEAM_POSTES =  (('Remplacent', 'Rp'),('Buteur', 'BU'), ('Ailier_droit', 'AD'), ('Ailier_gauche', 'AG'), ('Milieu_gauche', 'MG'), ('Milieu_droit','MD'),('Milieu_defensif','MDC'),('Defenseur_Gauche','DG'),('Defenseur_Droit','DD'),('Defenseur_Cent_G','DCG'),('Defenseur_Cent_D','DCD'),('Goalkipper','GK'))
 
     player1 = models.ForeignKey(Player, on_delete=models.CASCADE,default=None, blank=True, null=True,related_name='formation_player1')
     player1_x = models.DecimalField(max_digits=10, decimal_places=0,default=None, blank=True, null=True)
     player1_y = models.DecimalField(max_digits=10, decimal_places=0,default=None, blank=True, null=True)
-    player1_poste = models.CharField(max_length=20, choices=TEAM_POSTES,default='GK', blank=True, null=True)
+    player1_poste = models.CharField(max_length=20, default='GK', blank=True, null=True)
 
     player2 = models.ForeignKey(Player, on_delete=models.CASCADE,default=None, blank=True, null=True,related_name='formation_player2')
     player2_x = models.DecimalField(max_digits=10, decimal_places=0,default=None, blank=True, null=True)
