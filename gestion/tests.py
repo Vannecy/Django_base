@@ -79,6 +79,8 @@ def Recup_real_name():
     """
     json_files = [
         "Europe_name.json",
+        "Afrique_name.json",
+        
     ]    
     # Choisissez un fichier JSON au hasard dans la liste
     json_filename = random.choice(json_files)
@@ -99,21 +101,41 @@ def Recup_real_name():
 
     
     nb = len(data)
+    
     pays = random.randint(0, nb - 1)
-
+    #print("Data:                   ", data[pays])
     if 'nom' in data[pays] and 'prenom_masculin' in data[pays]:
+        """"
         print('sans un s')
+        print("")
         print(data[pays]['pays'])
-        print(data[pays]['prenom_masculin'])
-        print(data[pays]['nom'])
-        civil = {'name': data[pays]['nom'], 'second_name': data[pays]['prenom_masculin'], 'nationnality': data[pays]['pays']}
+        print("Nombre de prenoms pour :",len(data[pays]['prenom_masculin']))
+        #print(data[pays]['nom'])
+        """
+        nb_total_prenom = len(data[pays]['prenom_masculin'])
+        aleatoire_prenom = random.randint(0, nb_total_prenom-1)
+        nb_total_nom = len(data[pays]['nom'])
+        aleatoire_nom = random.randint(0, nb_total_nom-1)
+        civil = {'name': data[pays]['nom'][aleatoire_nom], 'second_name': data[pays]['prenom_masculin'][aleatoire_prenom], 'nationnality': data[pays]['pays']}
+        print(civil)
 
     elif 'noms' in data[pays] and 'prenoms_masculins' in data[pays]:
+        """
         print('avec un s------------------------------')
+        print("")
         print(data[pays]['pays'])
-        print(data[pays]['prenoms_masculins'][0])
-        print(data[pays]['noms'][0])
-        civil = {'name': data[pays]['noms'][0], 'second_name': data[pays]['prenoms_masculins'][0], 'nationnality': data[pays]['pays']}
+        print("Nombre de prenoms pour :", len(data[pays]['prenoms_masculins']))
+        print("Tous les prenoms :", data[pays]['prenoms_masculins'])
+        print("prenoms pour le cinquieme :", data[pays]['prenoms_masculins'][5])
+        print("prenoms pour le premier :", data[pays]['prenoms_masculins'][0])
+        """
+        nb_total_prenom = len(data[pays]['prenoms_masculins'])
+        aleatoire_prenom = random.randint(0, nb_total_prenom-1)
+        nb_total_nom = len(data[pays]['noms'])
+        aleatoire_nom = random.randint(0, nb_total_nom-1)
+        
+        civil = {'name': data[pays]['noms'][aleatoire_nom], 'second_name': data[pays]['prenoms_masculins'][aleatoire_prenom], 'nationnality': data[pays]['pays']}
+        print(civil)
 
     else:
         # Handle the case where the keys are missing or have unexpected values
@@ -165,7 +187,9 @@ def generate_offensive_player_profile():
     feet = random.choices(FEET_CHOICE, weights=[0.80, 0.15,0.05])
     style = random.choices(STYLE_CHOICE, weights=[0.94, 0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1])
     poste = random.choices(POSTES_CHOICES)
-    poste = poste[0][1]
+    print("poste choisi",poste)
+    poste = poste[0][0]
+    print("poste choisi",poste)
     style = style[0][1]
     feet = feet[0][1]
     civil = Recup_real_name()
@@ -210,7 +234,7 @@ def generate_offensive_player_profile():
 
 
 
-    General = (Attaque+Defense) / 2
+    General = int((Attaque+Defense+Vitesse+Passe+Interception+Mental+Physique) / 7)
     
 
     # Créez un dictionnaire de profil de joueur
@@ -258,8 +282,9 @@ def generate_defensive_player_profile():
     feet = random.choices(FEET_CHOICE, weights=[0.80, 0.15,0.05])
     style = random.choices(STYLE_CHOICE, weights=[0.94, 0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1])
     poste = random.choices(POSTES_CHOICES)
-
-    poste = poste[0][1]
+    
+    poste = poste[0][0]
+    
     style = style[0][1]
     feet = feet[0][1]
     civil = Recup_real_name()

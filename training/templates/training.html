@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        /*background-image: url("{% static 'image/raw.jpg' %}");*/
+        background-size: cover;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .top-divs,
+    .bottom-divs {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .transparent-background {
+        background-color: rgba(255, 255, 255, 0.3);
+        border: 1px solid black;
+        padding: 20px;
+        width: 30%; /* Ajustez la largeur pour chaque div */
+        margin: 10px 0; /* Ajustez l'espace vertical si nécessaire */
+        text-align: center;
+    }
+
+    .progress {
+        height: 30px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    .progress-bar {
+        background-color: #4CAF50; /* Couleur de fond de la barre de progression */
+        height: 30px; /* Hauteur de la barre de progression */
+        border-radius: 5px; /* Bordure arrondie de la barre de progression */
+        color: white; /* Couleur du texte sur la barre de progression */
+        text-align: center; /* Alignement du texte au centre de la barre de progression */
+        line-height: 30px; /* Hauteur de ligne pour centrer le texte verticalement */
+    }
+
+    .skill-title {
+        font-size: 24px; /* Ajustez la taille de la police pour h5 */
+    }
+
+    .btn-custom {
+        background-color: #4CAF50; /* Couleur de fond du bouton */
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+
+    .btn-custom:hover {
+        background-color: #45a049; /* Couleur de fond du bouton au survol */
+    }
+</style>
+<h1>{{player.name}} {{player.second_name}}</h1>
+<h1>{{player.player_team}}</h1>
+<h1><div class="general">{{player.general}}</div></h1>
+<div class="title">
+
+
+    
+    {% if player.last_trained %}
+         Last Training : {{player.date_last_modified}} </h1>
+    {% endif %}
+</div>
+
+
+<div class="container">
+    <div class="top-divs">
+        <div class="transparent-background" style="position: relative;">
+            <h3 class="attaque-skill-title skill-title" style="position: absolute; top: 5px; right: 5px;">{{player.attaque}}</h3>
+            <h1>Attaque</h1>
+            <br>
+   
+            <div class="progress">
+                <div class="attaque-progress-bar progress-bar" role="progressbar" style="width: {{player.attaque_progress}}%" aria-valuenow="{{player.attaque_progress}}" aria-valuemin="0" aria-valuemax="100">{{player.attaque_progress}}%</div>
+            </div>
+            {% if player.can_train %}
+            <a href="#" class="attaque-btn-custom btn-custom" onclick="trainingFunction('{{ player.id }}', 'Attaque')">Entraîner</a>
+            {% endif %}
+        </div>
+        
+
+        <div class="transparent-background" style="position: relative;">
+            <h3 class="passe-skill-title skill-title" style="position: absolute; top: 5px; right: 5px;">{{player.passe}}</h3>
+            <h1>Passe</h1>
+            <br>
+
+            <div class="progress">
+                <div class="passe-progress-bar progress-bar" role="progressbar" style="width: {{player.passe_progress}}%" aria-valuenow="{{player.passe_progress}}" aria-valuemin="0" aria-valuemax="100">{{player.passe_progress}}% </div>
+            </div>
+            {% if player.can_train %}
+            <a href="#" class="passe-btn-custom btn-custom" onclick="trainingFunction('{{ player.id }}', 'Passe')">Entraîner</a>
+            {% endif %}
+        </div>
+
+        <div class="transparent-background" style="position: relative;">
+            <h3 class="vitesse-skill-title skill-title" style="position: absolute; top: 5px; right: 5px;">{{player.vitesse}}</h3>
+            <h1>Vitesse</h1>
+            <br>
+    
+            <div class="progress">
+                <div class="vitesse-progress-bar progress-bar" role="progressbar" style="width: {{player.vitesse_progress}}%" aria-valuenow="{{player.vitesse_progress}}" aria-valuemin="0" aria-valuemax="100">{{player.vitesse_progress}}% </div>
+            </div>
+            {% if player.can_train %}
+            <a href="#" class="vitesse-btn-custom btn-custom" onclick="trainingFunction('{{ player.id }}', 'Vitesse')">Entraîner</a>
+            {% endif %}
+        </div>
+        
+    </div>
+
+    <div class="bottom-divs">
+        <div class="transparent-background" style="position: relative;">
+            <h3 class="defense-skill-title skill-title" style="position: absolute; top: 5px; right: 5px;">{{player.defense}}</h3>
+            <h1>Defense</h1>
+            <br>
+    
+            <div class="progress">
+                <div class="defense-progress-bar progress-bar" role="progressbar" style="width: {{player.defense_progress}}%" aria-valuenow="{{player.defense_progress}}" aria-valuemin="0" aria-valuemax="100">{{player.vitesse_progress}}% </div>
+            </div>
+            {% if player.can_train %}
+            <a href="#" class="defense-btn-custom btn-custom" onclick="trainingFunction('{{ player.id }}', 'Defense')">Entraîner</a>
+            {% endif %}
+        </div>
+        
+        <div class="transparent-background" style="position: relative;">
+            <h3 class="physique-skill-title skill-title" style="position: absolute; top: 5px; right: 5px;">{{player.physique}}</h3>
+            <h1>Physique</h1>
+            <br>
+   
+            <div class="progress">
+                <div class="physique-progress-bar progress-bar" role="progressbar" style="width: {{player.physique_progress}}%" aria-valuenow="{{player.physique_progress}}" aria-valuemin="0" aria-valuemax="100">{{player.vitesse_progress}}% </div>
+            </div>
+            {% if player.can_train %}
+            <a href="#" class="physique-btn-custom btn-custom" onclick="trainingFunction('{{ player.id }}', 'Physique')">Entraîner</a>
+            {% endif %}
+        </div>
+        
+        <div class="transparent-background" style="position: relative;">
+            <h3 class="interception-skill-title skill-title" style="position: absolute; top: 5px; right: 5px;">{{player.interception}}</h3>
+            <h1>Interception</h1>
+            <br>
+   
+            <div class="progress">
+                <div class="interception-progress-bar progress-bar" role="progressbar" style="width: {{player.interception_progress}}%" aria-valuenow="{{player.interception_progress}}" aria-valuemin="0" aria-valuemax="100">{{player.vitesse_progress}}% </div>
+            </div>
+            {% if player.can_train %}
+            <a href="#" class="interception-btn-custom btn-custom" onclick="trainingFunction('{{ player.id }}', 'Interception')">Entraîner</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="single-div transparent-background" style="position: relative;">
+   
+            <h3 class="mental-skill-title skill-title" style="position: absolute; top: 5px; right: 5px;">{{player.mental}}</h3>
+            <h1>Mental</h1>
+            <br>
+            
+            <div class="progress">
+                <div class="mental-progress-bar progress-bar" role="progressbar" style="width: {{player.mental_progress}}%" aria-valuenow="{{player.mental_progress}}" aria-valuemin="0" aria-valuemax="100">{{player.vitesse_progress}}% </div>
+            </div>
+            {% if player.can_train %}
+            <a href="#" class="mental-btn-custom btn-custom" onclick="trainingFunction('{{ player.id }}', 'Mental')">Entraîner</a>
+            {% endif %}
+        </div>
+</div>
+
+
+
+<script>
+    function trainingFunction(playerId, skillName) {
+        fetch(`/training/${playerId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({
+                player_id: playerId,
+                skill_name: skillName,
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('La réponse du serveur n\'a pas pu être obtenue.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const progressBar = document.querySelector(`.${skillName.toLowerCase()}-progress-bar`);
+            if (progressBar) {
+                progressBar.style.width = data.new_value + '%';
+                progressBar.textContent = data.new_value + '%';
+            }
+
+            const dateElement = document.querySelector(".title");
+            if (dateElement) {
+                dateElement.textContent = `Last Training : ${data.date}`;
+            }
+
+            const skillTitle = document.querySelector(`.${skillName.toLowerCase()}-skill-title`);
+            if (skillTitle) {
+                skillTitle.textContent = data[`player_${skillName.toLowerCase()}`];
+            }
+
+            const general = document.querySelector(".general");
+            console.log(general)
+            
+            if (general) {
+                general.textContent = `${data.general}`;
+            }
+
+            const buttons = document.querySelectorAll('.btn-custom');
+        if (buttons) {
+            buttons.forEach(button => {
+                button.style.display = 'none';
+            });
+        }
+        })
+        .catch(error => {
+            console.error('Erreur de requête fetch : ', error);
+        });
+    }
+</script>
+
+
+{% endblock %}
+
+
+
+
+
+

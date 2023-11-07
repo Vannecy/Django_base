@@ -20,7 +20,7 @@ urlpatterns = [
 
     path('team_detail/<int:team_id>/', views.team_detail, name='team_detail'),
     path('update_formation_player/', views.update_formation_player, name='update_formation_player'),
-    path('switch_formation_players/', views.switch_formation_players, name='switch_formation_players'),
+
     path('player_detail/<int:player_id>/', views.player_detail, name='player_detail'),
     path('diagramme/<int:player_id>/', views.diagramme, name='diagramme'),
 

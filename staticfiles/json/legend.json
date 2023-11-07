@@ -1,0 +1,290 @@
+[{
+    "pays": "Espagne",
+    "clubs": [
+      {
+        "nom": "Real Madrid",
+        "joueurs_legends": [
+          "Alfredo Di Stefano",
+          "Zinedine Zidane",
+          "Raul Gonzalez",
+          "Ferenc Puskas",
+          "Iker Casillas",
+          "Fernando Hierro",
+          "Roberto Carlos",
+          "Fernando Redondo",
+          "Ronaldo Nazario",
+          "Fernando Gento",
+          "Sergio Ramos",
+          "Luka Modric",
+          "Fernando Gago",
+          "Guti",
+          "Karim Benzema",
+          "Hugo Sanchez",
+          "Gareth Bale",
+          "Ferland Mendy",
+          "Fabinho",
+          "Fede Valverde"
+        ]
+      },
+      {
+        "nom": "FC Barcelone",
+        "joueurs_legends": [
+          "Lionel Messi",
+          "Johan Cruyff",
+          "Xavi Hernandez",
+          "Andres Iniesta",
+          "Ronald Koeman",
+          "Carles Puyol",
+          "Pep Guardiola",
+          "Luis Suarez",
+          "Rivaldo",
+          "Romario",
+          "Samuel Eto'o",
+          "Gerard Pique",
+          "Sergio Busquets",
+          "Hristo Stoichkov",
+          "Diego Maradona",
+          "Michael Laudrup",
+          "Neymar",
+          "Thierry Henry",
+          "Marc-Andre ter Stegen",
+          "Jordi Alba"
+        ]
+      },
+      {
+        "nom": "Atletico Madrid",
+        "joueurs_legends": [
+          "Fernando Torres",
+          "Diego Godin",
+          "Antoine Griezmann",
+          "Luis Aragones",
+          "Koke",
+          "Diego Simeone",
+          "Jan Oblak",
+          "Jose Eulogio Garate",
+          "Milinko Pantic",
+          "Radamel Falcao",
+          "Juanfran",
+          "Mario Mandzukic",
+          "Jose Luis Caminero",
+          "Diego Forlan",
+          "Paulo Futre",
+          "Jose Antonio Reyes",
+          "Sergio Aguero",
+          "Thibaut Courtois",
+          "Jorge Griffa",
+          "Tomas Renones"
+        ]
+      },
+      {
+        "nom": "Valencia CF",
+        "joueurs_legends": [
+          "David Villa",
+          "Pablo Aimar",
+          "David Silva",
+          "Gaizka Mendieta",
+          "Juan Mata",
+          "Ruben Baraja",
+          "Mario Kempes",
+          "Roberto Ayala",
+          "Fernando",
+          "Miguel Angel Angulo",
+          "Mista",
+          "Dani Parejo",
+          "Andoni Zubizarreta",
+          "Claramunt",
+          "Claudio Lopez",
+          "Joaquin",
+          "Rufete",
+          "Bernardo España",
+          "Andres Palop",
+          "Cesar Sanchez"
+        ]
+      },
+      {
+        "nom": "Sevilla FC",
+        "joueurs_legends": [
+          "Frederic Kanoute",
+          "Luis Fabiano",
+          "Julio Baptista",
+          "Jose Antonio Reyes",
+          "Sergio Ramos",
+          "Daniel Alves",
+          "Ivan Rakitic",
+          "Diego Carlos",
+          "Diego Simeone",
+          "Joaquin Caparros",
+          "Diego Maradona",
+          "Gary Medel",
+          "Jesus Navas",
+          "Ramon Sanchez Pizjuan",
+          "Antonio Puerta",
+          "Fernando Navarro",
+          "Mariano Puerta",
+          "Rene",
+          "Coke",
+          "Pablo Blanco"
+        ]
+      }
+    ]
+  },
+
+  {
+    "pays": "Angleterre",
+    "clubs": [
+      {
+        "nom": "Manchester United",
+        "joueurs_legends": [
+          "Ryan Giggs",
+          "David Beckham",
+          "Bobby Charlton",
+          "George Best",
+          "Eric Cantona",
+          "Cristiano Ronaldo",
+          "Roy Keane",
+          "Paul Scholes",
+          "Peter Schmeichel",
+          "Wayne Rooney"
+        ]
+      },
+      {
+        "nom": "Liverpool FC",
+        "joueurs_legends": [
+          "Steven Gerrard",
+          "Kenny Dalglish",
+          "Ian Rush",
+          "Graeme Souness",
+          "John Barnes",
+          "Jamie Carragher",
+          "Robbie Fowler",
+          "Michael Owen",
+          "Kevin Keegan",
+          "Roger Hunt"
+        ]
+      },
+      {
+        "nom": "Chelsea FC",
+        "joueurs_legends": [
+          "Frank Lampard",
+          "John Terry",
+          "Didier Drogba",
+          "Gianfranco Zola",
+          "Petr Cech",
+          "Ashley Cole",
+          "Dennis Wise",
+          "Ron Harris",
+          "Peter Osgood",
+          "Marcel Desailly"
+        ]
+      },
+      {
+        "nom": "Arsenal FC",
+        "joueurs_legends": [
+          "Thierry Henry",
+          "Dennis Bergkamp",
+          "Patrick Vieira",
+          "Tony Adams",
+          "Ian Wright",
+          "Robert Pires",
+          "David Seaman",
+          "Sol Campbell",
+          "Martin Keown",
+          "Freddie Ljungberg"
+        ]
+      },
+      {
+        "nom": "Tottenham Hotspur",
+        "joueurs_legends": [
+          "Jimmy Greaves",
+          "Steve Perryman",
+          "Glenn Hoddle",
+          "Gary Mabbutt",
+          "Teddy Sheringham",
+          "Paul Gascoigne",
+          "Danny Blanchflower",
+          "Pat Jennings",
+          "Cyril Knowles",
+          "Alan Mullery"
+        ]
+      },
+      {
+        "nom": "Manchester City",
+        "joueurs_legends": [
+          "Colin Bell",
+          "Mike Summerbee",
+          "Franny Lee",
+          "Bert Trautmann",
+          "Billy Meredith",
+          "Joe Corrigan",
+          "Alan Oakes",
+          "Tony Book",
+          "Peter Doherty",
+          "Sergio Aguero"
+        ]
+      },
+      {
+        "nom": "Leicester City",
+        "joueurs_legends": [
+          "Gary Lineker",
+          "Peter Shilton",
+          "Jamie Vardy",
+          "Emile Heskey",
+          "Gordon Banks",
+          "Riyad Mahrez",
+          "N'Golo Kante",
+          "Wes Morgan",
+          "Steve Walsh",
+          "Keith Weller"
+        ]
+      },
+      {
+        "nom": "West Ham United",
+        "joueurs_legends": [
+          "Bobby Moore",
+          "Geoff Hurst",
+          "Trevor Brooking",
+          "Billy Bonds",
+          "Paolo Di Canio",
+          "Martin Peters",
+          "Rio Ferdinand",
+          "Joe Cole",
+          "Mark Noble",
+          "Ludek Miklosko"
+        ]
+      },
+      {
+        "nom": "Everton FC",
+        "joueurs_legends": [
+          "Dixie Dean",
+          "Neville Southall",
+          "Tim Cahill",
+          "Alan Ball",
+          "Gary Lineker",
+          "Kevin Ratcliffe",
+          "Wayne Rooney",
+          "Duncan Ferguson",
+          "Bob Latchford",
+          "Tommy Lawton"
+        ]
+      },
+      {
+        "nom": "Newcastle United",
+        "joueurs_legends": [
+          "Alan Shearer",
+          "Peter Beardsley",
+          "Les Ferdinand",
+          "Paul Gascoigne",
+          "Shay Given",
+          "Rob Lee",
+          "David Ginola",
+          "Jackie Milburn",
+          "Malcolm Macdonald",
+          "Kevin Keegan"
+        ]
+      }
+    ]
+  }
+  
+
+]
+  

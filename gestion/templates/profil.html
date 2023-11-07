@@ -7,8 +7,9 @@
     <div class="profil-content">
         <h1 class="profil-header">Profil de {{profil}}</h1>
         <hr>
-        <h2 class="team-name">Team Name : {{profil.team_profil}}<br> <a href="{% url 'gestion:team_detail' team_id=profil.team_profil.id %}" class="my-button">Détail Équipe</a></h2>
+        <h2 class="team-name">Team Name : {{profil.team_profil}}<br> <a href="{% url 'gestion:team_detail' team_id=profil.team_profil.id %}" class="my-button">Détail Team</a></h2>
         <br>
+  
         <p class="note-effectif">Note general : {{profil.team_profil.get_general}}</p>
         <p class="budget">Budget : {{profil.team_profil.budget}} euros</p>
         <p class="date-creation">Date de Création : 1915</p>

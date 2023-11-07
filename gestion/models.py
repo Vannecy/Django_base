@@ -4,7 +4,8 @@ from django.urls import reverse
 from django.core.validators import MaxValueValidator,MinValueValidator
 from datetime import date
 from django.core.exceptions import ValidationError
-
+from django.utils import timezone
+import random
 
 
 
@@ -112,16 +113,157 @@ class Player(models.Model):
     interception = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
     mental = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
     physique =models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
+   
+    attaque_progress = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)],default=0, blank=True, null=True)
+    defense_progress = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], default=0,blank=True, null=True)
+    passe_progress = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], default=0,blank=True, null=True)
+    vitesse_progress = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], default=0,blank=True, null=True)
+    interception_progress = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], default=0,blank=True, null=True)
+    mental_progress = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], default=0,blank=True, null=True)
+    physique_progress = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], default=0,blank=True, null=True)
+    last_trained = models.DateTimeField(blank=True, null=True)
 
 
-    def get_age():
-        return
+    moral = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
+    forme = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
+
+
+    def can_train(self):
+        return True
+        now = timezone.now()
+        if self.last_trained:
+            time_difference = now - self.last_trained
+            return time_difference.seconds >= 3
+        else:
+            return True
+        
+    
+    def update_last_trained(self):
+        self.last_trained = timezone.now()
+        self.save()
+
+    def training(self, attribut, value):
+            """
+            Méthode d'entraînement pour augmenter une statistique particulière du joueur.
+            :param attribut: L'attribut à augmenter (par exemple, 'general', 'defense', 'attaque', etc.).
+            :param value: La valeur à ajouter à l'attribut actuel.
+            """
+            if hasattr(self, attribut):  # Vérifier si l'attribut existe pour ce joueur
+                current_value = getattr(self, attribut)  # Obtenir la valeur actuelle de l'attribut
+                if 0 <= current_value + value <= 99:  # Vérifier si la valeur reste dans la plage [0, 99]
+                    setattr(self, attribut, current_value + value)  # Ajouter la valeur à l'attribut actuel
+                    self.save()  # Enregistrer les modifications dans la base de données
+                else:
+                    raise ValueError(f"La valeur de {attribut} dépasse la limite autorisée (0-99).")
+            else:
+                raise ValueError(f"L'attribut {attribut} n'existe pas pour ce joueur.")
+    def update_skill_progress(self, skill_name):
+  
+        value = random.randint(1, 25)
+
+        if skill_name == 'Attaque':
+            if self.attaque < 100:
+                if self.attaque_progress + value >= 100:
+                    self.attaque += 1
+                    self.attaque_progress = (self.attaque_progress + value) % 100 
+                    if self.attaque  == 100:
+                        self.attaque_progress = 0                            
+                else:
+                    self.attaque_progress += value
+
+
+        if skill_name == 'Vitesse':
+            if self.vitesse < 100:
+                if self.vitesse_progress + value >= 100:
+                    self.vitesse += 1
+                    self.vitesse_progress = (self.vitesse_progress + value) % 100   
+                    if self.vitesse  == 100:
+                        self.vitesse_progress = 0          
+                else:
+                    self.vitesse_progress += value
+
+
+        if skill_name == 'Passe':
+            if self.passe< 100:
+                if self.passe_progress + value >= 100:
+                    self.passe += 1
+                    self.passe_progress = (self.passe_progress + value) % 100   
+                    if self.passe  == 100:
+                        self.passe_progress = 0          
+                else:
+                    self.passe_progress += value
+
+
+        if skill_name == 'Defense':
+            if self.defense < 100:
+                if self.defense_progress + value >= 100:
+                    self.defense += 1
+                    self.defense_progress = (self.defense_progress + value) % 100    
+                    if self.defense  == 100:
+                        self.defense_progress = 0       
+                else:
+                    self.defense_progress += value
+
+
+        if skill_name == 'Physique':
+            if self.physique < 100:
+                if self.physique_progress + value >= 100:
+                    self.physique += 1
+                    self.physique_progress = (self.physique_progress + value) % 100    
+                    if self.physique == 100:
+                        self.physique_progress = 0         
+                else:
+                    self.physique_progress += value
+
+
+        if skill_name == 'Interception':
+            if self.interception < 100:
+                if self.interception_progress + value >= 100:
+                    self.interception += 1
+                    self.interception_progress = (self.interception_progress + value) % 100  
+                    if self.interception  == 100:
+                        self.interception_progress = 0           
+                else:
+                    self.interception_progress += value
+
+
+        if skill_name == 'Mental':
+            if self.mental < 100:
+                if self.mental_progress + value >= 100:
+                    
+                    self.mental += 1
+                    self.mental_progress = (self.mental_progress + value) % 100   
+                    if self.mental  == 100:
+                        self.mental_progress = 0          
+                else:
+                    self.mental_progress += value
+
+        self.general = int((self.attaque + self.defense + self.vitesse + self.passe + self.mental + self.interception + self.physique)/7)
+   
+
+
+
+
+
+
+
+            
+        # Ajoutez des conditions pour les autres compétences si nécessaire
+        self.save()
+    def date_last_modified(self):
+        if self.date_last_modified:
+            date = self.last_trained.strftime("%Y-%m-%d %H:%M")
+            return date
+        else:
+            return "Pas d'entrainement"
     def get_main_position_display_full(self):
-        # Cette méthode renvoie le libellé complet du poste en fonction de l'abréviation
-        for choice in self.POSTE_CHOICES:
-            if choice[1] == self.main_position:
-                return choice[0]
-        return "Inconnu"
+        print(self.main_position)
+        if self.main_position:
+            for choice in self.POSTE_CHOICES:
+                if choice[0] == self.main_position:
+                    return choice[1]
+        else:
+            return ""
     def get_age(self):
         if self.date_de_naissance:
             today = date.today()

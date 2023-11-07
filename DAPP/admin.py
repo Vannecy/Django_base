@@ -3,7 +3,7 @@ from gestion.models import Player, Trading, Team, Messagerie, Profil, Formation
 
 
 class PlayerAdmin(admin.ModelAdmin):
-    list_display = ('id','name', 'player_team', 'value', 'on_transfert_list', 'price','get_main_position_display', 'style','general','size','weight', 'date_de_naissance','position_on_the_field')
+    list_display = ('id','name', 'player_team', 'value', 'on_transfert_list', 'price','main_position', 'style','general','size','weight', 'date_de_naissance','position_on_the_field')
     list_filter = ('player_team', 'on_transfert_list')
 
 class TradingAdmin(admin.ModelAdmin):

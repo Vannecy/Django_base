@@ -23,6 +23,15 @@
             color: rgb(0, 0, 0);
             margin-bottom: 20px;
         }
+        .player-trading-link {
+    background-color: #3498db;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-right: 5px;
+}
 
         /* Styles pour les informations du joueur */
         ul.player-info {
@@ -88,16 +97,20 @@
             <ul class="player-info">
                 <li><h2>Nom : {{ player.name }}</h2></li>
                 <li><h2>Second nom : {{ player.second_name }}</h2></li>
-                <li>Nationalité : {{ player.nationnality }}</li>
-                <li>Équipe : {{ player.player_team.name }}</li>
-                <li>Valeur : {{ player.value_visual }} euros</li>
+                <li>Nationality : {{ player.nationnality }}</li>
+                <li>Team : {{ player.player_team.name }}</li>
+                <li>Value : {{ player.value_visual }} euros</li>
                 <li>Poste : {{ player.main_position }}</li>
-                <li>Born : {{ player.get_age }} ans</li>
+                <li>Age : {{ player.get_age }} ans</li>
                 <li>General : {{ player.general }}</li>
                 <li>Attaque : {{ player.attaque }}</li>
                 <li>Defense : {{ player.defense }}</li>
                 <li>Physique: {{ player.physique }}</li>
-                <!-- Ajoutez d'autres attributs du joueur ici -->
+                <li>Passe: {{ player.passe }}</li>
+                <li>Mental: {{ player.mental }}</li>
+                <li>Interception: {{ player.interception}}</li>
+                <li>Vitesse: {{ player.vitesse }}</li>
+                <a href="{% url 'training:training' player_id=player.id %}" class="player-trading-link">Training</a>
             </ul>
         </div>
         <div class="hepta">
@@ -167,6 +180,9 @@
                 <line x1="{{GX}}" y1="{{GY}}" x2="{{AX}}" y2="{{AY}}" class="second-group" />
             </svg>
         </div>
+        
+        <h1>Infos</h1>
+        <h1>Stats</h1>
     </div>
 </body>
 </html>
